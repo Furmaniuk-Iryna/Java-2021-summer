@@ -20,7 +20,7 @@ public  void processUser(){
 }
 
 public void message(){
-    view.printMessage(View.DIAPAZON+model.getDmin() +View.POINTS+model.getDmax());
+    view.printMessage(View.RANGE+model.getDmin() +View.POINTS+model.getDmax());
     view.printMessageInLine(View.ATTEMPTS);
     attempts();
     view.printMessage(" ");
@@ -28,7 +28,7 @@ public void message(){
 }
 
 public void  answerToView(){
-        switch (model.getAnswear()){
+        switch (model.getAnswer()){
             case "win" : view.printMessage(View.WIN);view.printMessageInLine(View.ATTEMPTS);attempts();break;
             case "less" : view.printMessage(View.LESS + model.getX()); message();break;
             case "more" : view.printMessage(View.MORE +model.getX());message();break;

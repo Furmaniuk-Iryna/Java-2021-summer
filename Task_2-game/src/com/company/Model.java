@@ -10,7 +10,7 @@ public class Model {
     private int x;
     private int dmin = 0;
     private int dmax = 100;
-    private String answear;
+    private String answer;
     ArrayList<Integer> attempt = new ArrayList<Integer>();
 
     int y = (int) (Math.random()*101);
@@ -19,21 +19,21 @@ public class Model {
     public void Verification() {
 
     if (x==y) {
-        setAnswear("win");
+        setAnswer("win");
         attempt.add(x);
     } else
         if (x > y && x<dmax) {
-            setAnswear("less");
+            setAnswer("less");
             attempt.add(x);
             dmax=x;
         }
         else
             if (x < y && x>dmin) {
-            setAnswear("more");
+            setAnswer("more");
             attempt.add(x);
             dmin=x;
             }
-            else setAnswear("ignore");
+            else setAnswer("ignore");
             }
 
     public int getX() {
@@ -52,12 +52,12 @@ public class Model {
         return dmax;
     }
 
-    public String getAnswear() {
-        return answear;
+    public String getAnswer() {
+        return answer;
     }
 
-    public void setAnswear(String answear) {
-        this.answear = answear;
+    public void setAnswer(String answer) {
+        this.answer = answer;
     }
 
 }

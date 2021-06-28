@@ -8,7 +8,7 @@ public class View
     public static final String WRONG_INPUT_DATA = "Wrong input! Repeat please!";
     public static final String MORE = "More than ";
     public static final String LESS = "Less than ";
-    public static final String DIAPAZON = "Value in ";
+    public static final String RANGE = "Value in ";
     public static final String ATTEMPTS = "Attempts: ";
     public static final String POINTS = "..";
     public  static final String WIN = "You win! ";
