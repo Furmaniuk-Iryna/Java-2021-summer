@@ -12,6 +12,11 @@ public class Model {
 
     private List<Integer> yourWay = new ArrayList<Integer>();
 
+    // [1-99]
+    public void setSecretValue(){
+        secretValue = (int)Math.ceil(Math.random()*
+                (maxBarrier - minBarrier - 1) + minBarrier);
+    }
 
 
 
