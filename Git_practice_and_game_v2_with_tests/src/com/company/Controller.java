@@ -17,11 +17,14 @@ public class Controller {
                 GlobalConstants.PRIMARY_MAX_BARRIER);
 
         model.setSecretValue();
-        System.out.println(model.getSecretValue());
 
 
+        while (model.checkValue(inputIntValueWithScanner(sc)));
 
-        
+        view.printMessage(View.CONGRATULATION + model.getSecretValue());
+        view.printMessage(View.YOUR_WAY + String.valueOf(model.getYourWay()));
+
+
     }
 
     private int inputIntValueWithScanner(Scanner sc) {

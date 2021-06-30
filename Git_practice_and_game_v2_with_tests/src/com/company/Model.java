@@ -18,7 +18,17 @@ public class Model {
                 (maxBarrier - minBarrier - 1) + minBarrier);
     }
 
-
+    public boolean checkValue (int value){
+        yourWay.add(value);
+        if (value == secretValue){
+            return false;
+        } else if (value > secretValue){
+            maxBarrier = value;
+        } else {
+            minBarrier = value;
+        }
+        return true;
+    }
 
 
     public void setPrimaryBarrier(int minBarrier, int maxBarrier){
