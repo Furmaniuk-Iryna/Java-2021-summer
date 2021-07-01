@@ -9,7 +9,7 @@ public class BLTest {
     Model modelForTest =  new Model();
 
     @Test
-    public  void minAndMaxBarriersTest(){
+    public  void valueInMinAndMaxBarriersTest(){
             modelForTest.setPrimaryBarrier(GlobalConstants.PRIMARY_MIN_BARRIER,
                     GlobalConstants.PRIMARY_MAX_BARRIER);
             modelForTest.setSecretValue();
@@ -17,24 +17,32 @@ public class BLTest {
             }
 
     @Test
-    public  void minAndMaxBarriersTest2(){
+    public  void valueInNewMinAndMaxBarriersTest(){
         modelForTest.setPrimaryBarrier(40,60);
         modelForTest.setSecretValue();
         if (modelForTest.getSecretValue() >=60 || modelForTest.getSecretValue()<=40) Assert.fail();
     }
 
     @Test
-    public void checkValueFalseTest(){
+    public void checkValueIfValueIsSecretValueTest(){
         modelForTest.setSecretValue();
             if (modelForTest.checkValue(modelForTest.getSecretValue()) != false){
-            Assert.fail();}
-        }
+                 Assert.fail();
+            }
+    }
 
     @Test
-    public void checkValueTrueTest(){
+    public void checkValueTest(){
        if (modelForTest.getSecretValue()!=33){
-        if (modelForTest.checkValue(33) != true){
-            Assert.fail();}
-    }}
+             if (modelForTest.checkValue(33) != true){
+                 Assert.fail();
+             }
+       }
+       else {
+             if (modelForTest.checkValue(33) != false){
+                Assert.fail();
+             }
+       }
+    }
 
 }
