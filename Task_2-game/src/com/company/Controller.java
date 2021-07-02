@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Controller {
     private Model model;
     private View view;
-    private  int c;
+    private  int value;
 
 public Controller(Model model, View view) {
     this.model = model;
@@ -13,27 +13,33 @@ public Controller(Model model, View view) {
 }
 
 public  void processUser(){
+    model.setSecretValue();
+    checkValue();
+    view.printMessageInLine(View.ATTEMPTS);
+    attempts();
+}
+public  void checkValue(){
     Scanner sc = new Scanner(System.in);
-    model.setX(inputIntValueWithScanner(sc));
+    model.setUserValue(inputIntValueWithScanner(sc));
     model.Verification();
     answerToView();
 }
-
 public void message(){
+
     view.printMessage(View.RANGE+model.getDmin() +View.POINTS+model.getDmax());
-    view.printMessageInLine(View.ATTEMPTS);
-    attempts();
-    view.printMessage(" ");
-    processUser();
+    checkValue();
 }
 
 public void  answerToView(){
-        switch (model.getAnswer()){
-            case "win" : view.printMessage(View.WIN);view.printMessageInLine(View.ATTEMPTS);attempts();break;
-            case "less" : view.printMessage(View.LESS + model.getX()); message();break;
-            case "more" : view.printMessage(View.MORE +model.getX());message();break;
-            case "ignore" : processUser();break;
-        }
+    if (model.getAnswer()=="win"){
+        view.printMessage(View.WIN); }
+    else if (model.getAnswer()=="less"){
+            view.printMessage(View.LESS + model.getUserValue()); message();}
+            else if (model.getAnswer()=="more"){
+                    view.printMessage(View.MORE +model.getUserValue());message();
+                 } else {
+                checkValue();}
+
 }
 
 public int inputIntValueWithScanner(Scanner sc) {
@@ -41,16 +47,16 @@ public int inputIntValueWithScanner(Scanner sc) {
         while(  !sc.hasNextInt() ) {
             view.printMessage(View.WRONG_INPUT_DATA + View.INPUT_INT_DATA +model.getDmin() +View.POINTS+model.getDmax());
             sc.next();}
-        c= sc.nextInt();
+        value = sc.nextInt();
         return inputIntValueRange(sc);
 }
 
 public int inputIntValueRange(Scanner sc) {
-    while ((c>100) || (c<0)) {
+    while ((value>100) || (value<0)) {
         view.printMessage(View.WRONG_INPUT_DATA);
         inputIntValueWithScanner(sc);
     }
-    return c;
+    return value;
 }
 
 public void attempts(){

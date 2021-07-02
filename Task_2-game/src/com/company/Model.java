@@ -6,42 +6,57 @@ import java.util.Scanner;
 import static java.lang.Math.*;
 
 public class Model {
-    Controller controller;
-    private int x;
+
+    private int userValue;
+    private int secretValue;
     private int dmin = 0;
     private int dmax = 100;
     private String answer;
     ArrayList<Integer> attempt = new ArrayList<Integer>();
 
-    int y = (int) (Math.random()*101);
+public void setSecretValue(){
+     secretValue = (int) (Math.random()*98+1);}
+
 
 
     public void Verification() {
 
-    if (x==y) {
+    if (userValue==secretValue) {
         setAnswer("win");
-        attempt.add(x);
+        attempt.add(userValue);
     } else
-        if (x > y && x<dmax) {
+        if (userValue > secretValue && userValue<dmax) {
             setAnswer("less");
-            attempt.add(x);
-            dmax=x;
+            attempt.add(userValue);
+            setDmax(userValue);
         }
         else
-            if (x < y && x>dmin) {
+            if (userValue < secretValue && userValue>dmin) {
             setAnswer("more");
-            attempt.add(x);
-            dmin=x;
+            attempt.add(userValue);
+            setDmin(userValue);
             }
             else setAnswer("ignore");
             }
 
-    public int getX() {
-        return x;
+    public int getSecretValue() {
+        return secretValue;
     }
 
-    public void setX(int x) {
-        this.x = x;
+    public void setDmin(int dmin) {
+        this.dmin = dmin;
+    }
+
+    public void setDmax(int dmax) {
+        this.dmax = dmax;
+    }
+
+    public int getUserValue() {
+        return userValue;
+    }
+
+    public void setUserValue(int userValue) {
+        this.userValue = userValue;
     }
 
     public int getDmin() {
