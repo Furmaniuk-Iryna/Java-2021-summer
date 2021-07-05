@@ -2,6 +2,10 @@ package com.company;
 
 import java.util.Scanner;
 
+/**
+ * Created by Iryna Furmaniuk on 04.07.2021.
+ */
+
 public class Controller {
     View view = new View();
     EntryInNotebook entryInNotebook = new EntryInNotebook();
@@ -12,29 +16,28 @@ public class Controller {
     }
 
     public void processUser() {
-        Scanner firstInput = new Scanner(System.in);
-        Scanner secondInput = new Scanner(System.in);
-        entryInNotebook.setLastName(checkLastName(firstInput));
-        entryInNotebook.setNickname(checkNickname(secondInput));
+        Scanner input = new Scanner(System.in);
+        entryInNotebook.setLastName(checkLastName(input));
+        entryInNotebook.setNickname(checkNickname(input));
         entryInNotebook.writeInNotebook();
     }
 
-    private String checkLastName(Scanner firstInput) {
+    private String checkLastName(Scanner input) {
         view.printMessage(View.INPUT_LAST_NAME);
-        while (!firstInput.hasNext("[A-Z]{1}[a-z]{1,}")) {
+        while (!input.hasNext("[A-ZА-ЯІЇЄҐ]{1}[a-zа-яіїєґ]{1,}")) {
             view.printMessage(View.WRONG_INPUT_INT_DATA + View.INPUT_LAST_NAME);
-            firstInput.next();
+            input.next();
         }
-        return firstInput.next();
+        return input.next();
     }
 
-    private String checkNickname(Scanner secondInput) {
+    private String checkNickname(Scanner input) {
         view.printMessage(View.INPUT_NICKNAME);
-        while (!secondInput.hasNext("^[а-яА-Яa-zA-Z0-9_-]{1,}$")) {
+        while (!input.hasNext("[а-яА-Яa-zA-Z0-9_-]{1,30}")) {
             view.printMessage(View.WRONG_INPUT_INT_DATA + View.INPUT_NICKNAME);
-            secondInput.next();
+            input.next();
         }
-        return secondInput.next();
+        return input.next();
     }
 
 }

@@ -1,5 +1,9 @@
 package com.company;
 
+/**
+ * Created by Iryna Furmaniuk on 04.07.2021.
+ */
+
 public class View {
     // text constants
     public static final String INPUT_LAST_NAME = "Input your last name";

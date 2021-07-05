@@ -2,6 +2,10 @@ package com.company;
 
 import java.util.ArrayList;
 
+/**
+ * Created by Iryna Furmaniuk on 04.07.2021.
+ */
+
 public class EntryInNotebook {
     private String lastName;
     private String nickname;
