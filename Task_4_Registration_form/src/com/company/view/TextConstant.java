@@ -8,4 +8,5 @@ public interface TextConstant {
     String SURNAME_DATA = "input.surname.data";
     String WRONG_INPUT_DATA = "input.wrong.data";
     String NICKNAME_DATA = "input.nickname.data";
+
 }

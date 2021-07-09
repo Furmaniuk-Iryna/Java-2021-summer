@@ -9,5 +9,5 @@ public interface RegexContainer {
     // Latin surname
     String REGEX_SURNAME_LAT = "^[A-Z][a-z]{1,30}$";
     // nickname
-    String REGEX_NICKNAME = "^[A-Za-z0-9_-]{8,20}$";
+    String REGEX_NICKNAME = "^[A-Za-z0-9_-]{5,30}$";
 }

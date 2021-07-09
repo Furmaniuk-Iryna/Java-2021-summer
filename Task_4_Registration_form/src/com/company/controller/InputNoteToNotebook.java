@@ -1,6 +1,6 @@
 package com.company.controller;
 
-import com.company.model.Model;
+import com.company.model.entity.NoteBook;
 import com.company.view.View;
 
 import java.util.Scanner;
@@ -15,13 +15,16 @@ import static com.company.view.TextConstant.SURNAME_DATA;
 public class InputNoteToNotebook {
     private View view;
     private Scanner sc;
-    private Model model;
+    private String surname;
+    private String nickname;
+    private NoteBook noteBook = new NoteBook();
 
+    public InputNoteToNotebook() {
+    }
 
-    public InputNoteToNotebook(View view, Scanner sc, Model model) {
+    public InputNoteToNotebook(View view, Scanner sc) {
         this.view = view;
         this.sc = sc;
-        this.model = model;
     }
 
     public void inputNote() {
@@ -30,11 +33,34 @@ public class InputNoteToNotebook {
         String str = (String.valueOf(View.bundle.getLocale()).equals("ua"))
                 ? REGEX_SURNAME_UKR : REGEX_SURNAME_LAT;
 
-        model.setSurname((utilityController.inputStringValueWithScanner
+        setSurname((utilityController.inputStringValueWithScanner
                 (SURNAME_DATA, str)));
-
-        model.setNickname((utilityController.inputStringValueWithScanner
+        setNickname((utilityController.inputStringValueWithScanner
                 (NICKNAME_DATA, REGEX_NICKNAME)));
-
     }
+
+    public void inputNickname() {
+        UtilityController utilityController =
+                new UtilityController(sc, view);
+
+        setNickname((utilityController.inputStringValueWithScanner
+                (NICKNAME_DATA, REGEX_NICKNAME)));
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
 }
