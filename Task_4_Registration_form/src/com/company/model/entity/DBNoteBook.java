@@ -1,11 +1,14 @@
 package com.company.model.entity;
 
+/**
+ * Created by Iryna Furmaniuk on 08.07.2021.
+ */
 public enum DBNoteBook {
     FIRST_NOTE("Furmaniuk", "__--ira--__"),
     SECOND_NOTE("Yaremchuk", "viktoria_12986");
 
-    private String surname;
-    private String nickname;
+    private final String surname;
+    private final String nickname;
 
     DBNoteBook(String surname, String nickname) {
         this.surname = surname;

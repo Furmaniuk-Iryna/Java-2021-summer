@@ -17,10 +17,6 @@ public class InputNoteToNotebook {
     private Scanner sc;
     private String surname;
     private String nickname;
-    private NoteBook noteBook = new NoteBook();
-
-    public InputNoteToNotebook() {
-    }
 
     public InputNoteToNotebook(View view, Scanner sc) {
         this.view = view;
