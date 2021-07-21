@@ -8,7 +8,7 @@ import java.util.function.UnaryOperator;
 /**
  * Created by Iryna Furmaniuk on 20.07.2021.
  */
-public class ArrayListWithoutRemoveAndModify<E> extends ArrayList {
+public class ArrayListWithoutRemoveAndModify<E> extends ArrayList<E> {
 
     public ArrayListWithoutRemoveAndModify() {
     }
@@ -19,12 +19,12 @@ public class ArrayListWithoutRemoveAndModify<E> extends ArrayList {
     }
 
     @Override
-    public Object set(int index, Object element) {
+    public E set(int index, E element) {
         throw new UnsupportedOperationException("You can`t set new value!");
     }
 
     @Override
-    public Object remove(int index) {
+    public E remove(int index) {
         throw new UnsupportedOperationException("You can`t remove the object!");
     }
 
@@ -39,12 +39,12 @@ public class ArrayListWithoutRemoveAndModify<E> extends ArrayList {
     }
 
     @Override
-    public boolean removeAll(Collection c) {
+    public boolean removeAll(Collection<?> c) {
         throw new UnsupportedOperationException("You can`t remove all!");
     }
 
     @Override
-    public boolean retainAll(Collection c) {
+    public boolean retainAll(Collection<?> c) {
         throw new UnsupportedOperationException("You can`t use this method!");
     }
 
