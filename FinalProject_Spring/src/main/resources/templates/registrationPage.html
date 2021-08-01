@@ -9,32 +9,27 @@
     <title>Registration</title>
 </head>
 <body>
-<h1 style="color: gold" th:text="#{registration.form}"></h1><br>
-<div class="registration_container">
-<form class="row g-3">
-    <div class="row g-3">
-        <div class="col">
-            <input type="text" class="form-control" placeholder="First name" aria-label="First name">
+<div>
+    <form method="POST" modelAttribute="userForm">
+        <h2>Регистрация</h2>
+        <div>
+            <input type="text" path="username" placeholder="Username"
+                        autofocus="true">
+            <errors path="username"></errors>
+
         </div>
-        <div class="col">
-            <input type="text" class="form-control" placeholder="Last name" aria-label="Last name">
+        <div>
+            <input type="password" path="password" placeholder="Password">
         </div>
-    </div>
-    <div class="col-md-6">
-        <label for="inputEmail4" class="form-label">Email</label>
-        <input type="email" class="form-control" id="inputEmail4">
-    </div>
-    <div class="col-md-6">
-        <label for="inputPassword4" class="form-label">Password</label>
-        <input type="password" class="form-control" id="inputPassword4">
-    </div>
-    <div class="col-12">
-        <button type="submit" class="btn btn-primary">Sign in</button>
-    </div>
-</form>
+        <div>
+            <input type="password" path="passwordConfirm"
+                        placeholder="Confirm your password">
+            <errors path="password"></errors>
+
+        </div>
+        <button type="submit">Зарегистрироваться</button>
+    </form>
+    <a href="/">Главная</a>
 </div>
-<button class="btn btn-warning " type="button">
-    <a class="button_log_in" th:href="@{'/'}" th:text="#{main.page}"></a>
-</button>
 </body>
 </html>

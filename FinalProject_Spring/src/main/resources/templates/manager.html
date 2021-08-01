@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Admin</h1>
+<div class="locale">
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button class="btn btn-warning" type="button"><a th:href="@{'?locale=uk'}">UKR</a></button>
+        <button class="btn btn-warning" type="button"><a th:href="@{'?locale=en'}">ENG</a></button>
+    </div>
+</div>
+<div class="reports">
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button class="btn btn-warning" type="button">
+            <a th:href="@{'/reportByDays'}" th:text="#{report.by.days}"></a>
+        </button>
+        <button class="btn btn-warning" type="button">
+            <a th:href="@{'/directionReport'}" th:text="#{direction.report}"></a>
+        </button>
+    </div>
+</div>
+<button class="btn btn-warning " type="button">
+    <a class="button_log_in" th:href="@{'/'}" th:text="#{main.page}"></a>
+</button>
+</body>
+</html>

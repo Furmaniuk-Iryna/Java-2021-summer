@@ -23,10 +23,16 @@
 <div class="header_container">
     <h1 class=name_company th:text="#{name.company}"></h1>
 
+<!--    <button class="btn btn-warning " type="button">-->
+<!--        <a class="button_log_in" th:href="@{'/log-in'}" th:text="#{login.text}"></a>-->
+<!--    </button>-->
     <button class="btn btn-warning " type="button">
-        <a class="button_log_in" th:href="@{'/registration'}" th:text="#{registration.form}"></a>
+        <a class="button_log_in" th:href="@{'/user'}" th:text="#{login.text}"></a>
+    </button>
+    <span> | </span>
+    <button class="btn btn-warning " type="button">
+        <a class="button_log_in" th:href="@{'/registration'}" th:text="#{registration}"></a>
     </button>
 </div>
-
 </body>
 </html>
