@@ -21,25 +21,48 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-
-public class User implements UserDetails {
+public class User implements  UserDetails{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
     private Long idUser;
-    //   private List<Role> authorities;
-    @ManyToMany(fetch = FetchType.EAGER)
+
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name="user_role" ,joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
     private Set<Role> roles;
     @Column(nullable = false)
     private String username;
     @Column(nullable = false)
     private String password;
-    @Transient
-    private String passwordConfirm;
+    private boolean active;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return getRoles();
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public Long getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(Long idUser) {
+        this.idUser = idUser;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public String getUsername() {
+        return username;
     }
 
     @Override
@@ -59,11 +82,23 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return isActive();
     }
 
-//    private boolean accountNonExpired;
-//    private boolean accountNonLocked;
-//    public boolean credentialsNonExpired;
-//    public boolean enabled;
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return getRoles();
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

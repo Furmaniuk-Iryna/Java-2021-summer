@@ -10,16 +10,6 @@ public class PageController {
         return "main";
     }
 
-    @RequestMapping("/registration")
-    public String registrationPage() {
-        return "registrationPage";
-    }
-
-    @RequestMapping("/login")
-    public String logInPage() {
-        return "login";
-    }
-
     @RequestMapping("/reportByDays")
     public String reportByDays() {
         return "reportByDays";
