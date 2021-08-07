@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Cargo delivery</title>
+</head>
+<body>
+
+<div class="header_top">
+
+    <div class="locale">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button class="btn btn-light" type="button">
+                <a class="button_locale" th:href="@{'/user'}" th:text="#{login.text}"></a>
+            </button>
+
+            <button class="btn btn-light" type="button">
+                <a class="button_locale" th:href="@{'/registration'}" th:text="#{registration}"></a>
+            </button>
+            <button class="btn btn-light" type="button"><a class="button_locale" th:href="@{'?locale=uk'}">UKR</a>
+            </button>
+
+            <button class="btn btn-light" type="button"><a class="button_locale" th:href="@{'?locale=en'}">ENG</a>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="header_container">
+    <h1 class=name_company th:text="#{name.company}"></h1><br><br>
+
+</div>
+<div class="tariff">
+    <h2 th:text="#{tariffs}" class="tariffs"/>
+    <table class="table table-dark">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col" th:text="#{tariff.name}"></th>
+            <th scope="col" th:text="#{weight}"></th>
+            <th scope="col" th:text="#{volume}"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row">1</th>
+            <td th:text="'Universal'"></td>
+            <td> < 50</td>
+            <td> < 1</td>
+        </tr>
+        <tr>
+            <th scope="row">2</th>
+            <td>Special</td>
+            <td> > 50</td>
+            <td> > 1</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="directions">
+    <h2 class="title" th:text="#{directions.title}"/>
+    <button class="btn btn-info sort_button" type="button"><a class="button_a" th:href="@{?sort=true}">Sort</a>
+    </button>
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th>#</th>
+            <th>City</th>
+            <th>Distance</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${sort}" th:each="direction : ${directions2}">
+            <th th:text="${direction.id}"></th>
+            <td th:text="${direction.getCity_en()}"></td>
+            <td th:text="${direction.getDistance()}"></td>
+        </tr>
+        <tr th:if="${!sort}" th:each="direction : ${directions1}">
+            <th th:text="${direction.id}"></th>
+            <td th:text="${direction.getCity_en()}"></td>
+            <td th:text="${direction.getDistance()}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+<div class="cost">
+    <h2 class="title" th:text="#{calculate.costs.title}"/>
+
+    <form th:method="POST" th:action="@{/}" th:object="${deliveryCost}" class="delivery_cost">
+        <br>
+        <label for="city" th:text="#{route}"/>
+        <select class="form-select" aria-label="Default select example" id="city" th:field="*{city}">
+            <option th:value="Lviv" th:text="Lviv"/>
+            <option th:value="Odessa" th:text="Odessa"/>
+            <option th:value="Kharkiv" th:text="Kharkiv"/>
+            <option th:value="Zaporizhzhia" th:text="Zaporizhzhia"/>
+            <option th:value="Dnipro" th:text="Dnipro"/>
+        </select>
+        <br>
+        <label for="weight" th:text="#{weight}"/>
+        <input type="text" th:field="*{weight}" id="weight"/>
+        <br><br>
+        <label for="length" th:text="#{length}"/>
+        <input type="text" th:field="*{length}" id="length"/>
+        <br><br>
+        <label for="width" th:text="#{width}"/>
+        <input type="text" th:field="*{width}" id="width"/>
+        <br><br>
+        <label for="height" th:text="#{height}"/>
+        <input type="text" th:field="*{height}" id="height"/>
+        <br><br>
+        <input class="btn btn-info button_a" type="submit" th:value="#{calculate}"/>
+
+    </form>
+    <br>
+    <p class="cost_result" th:text="#{result} + ${result}"><br><br>
+</div>
+</body>
+</html>

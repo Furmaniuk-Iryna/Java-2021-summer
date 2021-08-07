@@ -1,11 +1,29 @@
+* {
+    box-sizing: border-box;
+}
+
+.button_a {
+    text-decoration: none;
+    color: white;
+}
+.button_locale {
+    text-decoration: none;
+    color: royalblue;
+    background-color: transparent;
+}
+
 .header_top {
-    background-color: #5e5e5e;
+    background-color: #696969;
     padding: 10px;
+    display: block;
+    margin-bottom: 10px;
 }
 
 .locale {
     margin-top: 20px;
     margin-right: 20px;
+    margin-left: 10px;
+    width: auto;
 }
 
 .registration_container {
@@ -17,7 +35,43 @@
 }
 
 h1.name_company {
-    color: gold;
+    color: deepskyblue;
     text-align: center;
 }
 
+.tariff {
+    background-color: #696969;
+}
+
+.directions {
+    background-color: #DCDCDC;
+}
+
+.delivery_cost,
+.form {
+    width: 500px;
+    margin: 0 auto;
+}
+
+.tariffs {
+    color: white;
+    text-align: center;
+}
+
+.input_button {
+    background-color: transparent;
+    border: none;
+}
+
+.cost_result {
+    text-align: center;
+}
+
+.title {
+    text-align: center;
+    color: deepskyblue;
+}
+
+.sort_button {
+    margin-right: 10px;
+}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Cargo delivery</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/user/deliveryRequest}" th:object="${deliveryRequest}" class="form">
+
+    <label for="type" th:text="#{type}"/>
+    <select class="form-select" aria-label="Default select example" id="type" th:field="*{type_en}">
+        <option th:value="'Cargo'" th:text="Cargo"/>
+        <option th:value="'Pallets'" th:text="Pallets"/>
+    </select>
+    <br>
+    <label for="weight" th:text="#{weight}"/>
+    <input type="text" th:field="*{weight}" id="weight"/>
+    <br><br>
+    <label for="length" th:text="#{length}"/>
+    <input type="text" th:field="*{length}" id="length"/>
+    <br><br>
+    <label for="width" th:text="#{width}"/>
+    <input type="text" th:field="*{width}" id="width"/>
+    <br><br>
+    <label for="height" th:text="#{height}"/>
+    <input type="text" th:field="*{height}" id="height"/>
+    <br><br>
+    <label for="city" th:text="#{route}"/>
+    <select class="form-select" aria-label="Default select example" id="city" th:field="*{direction}">
+        <option th:value="1" th:text="Lviv"/>
+        <option th:value="2" th:text="Odessa"/>
+        <option th:value="3" th:text="Kharkiv"/>
+        <option th:value="4" th:text="Zaporizhzhia"/>
+        <option th:value="5" th:text="Dnipro"/>
+    </select>
+    <br><br>
+    <label for="address" th:text="#{address}"/>
+    <input type="text" th:field="*{address}" id="address"/>
+    <br><br>
+    <input class="btn btn-info button_a" type="submit" th:value="#{create.delivery.request}"/>
+</form>
+
+</body>
+</html>
