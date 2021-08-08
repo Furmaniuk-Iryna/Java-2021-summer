@@ -25,6 +25,8 @@ public class Tariff {
     private double tariffForWeight;
     @Column(name = "for_volume")
     private double tariffForVolume;
-    @Column(name = "for_distance")
-    private double tariffForDistance;
+    @Column(name = "description_en")
+    private String descriptionEn;
+    @Column(name = "description_uk")
+    private String descriptionUk;
 }

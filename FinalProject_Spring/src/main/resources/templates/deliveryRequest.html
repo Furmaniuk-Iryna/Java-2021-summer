@@ -11,7 +11,7 @@
     <title>Cargo delivery</title>
 </head>
 <body>
-<form th:method="POST" th:action="@{/user/deliveryRequest}" th:object="${deliveryRequest}" class="form">
+<form th:method="POST" th:action="@{/users/deliveryRequests}" th:object="${deliveryRequest}" class="form">
 
     <label for="type" th:text="#{type}"/>
     <select class="form-select" aria-label="Default select example" id="type" th:field="*{type_en}">

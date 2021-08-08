@@ -23,6 +23,5 @@ public class Direction {
     @Column(nullable = false, unique = true)
     private String city_uk;
     private double distance;
-//    @OneToMany(mappedBy="direction")
-//    private List<DeliveryRequest> deliveryRequestSet;
+
 }

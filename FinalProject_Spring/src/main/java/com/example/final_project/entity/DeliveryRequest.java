@@ -1,10 +1,10 @@
 package com.example.final_project.entity;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -28,6 +28,7 @@ public class DeliveryRequest {
     private double width;
     private double height;
     private String address;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfArrival;
     @ManyToOne
     @JoinColumn(name="direction_id", nullable=false)
@@ -36,9 +37,7 @@ public class DeliveryRequest {
     @ManyToOne
     @JoinColumn(name="user_id", nullable=false)
     private User user;
-//    @OneToOne(mappedBy = "deliveryRequest")
-//    @PrimaryKeyJoinColumn
-//    private  Receipt receipt;
+
 
 
 }

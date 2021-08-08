@@ -22,6 +22,8 @@
         <th th:text="#{city}"></th>
         <th th:text="#{address}"></th>
         <th th:text="#{date.of.arrival}"></th>
+        <th th:text="#{result}"></th>
+
     </tr>
     </thead>
     <tbody>
@@ -34,6 +36,7 @@
         <td th:text="${deliveryRequest.get().getDirection().getCity_en()}"></td>
         <td th:text="${deliveryRequest.get().address}"></td>
         <td th:text="${deliveryRequest.get().dateOfArrival}"></td>
+        <th th:text="${price}"></th>
     </tr>
     </tbody>
 </table>

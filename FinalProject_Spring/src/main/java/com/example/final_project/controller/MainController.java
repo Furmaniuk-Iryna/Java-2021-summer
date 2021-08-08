@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 public class MainController {
     private boolean sorted;
 
-
     @Autowired
     private DeliveryCostService deliveryCostService;
     @Autowired
@@ -27,7 +26,7 @@ public class MainController {
     @Autowired
     private TariffRepository tariffRepository;
 
-
+//TODO refactoring
     @GetMapping()
     public String mainPage(@RequestParam(name = "sort",
             required = false, defaultValue = "false") Boolean sort,

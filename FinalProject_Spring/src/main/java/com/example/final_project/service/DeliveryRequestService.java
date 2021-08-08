@@ -35,20 +35,17 @@ public class DeliveryRequestService {
         return deliveryRequest;
     }
 
-    public LocalDate convertToLocalDate(Integer dayFromForm) {
-        return LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), dayFromForm);
-    }
-
-    public ArrayList<DeliveryRequest> getReportByDay(Integer dayFromForm) {
+    public ArrayList<DeliveryRequest> getReportByDay(LocalDate dayFromForm) {
         return (ArrayList<DeliveryRequest>) deliveryRequestRepository.findAll()
                 .stream()
-                .filter(deliveryRequest -> (deliveryRequest.getDateOfArrival()).isEqual(convertToLocalDate(dayFromForm)))
+                .filter(deliveryRequest -> (deliveryRequest.getDateOfArrival()).isEqual(dayFromForm))
                 .collect(Collectors.toList());
     }
     public ArrayList<DeliveryRequest> getDirectionReport(String city) {
         return (ArrayList<DeliveryRequest>) deliveryRequestRepository.findAll()
                 .stream()
-                .filter(deliveryRequest -> (deliveryRequest.getDirection().getCity_en().equals(city) || deliveryRequest.getDirection().getCity_uk().equals(city)))
+                .filter(deliveryRequest -> (deliveryRequest.getDirection().getCity_en().toLowerCase().equals(city.toLowerCase())
+                        || deliveryRequest.getDirection().getCity_uk().toLowerCase().equals(city.toLowerCase())))
                 .collect(Collectors.toList());
     }
 }

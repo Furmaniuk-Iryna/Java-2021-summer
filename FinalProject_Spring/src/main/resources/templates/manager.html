@@ -30,9 +30,6 @@
     <a class="button_a" th:href="@{'/logout'}" th:text="#{logout.text}"></a>
 </button>
 
-<button class="btn btn-info" type="button">
-    <a class="button_a" th:href="@{'/deliveryRequests/reportsByDays'}" th:text="#{report.by.days}"></a>
-</button>
 <table class="table">
     <thead class="table-dark table-hover">
     <tr>
@@ -73,6 +70,12 @@
 
 
     <input class="btn btn-info button_a" type="submit" th:value="#{direction.report}"/>
+</form><br><br>
+<form th:method="POST" th:action="@{/deliveryRequests/reportsByDays}" th:object="${deliveryRequest}"  class="delivery_cost" >
+    <label th:text="#{date.of.arrival}"/>
+    <input type="date" th:field="*{{dateOfArrival}}"/>
+
+    <input class="btn btn-info button_a" type="submit" th:value="#{report.by.days}"/>
 </form>
 
 </body>

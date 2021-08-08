@@ -44,6 +44,7 @@
             <th th:text="#{tariff.name}"></th>
             <th th:text="#{weight}"></th>
             <th th:text="#{volume}"></th>
+            <th th:text="#{conditions}"></th>
         </tr>
         </thead>
         <tbody>
@@ -53,6 +54,8 @@
             <td th:if="${locale=='uk'}" th:text="${tariff.getTariffNameUk()}"></td>
             <td th:text="${tariff.getTariffForWeight()}"></td>
             <td th:text="${tariff.getTariffForVolume()}"></td>
+            <td th:if="${locale=='en'}" th:text="${tariff.getDescriptionEn()}"></td>
+            <td th:if="${locale=='uk'}" th:text="${tariff.getDescriptionUk()}"></td>
         </tr>
         </tbody>
     </table>
@@ -121,5 +124,6 @@
     <br>
     <p class="cost_result" th:text="#{result} + ${result}"><br><br>
 </div>
+
 </body>
 </html>

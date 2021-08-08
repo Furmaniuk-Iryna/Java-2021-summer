@@ -26,6 +26,7 @@ public class UserController {
     public String userPage() {
         return "user";
     }
+
     @GetMapping("/deliveryRequests")
     public String newDeliveryRequest(Model model) {
         model.addAttribute("deliveryRequest", new DeliveryRequest());

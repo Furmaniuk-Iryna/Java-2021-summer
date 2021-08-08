@@ -14,13 +14,13 @@ import javax.persistence.*;
 @Table(name = "receipt")
 public class Receipt {
     @Id
-    @Column(name = "delivery_id")
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false,name = "id")
+    private long id;
+
     @OneToOne
-    @MapsId
-    @JoinColumn(name = "delivery_id")
+    @JoinColumn(name = "delivery_id",unique = true)
     private DeliveryRequest deliveryRequest;
 
     private double price;
-
 }

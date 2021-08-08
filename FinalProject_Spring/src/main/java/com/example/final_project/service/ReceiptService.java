@@ -1,5 +1,8 @@
 package com.example.final_project.service;
 
+import com.example.final_project.entity.Receipt;
+import com.example.final_project.repository.DeliveryRequestRepository;
+import com.example.final_project.repository.ReceiptRepository;
 import com.example.final_project.repository.TariffRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,8 +12,11 @@ public class ReceiptService {
     private double forWeight;
     private double forVolume;
     @Autowired
+    private ReceiptRepository receiptRepository;
+    @Autowired
     private DirectionServise directionServise;
-
+@Autowired
+private DeliveryRequestRepository deliveryRequestRepository;
     @Autowired
     private TariffRepository tariffRepository;
 
@@ -31,4 +37,5 @@ public class ReceiptService {
             forVolume = tariffRepository.findTariffById(1L).getTariffForVolume();
         }
     }
+
 }
