@@ -31,8 +31,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .disable()
                 .authorizeRequests()
                 //Доступ только для пользователей с ролью Администратор
-                .antMatchers("/manager/**").hasAuthority("MANAGER")
-                .antMatchers("/user/**").hasAnyAuthority("USER", "MANAGER")
+                .antMatchers("/deliveryRequests/**").hasAuthority("MANAGER")
+                .antMatchers("/users/**").hasAnyAuthority("USER", "MANAGER")
                 //Доступ разрешен всем пользователей
                 .antMatchers("/", "/registration", "/css/*").permitAll()
                 //Все остальные страницы требуют аутентификации
@@ -41,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //Настройка для входа в систему
                 .formLogin()
                 //Перенарпавление на главную страницу после успешного входа
-                .defaultSuccessUrl("/")
+                .defaultSuccessUrl("/users")
                 .permitAll()
                 .and()
                 .logout()

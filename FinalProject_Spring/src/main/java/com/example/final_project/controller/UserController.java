@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/users")
 public class UserController {
     @Autowired
     private DeliveryRequestService deliveryRequestService;
@@ -21,21 +22,20 @@ public class UserController {
     @Autowired
     private DeliveryRequestRepository deliveryRequestRepository;
 
-    @RequestMapping("/user")
-    public String user() {
+    @GetMapping()
+    public String userPage() {
         return "user";
     }
-
-    @GetMapping("/user/deliveryRequest")
+    @GetMapping("/deliveryRequests")
     public String newDeliveryRequest(Model model) {
         model.addAttribute("deliveryRequest", new DeliveryRequest());
         return "deliveryRequest";
     }
 
-    @PostMapping("/user/deliveryRequest")
+    @PostMapping("/deliveryRequests")
     public String readDeliveryRequest(@ModelAttribute("deliveryRequest") DeliveryRequest deliveryRequest,
                                       @AuthenticationPrincipal User user, Model model) {
         deliveryRequestRepository.save(deliveryRequestService.fillDeliveryRequest(deliveryRequest, user));
-        return "redirect:/user";
+        return "redirect:/users";
     }
 }

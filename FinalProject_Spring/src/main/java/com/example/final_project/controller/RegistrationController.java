@@ -14,33 +14,31 @@ import java.util.Map;
 import java.util.Optional;
 
 @Controller
+@RequestMapping("/registration")
 public class RegistrationController {
 
     @Autowired
     private UserRepository userRepository;
 
-    @RequestMapping("/registration")
-    public String registrationPage() {
-        return "registration";
-    }
 
-    @GetMapping("/registration")
+
+    @GetMapping()
     public String registration() {
         return "registration";
     }
 
 
-    @PostMapping("/registration")
+    @PostMapping()
     public String addUser( User user, Map<String, Object> model){
         //TODO ref. optional
         User userFromDB= userRepository.findByUsername(user.getUsername());
         if (userFromDB != null){
-            model.put("message", "User exists!");
+            model.put("message", "User "+user.getUsername()+" exists!");
             return "registration";
         }
         user.setActive(true);
         user.setRoles(Collections.singleton(Role.USER));
         userRepository.save(user);
-        return "redirect:/user";
+        return "redirect:/users";
     }
 }

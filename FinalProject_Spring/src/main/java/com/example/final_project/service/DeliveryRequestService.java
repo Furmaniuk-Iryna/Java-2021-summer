@@ -45,4 +45,10 @@ public class DeliveryRequestService {
                 .filter(deliveryRequest -> (deliveryRequest.getDateOfArrival()).isEqual(convertToLocalDate(dayFromForm)))
                 .collect(Collectors.toList());
     }
+    public ArrayList<DeliveryRequest> getDirectionReport(String city) {
+        return (ArrayList<DeliveryRequest>) deliveryRequestRepository.findAll()
+                .stream()
+                .filter(deliveryRequest -> (deliveryRequest.getDirection().getCity_en().equals(city) || deliveryRequest.getDirection().getCity_uk().equals(city)))
+                .collect(Collectors.toList());
+    }
 }

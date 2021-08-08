@@ -24,7 +24,11 @@ public class DirectionServise {
         return neededDirection.getDistance();
     }
 
-    public ArrayList<Direction> sortedDirections() {
+    public ArrayList<Direction> sortedDirectionsForUkLocale() {
+        return (ArrayList<Direction>) directionRepository.findAll().stream()
+                .sorted(Comparator.comparing(Direction::getCity_uk)).collect(Collectors.toList());
+    }
+    public ArrayList<Direction> sortedDirectionsForEnLocale() {
         return (ArrayList<Direction>) directionRepository.findAll().stream()
                 .sorted(Comparator.comparing(Direction::getCity_en)).collect(Collectors.toList());
     }

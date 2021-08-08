@@ -17,7 +17,7 @@
     <div class="locale">
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <button class="btn btn-light" type="button">
-                <a class="button_locale" th:href="@{'/user'}" th:text="#{login.text}"></a>
+                <a class="button_locale" th:href="@{'/users'}" th:text="#{login.text}"></a>
             </button>
 
             <button class="btn btn-light" type="button">
@@ -40,49 +40,50 @@
     <table class="table table-dark">
         <thead>
         <tr>
-            <th scope="col">#</th>
-            <th scope="col" th:text="#{tariff.name}"></th>
-            <th scope="col" th:text="#{weight}"></th>
-            <th scope="col" th:text="#{volume}"></th>
+            <th>#</th>
+            <th th:text="#{tariff.name}"></th>
+            <th th:text="#{weight}"></th>
+            <th th:text="#{volume}"></th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td th:text="'Universal'"></td>
-            <td> < 50</td>
-            <td> < 1</td>
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>Special</td>
-            <td> > 50</td>
-            <td> > 1</td>
+        <tr th:each="tariff : ${tariffs}">
+            <th th:text="${tariff.id}"></th>
+            <td th:if="${locale=='en'}" th:text="${tariff.getTariffNameEn()}"></td>
+            <td th:if="${locale=='uk'}" th:text="${tariff.getTariffNameUk()}"></td>
+            <td th:text="${tariff.getTariffForWeight()}"></td>
+            <td th:text="${tariff.getTariffForVolume()}"></td>
         </tr>
         </tbody>
     </table>
 </div>
 <div class="directions">
-    <h2 class="title" th:text="#{directions.title}"/>
-    <button class="btn btn-info sort_button" type="button"><a class="button_a" th:href="@{?sort=true}">Sort</a>
+    <h2 class="title" th:text="#{directions.title}"></h2>
+    <button class="btn btn-info sort_button" type="button"><a class="button_a" th:text="#{sort}" th:href="@{?sort=true}"></a>
     </button>
     <table class="table">
         <thead class="thead-dark">
         <tr>
             <th>#</th>
-            <th>City</th>
-            <th>Distance</th>
+            <th th:text="#{city}"></th>
+            <th th:text="#{distance}"></th>
         </tr>
         </thead>
         <tbody>
-        <tr th:if="${sort}" th:each="direction : ${directions2}">
+        <tr th:if="${sort&&locale=='en'}" th:each="direction : ${sortedDirectionsEnLocale}">
             <th th:text="${direction.id}"></th>
-            <td th:text="${direction.getCity_en()}"></td>
+            <td  th:text="${direction.getCity_en()}"></td>
             <td th:text="${direction.getDistance()}"></td>
         </tr>
-        <tr th:if="${!sort}" th:each="direction : ${directions1}">
+        <tr th:if="${sort&&locale=='uk'}"   th:each="direction : ${sortedDirectionsUkLocale}">
             <th th:text="${direction.id}"></th>
-            <td th:text="${direction.getCity_en()}"></td>
+            <td th:text="${direction.getCity_uk()}"></td>
+            <td th:text="${direction.getDistance()}"></td>
+        </tr>
+        <tr th:if="${!sort}" th:each="direction : ${allDirections}">
+            <th th:text="${direction.id}"></th>
+            <td th:if="${locale=='en'}" th:text="${direction.getCity_en()}"></td>
+            <td th:if="${locale=='uk'}" th:text="${direction.getCity_uk()}"></td>
             <td th:text="${direction.getDistance()}"></td>
         </tr>
         </tbody>
@@ -96,11 +97,10 @@
         <br>
         <label for="city" th:text="#{route}"/>
         <select class="form-select" aria-label="Default select example" id="city" th:field="*{city}">
-            <option th:value="Lviv" th:text="Lviv"/>
-            <option th:value="Odessa" th:text="Odessa"/>
-            <option th:value="Kharkiv" th:text="Kharkiv"/>
-            <option th:value="Zaporizhzhia" th:text="Zaporizhzhia"/>
-            <option th:value="Dnipro" th:text="Dnipro"/>
+            <div th:each="direction: ${allDirections}">
+                <option th:if="${locale=='en'}" th:value="${direction.getCity_en()}" th:text="${direction.getCity_en()}"/>
+                <option th:if="${locale=='uk'}" th:value="${direction.getCity_en()}" th:text="${direction.getCity_uk()}"/>
+            </div>
         </select>
         <br>
         <label for="weight" th:text="#{weight}"/>
