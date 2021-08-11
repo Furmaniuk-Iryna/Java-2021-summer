@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,14 +36,14 @@ public class DeliveryRequestService {
         return deliveryRequest;
     }
 
-    public ArrayList<DeliveryRequest> getReportByDay(LocalDate dayFromForm) {
-        return (ArrayList<DeliveryRequest>) deliveryRequestRepository.findAll()
+    public List<DeliveryRequest> getReportByDay(LocalDate dayFromForm) {
+        return  deliveryRequestRepository.findAll()
                 .stream()
                 .filter(deliveryRequest -> (deliveryRequest.getDateOfArrival()).isEqual(dayFromForm))
                 .collect(Collectors.toList());
     }
-    public ArrayList<DeliveryRequest> getDirectionReport(String city) {
-        return (ArrayList<DeliveryRequest>) deliveryRequestRepository.findAll()
+    public List<DeliveryRequest> getDirectionReport(String city) {
+        return  deliveryRequestRepository.findAll()
                 .stream()
                 .filter(deliveryRequest -> (deliveryRequest.getDirection().getCity_en().toLowerCase().equals(city.toLowerCase())
                         || deliveryRequest.getDirection().getCity_uk().toLowerCase().equals(city.toLowerCase())))

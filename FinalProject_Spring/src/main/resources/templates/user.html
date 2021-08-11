@@ -29,5 +29,44 @@
     <a class="button_a" th:href="@{'/logout'}" th:text="#{logout.text}"></a>
 </button>
 
+
+<table class="table" th:if="${isDeliveryRequests}">
+    <thead class="table-dark table-hover">
+    <tr>
+        <th>#</th>
+        <th th:text="#{username}"></th>
+        <th th:text="#{type}"></th>
+        <th th:text="#{weight}"></th>
+        <th th:text="#{volume}"></th>
+        <th th:text="#{city}"></th>
+        <th th:text="#{address}"></th>
+        <th th:text="#{date.of.arrival}"></th>
+        <th th:text="#{price}"></th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="request : ${deliveryRequests}">
+        <th th:text="${request.id}"></th>
+        <td th:text="${request.user.getUsername()}"></td>
+        <td th:text="${request.type_en}"></td>
+        <td th:text="${request.weight}"></td>
+        <td th:text="${request.volume}"></td>
+        <td th:text="${request.getDirection().getCity_en()}"></td>
+        <td th:text="${request.address}"></td>
+        <td th:text="${request.dateOfArrival}"></td>
+        <td th:each="receipt : ${receipts}">
+            <p th:if="${receipt.getDeliveryRequest().getId()==request.getId()}" th:text="${receipt.price}"></p>
+        </td>
+        <td>
+            <button class="btn btn-info" type="button">
+                <a class="button_a" th:href="@{/users/deliveryRequests/{id} (id=${request.getId()})}"
+                   th:text="#{pay}">
+                </a>
+            </button>
+        </td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>

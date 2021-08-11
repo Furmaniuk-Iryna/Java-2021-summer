@@ -29,7 +29,7 @@ public class DeliveryCostService {
     }
 
     public void chooseTariff(DeliveryCost deliveryCost) {
-        //TODO optional, refactoring
+        //TODO optional, refactoring, transaction!!!!!!!!!!!!!!
         if (deliveryCost.getWeight() > 50 || deliveryCost.getVolume() > 1  // 50,1,500 винести в константи
                 || directionServise.getDistance(deliveryCost.getCity()) > 500) {
             forWeight = tariffRepository.findTariffById(2L).getTariffForWeight();

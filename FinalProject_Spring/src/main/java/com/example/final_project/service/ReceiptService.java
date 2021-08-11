@@ -1,6 +1,5 @@
 package com.example.final_project.service;
 
-import com.example.final_project.entity.Receipt;
 import com.example.final_project.repository.DeliveryRequestRepository;
 import com.example.final_project.repository.ReceiptRepository;
 import com.example.final_project.repository.TariffRepository;
@@ -15,8 +14,8 @@ public class ReceiptService {
     private ReceiptRepository receiptRepository;
     @Autowired
     private DirectionServise directionServise;
-@Autowired
-private DeliveryRequestRepository deliveryRequestRepository;
+    @Autowired
+    private DeliveryRequestRepository deliveryRequestRepository;
     @Autowired
     private TariffRepository tariffRepository;
 
