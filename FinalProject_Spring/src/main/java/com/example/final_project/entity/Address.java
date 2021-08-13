@@ -1,10 +1,8 @@
 package com.example.final_project.entity;
 
-
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
 
 @Getter
 @Setter
@@ -13,16 +11,17 @@ import javax.validation.constraints.Min;
 @AllArgsConstructor
 
 @Entity
-@Table(name = "direction")
-public class Direction {
+@Table(name = "address")
+public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_direction")
+    @Column(name = "id_address")
     private long id;
     @Column(unique = true)
-    private String city_en;
+    private String address_en;
     @Column(unique = true)
-    private String city_uk;
-    private double distance;
-
+    private String address_uk;
+    @ManyToOne
+    @JoinColumn(name="direction_id", nullable=false)
+    private Direction direction;
 }

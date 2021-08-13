@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -19,32 +19,35 @@
         <option th:value="'Pallets'" th:text="Pallets"/>
     </select>
     <br>
+    <div class="error" th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}"></div>
     <label for="weight" th:text="#{weight}"/>
     <input type="text" th:field="*{weight}" id="weight"/>
     <br><br>
+    <div class="error" th:if="${#fields.hasErrors('length')}" th:errors="*{length}"></div>
     <label for="length" th:text="#{length}"/>
     <input type="text" th:field="*{length}" id="length"/>
     <br><br>
+    <div class="error" th:if="${#fields.hasErrors('width')}" th:errors="*{width}"></div>
     <label for="width" th:text="#{width}"/>
     <input type="text" th:field="*{width}" id="width"/>
     <br><br>
+    <div class="error" th:if="${#fields.hasErrors('height')}" th:errors="*{height}"></div>
     <label for="height" th:text="#{height}"/>
     <input type="text" th:field="*{height}" id="height"/>
     <br><br>
-    <label for="city" th:text="#{route}"/>
-    <select class="form-select" aria-label="Default select example" id="city" th:field="*{direction}">
-        <option th:value="1" th:text="Lviv"/>
-        <option th:value="2" th:text="Odessa"/>
-        <option th:value="3" th:text="Kharkiv"/>
-        <option th:value="4" th:text="Zaporizhzhia"/>
-        <option th:value="5" th:text="Dnipro"/>
+    <label for="city" th:text="#{address}"/>
+    <select class="form-select" aria-label="Default select example" id="city" th:field="*{address}">
+        <div th:each="address: ${addresses}">
+            <option th:if="${locale=='en'}" th:value="${address.getId()}" th:text="${address.getAddress_en()}"/>
+            <option th:if="${locale=='uk'}" th:value="${address.getId()}" th:text="${address.getAddress_uk()}"/>
+        </div>
     </select>
     <br><br>
-    <label for="address" th:text="#{address}"/>
-    <input type="text" th:field="*{address}" id="address"/>
-    <br><br>
+
     <input class="btn btn-info button_a" type="submit" th:value="#{create.delivery.request}"/>
 </form>
-
+<button class="btn btn-light" type="button">
+    <a class="button_locale" th:href="@{'/users'}" th:text="#{login.text}"></a>
+</button>
 </body>
 </html>

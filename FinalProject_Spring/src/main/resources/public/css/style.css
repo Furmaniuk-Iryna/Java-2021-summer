@@ -76,3 +76,6 @@ button.sort_button {
     margin-right: 10px;
     float: right;
 }
+div.error{
+    color: red;
+}

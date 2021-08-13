@@ -4,6 +4,7 @@ import com.example.final_project.entity.DeliveryCost;
 import com.example.final_project.repository.TariffRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class DeliveryCostService {
@@ -21,24 +22,20 @@ public class DeliveryCostService {
         return (double) deliveryCost.getLength() * deliveryCost.getWidth() * deliveryCost.getHeight() / centimetersToCubicMeters;
     }
 
-    public double calculateDeliveryCost(DeliveryCost deliveryCost) {
-        //TODO validation
-        deliveryCost.setVolume(calculateVolumeForDeliveryCosts(deliveryCost));
-        chooseTariff(deliveryCost);
-        return Math.max(deliveryCost.getWeight() * forWeight, deliveryCost.getVolume() * forVolume);
+    public double calculateDeliveryCost(double weight, double volume, String city) {
+        chooseTariff(weight, volume, city);
+        return Math.max(weight * forWeight, volume * forVolume);
     }
 
-    public void chooseTariff(DeliveryCost deliveryCost) {
-        //TODO optional, refactoring, transaction!!!!!!!!!!!!!!
-        if (deliveryCost.getWeight() > 50 || deliveryCost.getVolume() > 1  // 50,1,500 винести в константи
-                || directionServise.getDistance(deliveryCost.getCity()) > 500) {
-            forWeight = tariffRepository.findTariffById(2L).getTariffForWeight();
-            forVolume = tariffRepository.findTariffById(2L).getTariffForVolume();
-        } else {
-            forWeight = tariffRepository.findTariffById(1L).getTariffForWeight();
-            forVolume = tariffRepository.findTariffById(1L).getTariffForVolume();
-        }
+    @Transactional
+    public void getTariffForWeightAndVolume(Long id){
+        forWeight = tariffRepository.findTariffById(id).getTariffForWeight();
+        forVolume = tariffRepository.findTariffById(id).getTariffForVolume();
     }
 
-
+    public void chooseTariff(double weight, double volume, String city) {
+        //TODO optional, const
+        getTariffForWeightAndVolume(weight > 50 || volume > 1
+                || directionServise.getDistance(city) > 500 ? 2L : 1L);
+    }
 }

@@ -1,15 +1,20 @@
 package com.example.final_project.service;
 
+import com.example.final_project.entity.Receipt;
+import com.example.final_project.entity.User;
 import com.example.final_project.repository.DeliveryRequestRepository;
 import com.example.final_project.repository.ReceiptRepository;
 import com.example.final_project.repository.TariffRepository;
+import com.example.final_project.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 public class ReceiptService {
-    private double forWeight;
-    private double forVolume;
+
     @Autowired
     private ReceiptRepository receiptRepository;
     @Autowired
@@ -18,23 +23,21 @@ public class ReceiptService {
     private DeliveryRequestRepository deliveryRequestRepository;
     @Autowired
     private TariffRepository tariffRepository;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private DeliveryCostService deliveryCostService;
 
-    public double calculatePrice(double weight, double volume, String city) {
-        //TODO validation
-        chooseTariff(weight, volume, city);
-        return Math.max(weight * forWeight, volume * forVolume);
-    }
+   @Transactional
+ public String pay(User user, Receipt receipt){
+   if(userRepository.findByUsername(user.getUsername()).getBalance() >= receipt.getPrice())
+   {userRepository.findByUsername(user.getUsername()).setBalance(user.getBalance()-receipt.getPrice());
+ return "successful";}
+   else return "fail";
+   }
 
-    public void chooseTariff(double weight, double volume, String city) {
-        //TODO optional, refactoring
-        if (weight > 50 || volume > 1                  // 50,1,500 винести в константи
-                || directionServise.getDistance(city) > 500) {
-            forWeight = tariffRepository.findTariffById(2L).getTariffForWeight();
-            forVolume = tariffRepository.findTariffById(2L).getTariffForVolume();
-        } else {
-            forWeight = tariffRepository.findTariffById(1L).getTariffForWeight();
-            forVolume = tariffRepository.findTariffById(1L).getTariffForVolume();
-        }
-    }
+ public void recharge (User user,  double sum){
+       userRepository.findByUsername(user.getUsername()).setBalance(user.getBalance()+sum);
+ }
 
 }

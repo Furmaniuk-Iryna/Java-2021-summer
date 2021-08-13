@@ -4,6 +4,10 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.Set;
 
@@ -19,17 +23,38 @@ import java.util.Set;
 public class User implements  UserDetails{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
+    @Column(name = "id_user")
     private long idUser;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name="user_role" ,joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
-    @Column(nullable = false, unique = true)
+
+    @NotEmpty
+    @Size(min = 2,max = 15)
+    @Column
+    private String name;
+
+    @NotEmpty
+    @Size(min = 1,max = 15)
+    @Column
+    private String surname;
+
+    @Min(0)
+    @Column
+    private double balance;
+
+    @NotEmpty
+    @Size(min = 4,max = 15)
+    @Column(unique = true)
     private String username;
-    @Column(nullable = false, unique = true)
+
+    @NotEmpty
+    @Size(min = 4,max = 15)
+    @Column(unique = true)
     private String password;
+
     private boolean active;
 
     public boolean isActive() {

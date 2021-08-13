@@ -66,11 +66,12 @@ public class DeliveryRequestController {
     public String createReceipt(@PathVariable("id") long id, Receipt receipt, Model model) {
         Optional<DeliveryRequest> newDeliveryRequest = deliveryRequestRepository.findById(id);
         model.addAttribute("deliveryRequest", newDeliveryRequest);
-        double price = receiptService.calculatePrice(newDeliveryRequest.get().getWeight(),
-                newDeliveryRequest.get().getVolume(), newDeliveryRequest.get().getDirection().getCity_en());
+        double price = deliveryCostService.calculateDeliveryCost(newDeliveryRequest.get().getWeight(),
+                newDeliveryRequest.get().getVolume(), newDeliveryRequest.get().getAddress().getDirection().getCity_en());
         model.addAttribute("price", price);
         receipt.setDeliveryRequest(newDeliveryRequest.get());
         receipt.setPrice(price);
+        receipt.setStatus("not paid");
         receiptRepository.save(receipt);
         return "receipt";
     }

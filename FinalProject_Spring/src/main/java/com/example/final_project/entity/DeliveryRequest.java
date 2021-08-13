@@ -4,8 +4,9 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import java.time.LocalDate;
-
+@Builder
 @Getter
 @Setter
 @ToString
@@ -22,17 +23,26 @@ public class DeliveryRequest {
     private long id;
     private String type_en;
     private String type_uk;
+    @Min(1)
     private double weight;
     private double volume;
-    private double length;
-    private double width;
-    private double height;
-    private String address;
+    @Min(1)
+    private int length;
+    @Min(1)
+    private int width;
+    @Min(1)
+    private int height;
+
+    @ManyToOne
+    @JoinColumn(name="address_id", nullable=false)
+    private Address address;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfArrival;
-    @ManyToOne
-    @JoinColumn(name="direction_id", nullable=false)
-    private Direction direction;
+
+//    @ManyToOne
+//    @JoinColumn(name="direction_id", nullable=false)
+//    private Direction direction;
 
     @ManyToOne
     @JoinColumn(name="user_id", nullable=false)

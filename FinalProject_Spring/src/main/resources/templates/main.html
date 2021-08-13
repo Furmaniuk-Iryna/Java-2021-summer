@@ -33,7 +33,6 @@
 </div>
 <div class="header_container">
     <h1 class=name_company th:text="#{name.company}"></h1><br><br>
-
 </div>
 <div class="tariff">
     <h2 th:text="#{tariffs}" class="tariffs"/>
@@ -106,23 +105,35 @@
             </div>
         </select>
         <br>
+        <div class="error" th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}" >
+        </div>
         <label for="weight" th:text="#{weight}"/>
         <input type="text" th:field="*{weight}" id="weight"/>
         <br><br>
+
+        <div class="error" th:if="${#fields.hasErrors('length')}" th:errors="*{length}" >
+        </div>
         <label for="length" th:text="#{length}"/>
         <input type="text" th:field="*{length}" id="length"/>
         <br><br>
+
+        <div class="error" th:if="${#fields.hasErrors('width')}" th:errors="*{width}">
+        </div>
         <label for="width" th:text="#{width}"/>
         <input type="text" th:field="*{width}" id="width"/>
         <br><br>
+
+        <div class="error" th:if="${#fields.hasErrors('height')}" th:errors="*{height}">
+        </div>
         <label for="height" th:text="#{height}"/>
         <input type="text" th:field="*{height}" id="height"/>
         <br><br>
-        <input class="btn btn-info button_a" type="submit" th:value="#{calculate}"/>
 
+        <input class="btn btn-info button_a" type="submit" th:value="#{calculate}"/>
+        <p th:if="!${#fields.hasAnyErrors()}" class="cost_result" th:text="#{result} + ${result}"><br><br>
     </form>
     <br>
-    <p class="cost_result" th:text="#{result} + ${result}"><br><br>
+
 </div>
 
 </body>

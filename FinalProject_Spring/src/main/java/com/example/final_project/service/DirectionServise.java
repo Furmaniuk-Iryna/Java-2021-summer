@@ -4,8 +4,6 @@ import com.example.final_project.entity.Direction;
 import com.example.final_project.repository.DirectionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,7 +29,7 @@ public class DirectionServise {
     }
     public Direction getNeededDirection(String city) {
         return  directionRepository.findAll().stream()
-                .filter(direction -> (direction.getCity_en().equals(city) || direction.getCity_uk().equals(city)))
+                .filter(direction -> (direction.getCity_en().toLowerCase().equals(city.toLowerCase()) || direction.getCity_uk().toLowerCase().equals(city.toLowerCase())))
                 .findAny().get();        //.orElse()
     }
 }
