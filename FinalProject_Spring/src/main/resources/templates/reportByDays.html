@@ -33,7 +33,7 @@
         <td th:text="${request.weight}"></td>
         <td th:text="${request.volume}"></td>
         <td th:text="${request.getAddress().getDirection().getCity_en()}"></td>
-        <td th:text="${request.address}"></td>
+        <td th:text="${request.address.getAddress_en()}"></td>
         <td th:text="${request.dateOfArrival}"></td>
     </tr>
     </tbody>

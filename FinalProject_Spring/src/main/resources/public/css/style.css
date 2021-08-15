@@ -5,6 +5,12 @@
 .button_a {
     text-decoration: none;
     color: white;
+    font-size: 15px;
+    font-weight: bold;
+}
+div.button_manager{
+    width: 150px;
+    margin: 10px auto;
 }
 .button_locale {
     text-decoration: none;
@@ -78,4 +84,33 @@ button.sort_button {
 }
 div.error{
     color: red;
+}
+.form_request{
+    width: 500px;
+    margin: 20px;
+    margin-right: 50px;
+    margin-left: auto;
+}
+.delivery_request{
+    background-image: url(http://localhost:8090/image/boxes-for-shipping.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    min-height: 500px;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+}
+.registration{
+    background-image: url(http://localhost:8090/image/laptop-in-empty-room.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    min-height: 500px;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+}
+.registration_title{
+    text-align: center;
 }

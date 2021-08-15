@@ -34,6 +34,17 @@
 <div class="header_container">
     <h1 class=name_company th:text="#{name.company}"></h1><br><br>
 </div>
+<form th:method="POST" th:action="@{/filter}" th:object="${neededDirection}" class="delivery_cost">
+    <label for="d" th:text="#{city}"/>
+    <input type="text" th:field="*{city_en}" id="d"/>
+
+
+    <input class="btn btn-info button_a" type="submit" th:value="#{filter}"/>
+
+</form>
+<button class="btn btn-info sort_button" type="button"><a class="button_a" th:text="#{reset.filters}" th:href="@{/filter}"></a>
+</button>
+<br><br>
 <div class="tariff">
     <h2 th:text="#{tariffs}" class="tariffs"/>
     <table class="table table-dark">
@@ -72,21 +83,30 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:if="${sort&&locale=='en'}" th:each="direction : ${sortedDirectionsEnLocale}">
-            <th th:text="${direction.id}"></th>
-            <td  th:text="${direction.getCity_en()}"></td>
-            <td th:text="${direction.getDistance()}"></td>
-        </tr>
-        <tr th:if="${sort&&locale=='uk'}"   th:each="direction : ${sortedDirectionsUkLocale}">
-            <th th:text="${direction.id}"></th>
-            <td th:text="${direction.getCity_uk()}"></td>
-            <td th:text="${direction.getDistance()}"></td>
-        </tr>
-        <tr th:if="${!sort}" th:each="direction : ${allDirections}">
-            <th th:text="${direction.id}"></th>
-            <td th:if="${locale=='en'}" th:text="${direction.getCity_en()}"></td>
-            <td th:if="${locale=='uk'}" th:text="${direction.getCity_uk()}"></td>
-            <td th:text="${direction.getDistance()}"></td>
+        <div >
+            <tr th:if="${sort&&locale=='en'&&!filter}" th:each="direction : ${sortedDirectionsEnLocale}">
+                <th th:text="${direction.id}"></th>
+                <td th:text="${direction.getCity_en()}"></td>
+                <td th:text="${direction.getDistance()}"></td>
+            </tr>
+            <tr th:if="${sort&&locale=='uk'&&!filter}" th:each="direction : ${sortedDirectionsUkLocale}">
+                <th th:text="${direction.id}"></th>
+                <td th:text="${direction.getCity_uk()}"></td>
+                <td th:text="${direction.getDistance()}"></td>
+            </tr>
+            <tr th:if="${!sort&&!filter}" th:each="direction : ${allDirections}">
+
+                <th th:text="${direction.id}"></th>
+                <td th:if="${locale=='en'}" th:text="${direction.getCity_en()}"></td>
+                <td th:if="${locale=='uk'}" th:text="${direction.getCity_uk()}"></td>
+                <td th:text="${direction.getDistance()}"></td>
+            </tr>
+        </div>
+        <tr th:if="${filter}">
+            <th th:text="${filterDirection.id}"></th>
+            <td th:if="${locale=='en'}" th:text="${filterDirection.getCity_en()}"></td>
+            <td th:if="${locale=='uk'}" th:text="${filterDirection.getCity_uk()}"></td>
+            <td th:text="${filterDirection.getDistance()}"></td>
         </tr>
         </tbody>
     </table>

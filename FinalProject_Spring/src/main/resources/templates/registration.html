@@ -10,7 +10,7 @@
 
     <title>Cargo delivery</title>
 </head>
-<body>
+<body class="registration">
 
 <div class="header_top">
     <div class="locale">
@@ -22,21 +22,12 @@
         </div>
     </div>
 </div>
-<h1 class="title" th:text="#{registration}"></h1><br>
+
+<h1 class="registration_title" th:text="#{registration}"></h1><br>
 <div style="text-align: center" th:text="${message}"></div>
 <br>
 
-<!--<form action="/registration" method="post" class="form">-->
-<!--    <div><label> Username : <input type="text" name="username"/> </label></div>-->
-<!--    <br><br>-->
-<!--    <div><label> Password: <input type="password" name="password"/> </label></div>-->
-<!--    <br><br>-->
-<!--    <div><input class="btn btn-info button_a" type="submit" th:value="#{registration}"/></div>-->
-<!--</form>-->
-
-
-<form th:method="POST" th:action="@{/registration}" th:object="${user}" class="delivery_cost">
-    <br>
+<form th:method="POST" th:action="@{/registration}" th:object="${user}" class="form">
 
     <div class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}" >
     </div>
@@ -63,7 +54,10 @@
     <br><br>
 
     <input class="btn btn-info button_a" type="submit" th:value="#{registration}"/>
-
+    <button class="btn btn-light" type="button">
+        <a class="button_locale" th:href="@{'/'}" th:text="#{main.page}"></a>
+    </button>
 </form>
+
 </body>
 </html>

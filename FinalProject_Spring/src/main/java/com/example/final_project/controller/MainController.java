@@ -21,6 +21,8 @@ import javax.validation.Valid;
 @RequestMapping("/")
 public class MainController {
     private boolean sorted;
+    private boolean filter=false;
+    private Direction filterDirection=new Direction();
 
     @Autowired
     private DeliveryCostService deliveryCostService;
@@ -38,6 +40,9 @@ public class MainController {
     public String mainPage(@RequestParam(name = "sort",
             required = false, defaultValue = "false") Boolean sort,
                            Model model) {
+        model.addAttribute("filter",filter);
+        model.addAttribute("filterDirection", filterDirection);
+        model.addAttribute("neededDirection", new Direction());
         model.addAttribute("locale", LocaleContextHolder.getLocale().getLanguage());
         model.addAttribute("sort", sort);
         sorted = sort;
@@ -58,6 +63,9 @@ public class MainController {
                                        defaultValue = "false") Boolean sort,
                                Model model) {
         sort = sorted;
+        model.addAttribute("filter",filter);
+        model.addAttribute("filterDirection", filterDirection);
+        model.addAttribute("neededDirection", new Direction());
         model.addAttribute("locale", LocaleContextHolder.getLocale().getLanguage());
         model.addAttribute("sort", sort);
         model.addAttribute("tariffs", tariffRepository.findAll());
@@ -65,11 +73,22 @@ public class MainController {
         model.addAttribute("sortedDirectionsEnLocale", directionServise.sortedDirectionsForEnLocale());
         model.addAttribute("sortedDirectionsUkLocale", directionServise.sortedDirectionsForUkLocale());
         if(bindingResult.hasErrors()) return "main";
-        System.out.println(deliveryCost.getWeight()+"-----"+ deliveryCostService.calculateVolumeForDeliveryCosts(deliveryCost)+"-----------"+deliveryCost.getCity());
         model.addAttribute("result", deliveryCostService.calculateDeliveryCost(deliveryCost.getWeight(), deliveryCostService.calculateVolumeForDeliveryCosts(deliveryCost),deliveryCost.getCity()));
         return "main";
     }
 
+    @PostMapping("filter")
+    public String createDirectionReport(@ModelAttribute("neededDirection") Direction neededDirection, Model model) {
+        model.addAttribute("filterDirection",filterDirection=directionServise.getNeededDirection(neededDirection.getCity_en()));
+        model.addAttribute("filter", filter=true);
+        return "redirect:/";
+    }
+    @GetMapping("filter")
+    public String getDirectionWithoutFilter(@ModelAttribute("neededDirection") Direction neededDirection, Model model) {
+        model.addAttribute("filterDirection",filterDirection);
+        model.addAttribute("filter", filter=false);
+        return "redirect:/";
+    }
 
 
 }
