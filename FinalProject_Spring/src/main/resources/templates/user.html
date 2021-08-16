@@ -10,7 +10,7 @@
 
     <title>Cargo delivery</title>
 </head>
-<body>
+<body class="user">
 <div class="header_top">
     <div class="locale">
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -22,8 +22,8 @@
     </div>
 </div>
 
-<div class="button_manager"  sec:authorize="hasAuthority('MANAGER')">
-    <button class="btn btn-info" type="button">
+<div  sec:authorize="hasAuthority('MANAGER')">
+    <button class="btn btn-info button_manager" type="button">
         <a class="button_a" th:href="@{'/deliveryRequests'}" th:text="#{manager.page}"></a>
     </button>
 </div>
@@ -49,6 +49,7 @@
     </svg>
     <div th:text="#{successful.pay}"></div>
 </div>
+<div class="card">
 <table class="table" th:if="${isDeliveryRequests}">
     <thead class="table-dark table-hover">
     <tr>
@@ -87,6 +88,6 @@
     </tr>
     </tbody>
 </table>
-
+</div>
 </body>
 </html>

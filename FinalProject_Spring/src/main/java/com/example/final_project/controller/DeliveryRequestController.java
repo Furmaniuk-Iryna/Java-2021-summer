@@ -9,12 +9,15 @@ import com.example.final_project.service.DeliveryCostService;
 import com.example.final_project.service.DeliveryRequestService;
 import com.example.final_project.service.ReceiptService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("/deliveryRequests")
@@ -32,8 +35,12 @@ public class DeliveryRequestController {
     private ReceiptService receiptService;
 
     @GetMapping()
-    public String createManagerPage(Model model) {
-        model.addAttribute("deliveryRequests", deliveryRequestRepository.findAll());
+    public String createManagerPage(@RequestParam(value = "page",required = false, defaultValue = "0") Integer page,
+                                    Model model) {
+        Page<DeliveryRequest> deliveryRequestPage=deliveryRequestRepository.findAll(PageRequest.of(page, 3));
+        model.addAttribute("deliveryRequests", deliveryRequestPage.getContent());
+        model.addAttribute("pages", deliveryRequestPage);
+        model.addAttribute("numbers", IntStream.range(0,deliveryRequestPage.getTotalPages()).toArray());
         model.addAttribute("deliveryRequest", new DeliveryRequest());
         model.addAttribute("direction", new Direction());
         return "manager";

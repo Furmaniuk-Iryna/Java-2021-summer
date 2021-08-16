@@ -10,7 +10,7 @@
 
     <title>Cargo delivery</title>
 </head>
-<body>
+<body class="manager">
 <div class="header_top">
     <div class="locale">
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -29,17 +29,17 @@
 <button class="btn btn-info" type="button">
     <a class="button_a" th:href="@{'/logout'}" th:text="#{logout.text}"></a>
 </button>
-
-<table class="table">
-    <thead class="table-dark table-hover">
-    <tr>
-        <th>#</th>
-        <th th:text="#{username}"></th>
-        <th th:text="#{type}"></th>
-        <th th:text="#{weight}"></th>
-        <th th:text="#{volume}"></th>
-        <th th:text="#{city}"></th>
-        <th th:text="#{address}"></th>
+<div class="card">
+    <table class="table">
+        <thead class="table-dark table-hover">
+        <tr>
+            <th>#</th>
+            <th th:text="#{username}"></th>
+            <th th:text="#{type}"></th>
+            <th th:text="#{weight}"></th>
+            <th th:text="#{volume}"></th>
+            <th th:text="#{city}"></th>
+            <th th:text="#{address}"></th>
         <th th:text="#{date.of.arrival}"></th>
         <th> </th>
     </tr>
@@ -63,15 +63,25 @@
         </td>
     </tr>
     </tbody>
-</table>
-<form th:method="POST" th:action="@{/deliveryRequests/directionReports}" th:object="${direction}"  class="delivery_cost" >
+    </table>
+    <nav aria-label="Page navigation example" class="pagination_conteiner">
+        <ul class="pagination" th:if="${pages.getTotalPages()>0}">
+            <li th:each="pageNumber : ${numbers}" th:class="${pageNumber==pages.number} ? active:''"
+                th:classappend="page-item">
+                <a th:href="@{'/deliveryRequests?page='+${pageNumber}}" th:text="${pageNumber+1}"
+                   th:class="page-link"></a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<form th:method="POST" th:action="@{/deliveryRequests/directionReports}" th:object="${direction}"  class="report" >
     <label for="d" th:text="#{city}"/>
     <input type="text" th:field="*{city_en}" id="d"/>
 
 
     <input class="btn btn-info button_a" type="submit" th:value="#{direction.report}"/>
 </form><br><br>
-<form th:method="POST" th:action="@{/deliveryRequests/reportsByDays}" th:object="${deliveryRequest}"  class="delivery_cost" >
+<form th:method="POST" th:action="@{/deliveryRequests/reportsByDays}" th:object="${deliveryRequest}"  class="report" >
     <label th:text="#{date.of.arrival}"/>
     <input type="date" th:field="*{{dateOfArrival}}"/>
 

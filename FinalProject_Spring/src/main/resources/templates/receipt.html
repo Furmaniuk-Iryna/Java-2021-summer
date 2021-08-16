@@ -34,11 +34,14 @@
         <td th:text="${deliveryRequest.get().getWeight()}"></td>
         <td th:text="${deliveryRequest.get().getVolume()}"></td>
         <td th:text="${deliveryRequest.get().getAddress().getDirection().getCity_en()}"></td>
-        <td th:text="${deliveryRequest.get().address}"></td>
+        <td th:text="${deliveryRequest.get().address.getAddress_en()}"></td>
         <td th:text="${deliveryRequest.get().dateOfArrival}"></td>
         <th th:text="${price}"></th>
     </tr>
     </tbody>
 </table>
+<button class="btn btn-info" type="button">
+    <a class="button_a" th:href="@{'/deliveryRequests'}" th:text="#{manager.page}"></a>
+</button>
 </body>
 </html>

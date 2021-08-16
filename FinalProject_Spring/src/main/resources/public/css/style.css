@@ -8,9 +8,9 @@
     font-size: 15px;
     font-weight: bold;
 }
-div.button_manager{
-    width: 150px;
-    margin: 10px auto;
+.button_manager{
+    max-width: 1180px;
+    margin: 10px auto 10px auto;
 }
 .button_locale {
     text-decoration: none;
@@ -26,7 +26,7 @@ div.button_manager{
 }
 
 .locale {
-    margin-top: 20px;
+    margin-top: 10px;
     margin-right: 20px;
     margin-left: 10px;
     width: auto;
@@ -87,9 +87,7 @@ div.error{
 }
 .form_request{
     width: 500px;
-    margin: 20px;
-    margin-right: 50px;
-    margin-left: auto;
+    margin: 20px 100px 20px auto;
 }
 .delivery_request{
     background-image: url(http://localhost:8090/image/boxes-for-shipping.jpg);
@@ -113,4 +111,29 @@ div.error{
 }
 .registration_title{
     text-align: center;
+}
+
+.card{
+    max-width: 1180px;
+ margin: 10px auto;
+}
+nav.pagination_conteiner, form.report{
+    margin-right: 10px;
+    margin-left: auto;
+}
+.manager{
+    background-image: url(http://localhost:8090/image/truck-2677373_1920.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    min-height: 500px;
+    color: white;
+    font-size: 15px;
+}
+.user{
+    background-image: url(http://localhost:8090/image/port-1845350_1920.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    min-height: 500px;
 }

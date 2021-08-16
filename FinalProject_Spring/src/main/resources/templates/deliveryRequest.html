@@ -11,6 +11,16 @@
     <title>Cargo delivery</title>
 </head>
 <body class="delivery_request">
+<div>
+    <div class="locale">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button class="btn btn-light" type="button"><a class="button_locale" th:href="@{'?locale=uk'}">UKR</a>
+            </button>
+            <button class="btn btn-light" type="button"><a class="button_locale" th:href="@{'?locale=en'}">ENG</a>
+            </button>
+        </div>
+    </div>
+</div>
 <form th:method="POST" th:action="@{/users/deliveryRequests}" th:object="${deliveryRequest}" class="form_request">
 
     <label for="type" th:text="#{type}"/>
