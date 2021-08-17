@@ -72,7 +72,7 @@
         <td th:text="${request.type_en}"></td>
         <td th:text="${request.weight}"></td>
         <td th:text="${request.volume}"></td>
-        <td th:text="${request.getAddress().getDirection().getCity_en()}"></td>
+        <td th:text="${request.getAddress().getDirection().getCityEn()}"></td>
         <td th:text="${request.address.getAddress_en()}"></td>
         <td th:text="${request.dateOfArrival}"></td>
         <td th:each="receipt : ${receipts}">

@@ -5,6 +5,8 @@ import com.example.final_project.entity.Direction;
 import com.example.final_project.entity.User;
 import com.example.final_project.repository.DeliveryRequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -17,6 +19,8 @@ public class DeliveryRequestService {
 
     @Autowired
     private DeliveryRequestRepository deliveryRequestRepository;
+    @Autowired
+    private DirectionServise directionServise;
 
     public LocalDate newDateOfArrival(DeliveryRequest deliveryRequest) {
         return deliveryRequest.getAddress().getDirection().getDistance() > 500
@@ -50,11 +54,11 @@ public class DeliveryRequestService {
                 .collect(Collectors.toList());
     }
 
-    public List<DeliveryRequest> getDirectionReport(String city) {
-        return deliveryRequestRepository.findAll()
-                .stream()
-                .filter(deliveryRequest -> (deliveryRequest.getAddress().getDirection().getCity_en().toLowerCase().equals(city.toLowerCase())
-                        || deliveryRequest.getAddress().getDirection().getCity_uk().toLowerCase().equals(city.toLowerCase())))
-                .collect(Collectors.toList());
+
+public Page<DeliveryRequest> getDirectionReport(String city, Pageable pageable){
+   return deliveryRequestRepository.findAllByAddress_Direction(directionServise.getNeededDirection(city),pageable);
+}
+    public Page<DeliveryRequest> getReportByDays(LocalDate date, Pageable pageable){
+        return deliveryRequestRepository.findAllByDateOfArrival(date,pageable);
     }
 }

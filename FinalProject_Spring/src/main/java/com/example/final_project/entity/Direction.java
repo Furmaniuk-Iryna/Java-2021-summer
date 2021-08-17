@@ -20,9 +20,9 @@ public class Direction {
     @Column(name = "id_direction")
     private long id;
     @Column(unique = true)
-    private String city_en;
+    private String cityEn;
     @Column(unique = true)
-    private String city_uk;
+    private String cityUk;
     private double distance;
 
 }

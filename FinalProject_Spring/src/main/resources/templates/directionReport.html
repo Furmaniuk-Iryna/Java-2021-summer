@@ -15,6 +15,7 @@
 <button class="btn btn-info" type="button">
     <a class="button_a" th:href="@{'/deliveryRequests'}" th:text="#{manager.page}"></a>
 </button>
+<div class="card">
 <table class="table">
     <thead class="table-dark table-hover">
     <tr>
@@ -35,11 +36,21 @@
         <td th:text="${request.type_en}"></td>
         <td th:text="${request.weight}"></td>
         <td th:text="${request.volume}"></td>
-        <td th:text="${request.getAddress().getDirection().getCity_en()}"></td>
+        <td th:text="${request.getAddress().getDirection().getCityEn()}"></td>
         <td th:text="${request.address.getAddress_en()}"></td>
         <td th:text="${request.dateOfArrival}"></td>
     </tr>
     </tbody>
 </table>
+<nav aria-label="Page navigation example" class="pagination_conteiner">
+    <ul class="pagination" th:if="${pages.getTotalPages()>0}">
+        <li th:each="pageNumber : ${numbers}" th:class="${pageNumber==pages.number} ? active:''"
+            th:classappend="page-item">
+            <a th:href="@{'/deliveryRequests/directionReports?city='+${city}+'&page='+${pageNumber}}" th:text="${pageNumber+1}"
+               th:class="page-link"></a>
+        </li>
+    </ul>
+</nav>
+</div>
 </body>
 </html>

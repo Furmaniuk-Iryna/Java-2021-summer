@@ -51,7 +51,7 @@
         <td th:text="${request.type_en}"></td>
         <td th:text="${request.weight}"></td>
         <td th:text="${request.volume}"></td>
-        <td th:text="${request.getAddress().getDirection().getCity_en()}"></td>
+        <td th:text="${request.getAddress().getDirection().getCityEn()}"></td>
         <td th:text="${request.address.getAddress_en()}"></td>
         <td th:text="${request.dateOfArrival}"></td>
         <td>
@@ -74,19 +74,19 @@
         </ul>
     </nav>
 </div>
-<form th:method="POST" th:action="@{/deliveryRequests/directionReports}" th:object="${direction}"  class="report" >
+<form th:action="@{/deliveryRequests/directionReports}"  class="report">
     <label for="d" th:text="#{city}"/>
-    <input type="text" th:field="*{city_en}" id="d"/>
-
-
-    <input class="btn btn-info button_a" type="submit" th:value="#{direction.report}"/>
-</form><br><br>
-<form th:method="POST" th:action="@{/deliveryRequests/reportsByDays}" th:object="${deliveryRequest}"  class="report" >
+    <input type="text" th:name="city" id="d"/>
+    <input type="hidden" th:name="page" />
+    <input type="submit" class="btn btn-info button_a"/>
+</form><br>
+<form th:action="@{/deliveryRequests/reportsByDays}"  class="report" >
     <label th:text="#{date.of.arrival}"/>
-    <input type="date" th:field="*{{dateOfArrival}}"/>
-
+    <input type="date" th:name="day" />
+    <input type="hidden" th:name="page" />
     <input class="btn btn-info button_a" type="submit" th:value="#{report.by.days}"/>
 </form>
+
 
 </body>
 </html>

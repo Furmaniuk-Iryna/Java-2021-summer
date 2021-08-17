@@ -11,11 +11,15 @@ import com.example.final_project.service.ReceiptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
@@ -46,26 +50,28 @@ public class DeliveryRequestController {
         return "manager";
     }
 
-    @PostMapping("/directionReports")
-    public String createDirectionReport(@ModelAttribute("direction") Direction direction, Model model) {
-        model.addAttribute("directionReports",deliveryRequestService.getDirectionReport(direction.getCity_en()));
-        return "directionReport";
-    }
 
     @GetMapping("/directionReports")
-    public String DirectionReport(Model model) {
+    public String DirectionReport(Model model,
+                                  @RequestParam(value = "city", required = false) String city,
+                                  @RequestParam(value = "page", required = false, defaultValue = "0") Integer page) {
+        Page<DeliveryRequest> deliveryRequestPage = deliveryRequestService.getDirectionReport(city, PageRequest.of(page, 2));
+        model.addAttribute("directionReports", deliveryRequestPage.getContent());
+        model.addAttribute("pages", deliveryRequestPage);
+        model.addAttribute("numbers", IntStream.range(0, deliveryRequestPage.getTotalPages()).toArray());
+        model.addAttribute("city", city);
         return "directionReport";
     }
 
     @GetMapping("/reportsByDays")
-    public String createReportByDays(Model model) {
-        return "reportByDays";
-    }
-
-
-    @PostMapping("/reportsByDays")
-    public String ReportByDays(@ModelAttribute("deliveryRequest") DeliveryRequest deliveryRequest, Model model) {
-        model.addAttribute("deliveryRequestsByDay", deliveryRequestService.getReportByDay(deliveryRequest.getDateOfArrival()));
+    public String createReportByDays(Model model,
+                                     @RequestParam(value = "day", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate day,
+                                     @RequestParam(value = "page", required = false, defaultValue = "0") Integer page) {
+        Page<DeliveryRequest> deliveryRequestPage = deliveryRequestService.getReportByDays(day, PageRequest.of(page, 2));
+        model.addAttribute("deliveryRequestsByDay", deliveryRequestPage.getContent());
+        model.addAttribute("pages", deliveryRequestPage);
+        model.addAttribute("numbers", IntStream.range(0, deliveryRequestPage.getTotalPages()).toArray());
+        model.addAttribute("day", day);
         return "reportByDays";
     }
 
@@ -74,12 +80,9 @@ public class DeliveryRequestController {
         Optional<DeliveryRequest> newDeliveryRequest = deliveryRequestRepository.findById(id);
         model.addAttribute("deliveryRequest", newDeliveryRequest);
         double price = deliveryCostService.calculateDeliveryCost(newDeliveryRequest.get().getWeight(),
-                newDeliveryRequest.get().getVolume(), newDeliveryRequest.get().getAddress().getDirection().getCity_en());
+                newDeliveryRequest.get().getVolume(), newDeliveryRequest.get().getAddress().getDirection().getCityEn());
         model.addAttribute("price", price);
-        receipt.setDeliveryRequest(newDeliveryRequest.get());
-        receipt.setPrice(price);
-        receipt.setStatus("not paid");
-        receiptRepository.save(receipt);
+        receiptService.saveReceipt(receipt, price, newDeliveryRequest);
         return "receipt";
     }
 

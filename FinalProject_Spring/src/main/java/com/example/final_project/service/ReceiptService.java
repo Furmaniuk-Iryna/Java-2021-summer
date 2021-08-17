@@ -1,5 +1,6 @@
 package com.example.final_project.service;
 
+import com.example.final_project.entity.DeliveryRequest;
 import com.example.final_project.entity.Receipt;
 import com.example.final_project.entity.User;
 import com.example.final_project.repository.DeliveryRequestRepository;
@@ -36,8 +37,13 @@ public class ReceiptService {
    else return "fail";
    }
 
- public void recharge (User user,  double sum){
-       userRepository.findByUsername(user.getUsername()).setBalance(user.getBalance()+sum);
- }
-
+// public void recharge (User user,  double sum){
+//       userRepository.findByUsername(user.getUsername()).setBalance(user.getBalance()+sum);
+// }
+public  void saveReceipt(Receipt receipt, double price, Optional<DeliveryRequest> newDeliveryRequest){
+    receipt.setDeliveryRequest(newDeliveryRequest.get());
+    receipt.setPrice(price);
+    receipt.setStatus("not paid");
+    receiptRepository.save(receipt);
+}
 }

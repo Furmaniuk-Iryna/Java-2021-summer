@@ -1,5 +1,6 @@
 package com.example.final_project.service;
 
+import com.example.final_project.entity.Role;
 import com.example.final_project.entity.User;
 import com.example.final_project.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.Optional;
 
 @Service
@@ -30,7 +32,12 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
-
+public void saveUser(User user){
+    user.setBalance(0);
+    user.setActive(true);
+    user.setRoles(Collections.singleton(Role.USER));
+    userRepository.save(user);
+}
 //    public boolean deleteUser(Long userId) {
 //        if (userRepository.findById(userId).isPresent()) {
 //            userRepository.deleteById(userId);

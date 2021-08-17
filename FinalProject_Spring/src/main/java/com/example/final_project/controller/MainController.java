@@ -15,14 +15,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 
 @Controller
 @RequestMapping("/")
 public class MainController {
     private boolean sorted;
-    private boolean filter=false;
-    private Direction filterDirection=new Direction();
+
+    private List<Direction> filterDirection;
 
     @Autowired
     private DeliveryCostService deliveryCostService;
@@ -39,10 +40,12 @@ public class MainController {
     @GetMapping()
     public String mainPage(@RequestParam(name = "sort",
             required = false, defaultValue = "false") Boolean sort,
+                           @RequestParam(name = "filter",
+                                   required = false, defaultValue = "false") Boolean filter,
+                           @RequestParam(value = "city", required = false,defaultValue = "") String city,
                            Model model) {
         model.addAttribute("filter",filter);
-        model.addAttribute("filterDirection", filterDirection);
-        model.addAttribute("neededDirection", new Direction());
+        model.addAttribute("filterDirection",filterDirection=directionServise.findDirectionsLike(city));
         model.addAttribute("locale", LocaleContextHolder.getLocale().getLanguage());
         model.addAttribute("sort", sort);
         sorted = sort;
@@ -58,14 +61,14 @@ public class MainController {
 
     @PostMapping()
     public String deliveryCost(@ModelAttribute("deliveryCost") @Valid DeliveryCost deliveryCost, BindingResult bindingResult,
-                               @ModelAttribute("directionValue") Direction direction,
                                @RequestParam(name = "sort", required = false,
                                        defaultValue = "false") Boolean sort,
+                               @RequestParam(name = "filter",
+                                       required = false,defaultValue = "false") Boolean filter,
                                Model model) {
         sort = sorted;
         model.addAttribute("filter",filter);
         model.addAttribute("filterDirection", filterDirection);
-        model.addAttribute("neededDirection", new Direction());
         model.addAttribute("locale", LocaleContextHolder.getLocale().getLanguage());
         model.addAttribute("sort", sort);
         model.addAttribute("tariffs", tariffRepository.findAll());
@@ -73,22 +76,11 @@ public class MainController {
         model.addAttribute("sortedDirectionsEnLocale", directionServise.sortedDirectionsForEnLocale());
         model.addAttribute("sortedDirectionsUkLocale", directionServise.sortedDirectionsForUkLocale());
         if(bindingResult.hasErrors()) return "main";
-        model.addAttribute("result", deliveryCostService.calculateDeliveryCost(deliveryCost.getWeight(), deliveryCostService.calculateVolumeForDeliveryCosts(deliveryCost),deliveryCost.getCity()));
+        model.addAttribute("result", deliveryCostService.calculateDeliveryCost(deliveryCost.getWeight(),
+                deliveryCostService.calculateVolumeForDeliveryCosts(deliveryCost),deliveryCost.getCity()));
         return "main";
     }
 
-    @PostMapping("filter")
-    public String createDirectionReport(@ModelAttribute("neededDirection") Direction neededDirection, Model model) {
-        model.addAttribute("filterDirection",filterDirection=directionServise.getNeededDirection(neededDirection.getCity_en()));
-        model.addAttribute("filter", filter=true);
-        return "redirect:/";
-    }
-    @GetMapping("filter")
-    public String getDirectionWithoutFilter(@ModelAttribute("neededDirection") Direction neededDirection, Model model) {
-        model.addAttribute("filterDirection",filterDirection);
-        model.addAttribute("filter", filter=false);
-        return "redirect:/";
-    }
 
 
 }
