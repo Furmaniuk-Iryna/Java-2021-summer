@@ -28,14 +28,14 @@
     </thead>
     <tbody>
     <tr>
-        <th th:text="${deliveryRequest.get().getId()}"></th>
-        <td th:text="${deliveryRequest.get().getUser().getUsername()}"></td>
-        <td th:text="${deliveryRequest.get().getType_en()}"></td>
-        <td th:text="${deliveryRequest.get().getWeight()}"></td>
-        <td th:text="${deliveryRequest.get().getVolume()}"></td>
-        <td th:text="${deliveryRequest.get().getAddress().getDirection().getCityEn()}"></td>
-        <td th:text="${deliveryRequest.get().address.getAddress_en()}"></td>
-        <td th:text="${deliveryRequest.get().dateOfArrival}"></td>
+        <th th:text="${deliveryRequest.getId()}"></th>
+        <td th:text="${deliveryRequest.getUser().getUsername()}"></td>
+        <td th:text="${deliveryRequest.getType_en()}"></td>
+        <td th:text="${deliveryRequest.getWeight()}"></td>
+        <td th:text="${deliveryRequest.getVolume()}"></td>
+        <td th:text="${deliveryRequest.getAddress().getDirection().getCityEn()}"></td>
+        <td th:text="${deliveryRequest.address.getAddress_en()}"></td>
+        <td th:text="${deliveryRequest.dateOfArrival}"></td>
         <th th:text="${price}"></th>
     </tr>
     </tbody>

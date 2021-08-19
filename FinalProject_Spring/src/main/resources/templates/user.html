@@ -14,6 +14,8 @@
 <div class="header_top">
     <div class="locale">
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button disabled class="btn btn-light" th:text="#{balance}+' '+${balance}"></a>
+            </button>
             <button class="btn btn-light" type="button"><a class="button_locale" th:href="@{'?locale=uk'}">UKR</a>
             </button>
             <button class="btn btn-light" type="button"><a class="button_locale" th:href="@{'?locale=en'}">ENG</a>
@@ -33,7 +35,19 @@
 <br><br>
 <button class="btn btn-info" type="button">
     <a class="button_a" th:href="@{'/logout'}" th:text="#{logout.text}"></a>
-</button>
+</button><br><br>
+<form th:action="@{/users/recharge}">
+    <select th:name="sum">
+        <option value="1">1</option>
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+        <option value="500">500</option>
+        <option value="1000">1000</option>
+    </select>
+    <input type="submit" class="btn btn-info button_a" th:value="#{replenish.balance}"/>
+</form>
 
 <div th:if="${paid=='fail'}" class="alert alert-primary d-flex align-items-center" role="alert">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
@@ -49,6 +63,7 @@
     </svg>
     <div th:text="#{successful.pay}"></div>
 </div>
+
 <div class="card">
 <table class="table" th:if="${isDeliveryRequests}">
     <thead class="table-dark table-hover">
@@ -62,7 +77,6 @@
         <th th:text="#{address}"></th>
         <th th:text="#{date.of.arrival}"></th>
         <th th:text="#{price}"></th>
-        <th></th>
     </tr>
     </thead>
     <tbody>
@@ -75,15 +89,16 @@
         <td th:text="${request.getAddress().getDirection().getCityEn()}"></td>
         <td th:text="${request.address.getAddress_en()}"></td>
         <td th:text="${request.dateOfArrival}"></td>
-        <td th:each="receipt : ${receipts}">
-            <p th:if="${receipt.getDeliveryRequest().getId()==request.getId()}" th:text="${receipt.price}"></p>
-        </td>
         <td>
-            <button class="btn btn-info" type="button">
-                <a class="button_a" th:href="@{/users/deliveryRequests/{id} (id=${request.getId()})}"
+            <div th:each="receipt : ${receipts}" th:if="${receipt.getDeliveryRequest().getId()==request.getId()}">
+                <p th:text="${receipt.price}"></p>
+                <button class="btn btn-info" type="button" th:if="${receipt.status!='paid'}">
+                <a class="button_a"  th:href="@{/users/deliveryRequests/{id} (id=${request.getId()})}"
                    th:text="#{pay}">
                 </a>
             </button>
+            </div>
+
         </td>
     </tr>
     </tbody>

@@ -32,8 +32,6 @@ public class DeliveryRequestController {
     @Autowired
     private DeliveryRequestService deliveryRequestService;
     @Autowired
-    private DeliveryCostService deliveryCostService;
-    @Autowired
     private ReceiptRepository receiptRepository;
     @Autowired
     private ReceiptService receiptService;
@@ -41,7 +39,7 @@ public class DeliveryRequestController {
     @GetMapping()
     public String createManagerPage(@RequestParam(value = "page",required = false, defaultValue = "0") Integer page,
                                     Model model) {
-        Page<DeliveryRequest> deliveryRequestPage=deliveryRequestRepository.findAll(PageRequest.of(page, 3));
+        Page<DeliveryRequest> deliveryRequestPage=deliveryRequestRepository.findDeliveryRequests(PageRequest.of(page, 3));
         model.addAttribute("deliveryRequests", deliveryRequestPage.getContent());
         model.addAttribute("pages", deliveryRequestPage);
         model.addAttribute("numbers", IntStream.range(0,deliveryRequestPage.getTotalPages()).toArray());
@@ -76,13 +74,11 @@ public class DeliveryRequestController {
     }
 
     @GetMapping("/{id}")
-    public String createReceipt(@PathVariable("id") long id, Receipt receipt, Model model) {
-        Optional<DeliveryRequest> newDeliveryRequest = deliveryRequestRepository.findById(id);
+    public String createReceipt(@PathVariable("id") long id,Model model) {
+        DeliveryRequest newDeliveryRequest = deliveryRequestRepository.findById(id).orElseThrow(RuntimeException::new);
         model.addAttribute("deliveryRequest", newDeliveryRequest);
-        double price = deliveryCostService.calculateDeliveryCost(newDeliveryRequest.get().getWeight(),
-                newDeliveryRequest.get().getVolume(), newDeliveryRequest.get().getAddress().getDirection().getCityEn());
-        model.addAttribute("price", price);
-        receiptService.saveReceipt(receipt, price, newDeliveryRequest);
+        receiptService.saveReceipt(newDeliveryRequest);
+        model.addAttribute("price", receiptRepository.findReceiptByDeliveryRequest(newDeliveryRequest).getPrice());
         return "receipt";
     }
 

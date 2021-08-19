@@ -6,8 +6,10 @@ import com.example.final_project.entity.User;
 import com.example.final_project.repository.AddressRepository;
 import com.example.final_project.repository.DeliveryRequestRepository;
 import com.example.final_project.repository.ReceiptRepository;
+import com.example.final_project.repository.UserRepository;
 import com.example.final_project.service.DeliveryRequestService;
 import com.example.final_project.service.ReceiptService;
+import com.example.final_project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -23,10 +25,8 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/users")
 public class UserController {
-    private String paid;
     @Autowired
     private DeliveryRequestService deliveryRequestService;
-
     @Autowired
     private DeliveryRequestRepository deliveryRequestRepository;
     @Autowired
@@ -35,15 +35,23 @@ public class UserController {
     private ReceiptService receiptService;
     @Autowired
     private AddressRepository addressRepository;
+    @Autowired
+    private UserService userService;
 
     @GetMapping()
     public String userPage(@AuthenticationPrincipal User user, Model model) {
-        ArrayList<DeliveryRequest> deliveryRequests = deliveryRequestRepository.findDeliveryRequestByUser(user);
-        model.addAttribute("isDeliveryRequests", deliveryRequests.size() > 0 ? "true" : "false");
-        model.addAttribute("deliveryRequests", deliveryRequests);
+        model.addAttribute("isDeliveryRequests", deliveryRequestRepository.findDeliveryRequestByUser(user).size() > 0 ? "true" : "false");
+        model.addAttribute("deliveryRequests", deliveryRequestRepository.findDeliveryRequestByUser(user));
         model.addAttribute("receipts", receiptRepository.findAll());
+        model.addAttribute("balance",userService.findUserById(user.getIdUser()).getBalance());
         model.addAttribute("paid","");
         return "user";
+    }
+    @GetMapping("/recharge")
+    public String userPage(@AuthenticationPrincipal User user,
+                           @RequestParam(value = "sum", required = true) Integer sum) {
+        receiptService.recharge(user, sum);
+        return "redirect:/users";
     }
 
     @GetMapping("/deliveryRequests")
@@ -56,8 +64,7 @@ public class UserController {
 
     @PostMapping("/deliveryRequests")
     public String readDeliveryRequest(@ModelAttribute("deliveryRequest") @Valid DeliveryRequest deliveryRequest, BindingResult bindingResult,
-                                      @AuthenticationPrincipal User user, Model model) {
-        model.addAttribute("addresses", addressRepository.findAll());
+                                      @AuthenticationPrincipal User user) {
         if(bindingResult.hasErrors()){ return "deliveryRequest";}
         deliveryRequestService.saveDeliveryRequest(deliveryRequest, user);
         return "redirect:/users";
@@ -65,12 +72,11 @@ public class UserController {
 
     @GetMapping("/deliveryRequests/{id}")
     public String paymentPage(@PathVariable("id") long id,@AuthenticationPrincipal User user, Model model) {
-        ArrayList<DeliveryRequest> deliveryRequests = deliveryRequestRepository.findDeliveryRequestByUser(user);
-        model.addAttribute("isDeliveryRequests", deliveryRequests.size() > 0 ? "true" : "false");
-        model.addAttribute("deliveryRequests", deliveryRequests);
+        model.addAttribute("isDeliveryRequests", deliveryRequestRepository.findDeliveryRequestByUser(user).size() > 0 ? "true" : "false");
+        model.addAttribute("deliveryRequests", deliveryRequestRepository.findDeliveryRequestByUser(user));
         model.addAttribute("receipts", receiptRepository.findAll());
-        paid = receiptService.pay(user, receiptRepository.findReceiptByDeliveryRequest(deliveryRequestRepository.getById(id)));
-        model.addAttribute("paid",paid);
+        model.addAttribute("balance",userService.findUserById(user.getIdUser()).getBalance());
+        model.addAttribute("paid",receiptService.checkPay(user, receiptRepository.findReceiptByDeliveryRequest(deliveryRequestRepository.getById(id))));
         return "user";
     }
 

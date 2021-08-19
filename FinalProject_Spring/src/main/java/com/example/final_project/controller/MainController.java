@@ -36,7 +36,6 @@ public class MainController {
     @Autowired
     private DeliveryRequestService deliveryRequestService;
 
-//TODO refactoring
     @GetMapping()
     public String mainPage(@RequestParam(name = "sort",
             required = false, defaultValue = "false") Boolean sort,
@@ -58,7 +57,7 @@ public class MainController {
         return "main";
     }
 
-
+// TODO PRG
     @PostMapping()
     public String deliveryCost(@ModelAttribute("deliveryCost") @Valid DeliveryCost deliveryCost, BindingResult bindingResult,
                                @RequestParam(name = "sort", required = false,
@@ -77,7 +76,8 @@ public class MainController {
         model.addAttribute("sortedDirectionsUkLocale", directionServise.sortedDirectionsForUkLocale());
         if(bindingResult.hasErrors()) return "main";
         model.addAttribute("result", deliveryCostService.calculateDeliveryCost(deliveryCost.getWeight(),
-                deliveryCostService.calculateVolumeForDeliveryCosts(deliveryCost),deliveryCost.getCity()));
+                deliveryCostService.calculateVolume(deliveryCost.getLength(),deliveryCost.getHeight(),deliveryCost.getWidth()),
+                deliveryCost.getCity()));
         return "main";
     }
 

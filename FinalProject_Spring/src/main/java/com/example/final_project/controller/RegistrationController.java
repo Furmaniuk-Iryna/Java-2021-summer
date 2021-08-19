@@ -35,7 +35,7 @@ public class RegistrationController {
     @PostMapping()
     public String addUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) return "registration";
-        Optional<User> userFromDB = Optional.ofNullable(userRepository.findByUsername(user.getUsername()));
+        Optional<User> userFromDB = userRepository.findByUsername(user.getUsername());
         if (userFromDB.isPresent()) {
             model.addAttribute("message", "User " + user.getUsername() + " exists!");
             return "registration";

@@ -2,13 +2,15 @@ package com.example.final_project.service;
 
 import com.example.final_project.entity.DeliveryCost;
 import com.example.final_project.repository.TariffRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.example.final_project.constants.Constant.*;
+@Slf4j
 @Service
 public class DeliveryCostService {
-    private final int centimetersToCubicMeters = 1000000; // винести в константи
     private double forWeight;
     private double forVolume;
 
@@ -18,8 +20,8 @@ public class DeliveryCostService {
     @Autowired
     private DirectionServise directionServise;
 
-    public double calculateVolumeForDeliveryCosts(DeliveryCost deliveryCost) {
-        return (double) deliveryCost.getLength() * deliveryCost.getWidth() * deliveryCost.getHeight() / centimetersToCubicMeters;
+    public double calculateVolume(int length, int height, int width) {
+        return (double) length * width * height / centimetersToCubicMeters;
     }
 
     public double calculateDeliveryCost(double weight, double volume, String city) {
@@ -34,8 +36,7 @@ public class DeliveryCostService {
     }
 
     public void chooseTariff(double weight, double volume, String city) {
-        //TODO optional, const
-        getTariffForWeightAndVolume(weight > 50 || volume > 1
-                || directionServise.getDistance(city) > 500 ? 2L : 1L);
+        getTariffForWeightAndVolume(weight > maxWeight || volume > maxVolume
+                || directionServise.getNeededDirection(city).getDistance() > maxDistance ? secondTariffId : firstTariffId);
     }
 }

@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 
 @Entity
-@Table(name = "delivery_request")
+@Table(name = "request")
 
 public class DeliveryRequest {
     @Id

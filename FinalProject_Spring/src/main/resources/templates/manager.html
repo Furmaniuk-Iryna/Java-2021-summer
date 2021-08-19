@@ -78,7 +78,7 @@
     <label for="d" th:text="#{city}"/>
     <input type="text" th:name="city" id="d"/>
     <input type="hidden" th:name="page" />
-    <input type="submit" class="btn btn-info button_a"/>
+    <input type="submit" class="btn btn-info button_a" th:value="#{direction.report}"/>
 </form><br>
 <form th:action="@{/deliveryRequests/reportsByDays}"  class="report" >
     <label th:text="#{date.of.arrival}"/>
