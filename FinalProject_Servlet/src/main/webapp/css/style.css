@@ -1,0 +1,138 @@
+* {
+    box-sizing: border-box;
+}
+.button_a {
+    text-decoration: none;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+}
+.button_manager{
+    max-width: 1180px;
+    margin: 10px auto 10px auto;
+}
+.button_locale {
+    text-decoration: none;
+    color: royalblue;
+    background-color: transparent;
+}
+
+.header_top {
+    background-color: #696969;
+    padding: 10px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.locale {
+    margin-top: 10px;
+    margin-right: 20px;
+    margin-left: 10px;
+    width: auto;
+}
+
+.registration_container {
+    padding: 20px;
+}
+
+.header_container {
+    padding: 10px;
+}
+
+h1.name_company {
+    color: deepskyblue;
+    text-align: center;
+}
+
+.tariff {
+    background-color: #696969;
+}
+
+.directions {
+    background-color: #DCDCDC;
+}
+
+.delivery_cost,
+.form {
+    width: 500px;
+    margin: 0 auto;
+}
+
+.tariffs {
+    color: white;
+    text-align: center;
+}
+
+.input_button {
+    background-color: transparent;
+    border: none;
+}
+
+.cost_result {
+    text-align: center;
+}
+
+.title {
+    text-align: center;
+    color: deepskyblue;
+}
+
+button.sort_button {
+    margin-right: 10px;
+    float: right;
+}
+div.error{
+    color: red;
+}
+.form_request{
+    width: 500px;
+    margin: 20px 100px 20px auto;
+}
+/*.delivery_request{*/
+/*    background-image: url(http://localhost:8080/image/boxes-for-shipping.jpg);*/
+/*    background-repeat: no-repeat;*/
+/*    background-size: cover;*/
+/*    background-position: center;*/
+/*    min-height: 500px;*/
+/*    color: white;*/
+/*    font-size: 20px;*/
+/*    font-weight: bold;*/
+/*}*/
+/*.registration{*/
+/*    background-image: url(http://localhost:8080/image/laptop-in-empty-room.jpg);*/
+/*    background-repeat: no-repeat;*/
+/*    background-size: cover;*/
+/*    background-position: center;*/
+/*    min-height: 500px;*/
+/*    color: white;*/
+/*    font-size: 20px;*/
+/*    font-weight: bold;*/
+/*}*/
+/*.registration_title{*/
+/*    text-align: center;*/
+/*}*/
+
+/*.card{*/
+/*    max-width: 1180px;*/
+/*    margin: 10px auto;*/
+/*}*/
+/*nav.pagination_conteiner, form.report{*/
+/*    margin-right: 10px;*/
+/*    margin-left: auto;*/
+/*}*/
+/*.manager{*/
+/*    background-image: url(http://localhost:8080/image/truck-2677373_1920.jpg);*/
+/*    background-repeat: no-repeat;*/
+/*    background-size: cover;*/
+/*    background-position: center;*/
+/*    min-height: 500px;*/
+/*    color: white;*/
+/*    font-size: 15px;*/
+/*}*/
+/*.user{*/
+/*    background-image: url(http://localhost:8080/image/port-1845350_1920.jpg);*/
+/*    background-repeat: no-repeat;*/
+/*    background-size: cover;*/
+/*    background-position: center;*/
+/*    min-height: 500px;*/
+/*}*/

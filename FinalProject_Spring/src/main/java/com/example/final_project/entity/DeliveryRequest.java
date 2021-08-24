@@ -40,10 +40,6 @@ public class DeliveryRequest {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfArrival;
 
-//    @ManyToOne
-//    @JoinColumn(name="direction_id", nullable=false)
-//    private Direction direction;
-
     @ManyToOne
     @JoinColumn(name="user_id", nullable=false)
     private User user;

@@ -3,16 +3,12 @@ package com.example.final_project.service;
 import com.example.final_project.entity.DeliveryRequest;
 import com.example.final_project.entity.Receipt;
 import com.example.final_project.entity.User;
-import com.example.final_project.repository.DeliveryRequestRepository;
 import com.example.final_project.repository.ReceiptRepository;
-import com.example.final_project.repository.TariffRepository;
 import com.example.final_project.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 @Slf4j
 @Service

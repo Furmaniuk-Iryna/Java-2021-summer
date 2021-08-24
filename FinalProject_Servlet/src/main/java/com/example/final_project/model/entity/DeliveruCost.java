@@ -7,4 +7,5 @@ public class DeliveruCost {
     private int width;
     private int height;
     private String city;
+
 }
