@@ -6,7 +6,6 @@ import javax.sql.DataSource;
 public class ConnectionPoolHolder {
     private static volatile DataSource dataSource;
     public static DataSource getDataSource(){
-        System.out.println("DATA --------------------------");
         if (dataSource == null){
             synchronized (ConnectionPoolHolder.class) {
                 if (dataSource == null) {
@@ -15,10 +14,9 @@ public class ConnectionPoolHolder {
                     ds.setUsername("root");
                     ds.setPassword("rootroot");
                     ds.setMinIdle(5);
-                    ds.setMaxIdle(10);
-                    ds.setMaxOpenPreparedStatements(100);
+                    ds.setMaxIdle(20);
+                    ds.setMaxOpenPreparedStatements(200);
                     dataSource = ds;
-                    System.out.println("------DB______________");
                 }
             }
         }

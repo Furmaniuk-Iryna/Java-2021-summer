@@ -1,9 +1,6 @@
 package com.example.final_project.model.dao.impl;
 
-import com.example.final_project.model.dao.DaoFactory;
-import com.example.final_project.model.dao.DeliveryRequestDao;
-import com.example.final_project.model.dao.TariffDao;
-import com.example.final_project.model.dao.UserDao;
+import com.example.final_project.model.dao.*;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -19,8 +16,19 @@ public class JDBCDaoFactory extends DaoFactory {
     }
 
     @Override
+    public DirectionDao createDirectionDao() {
+        return  new JDBCDirectionDao(getConnection());
+    }
+
+    @Override
     public UserDao createUserDao() {
+      //  System.out.println("---createUserDao");
         return new JDBCUserDao(getConnection());
+    }
+
+    @Override
+    public AddressDao createAddressDao() {
+        return new JDBCAddressDao(getConnection());
     }
 
     @Override
@@ -29,11 +37,11 @@ public class JDBCDaoFactory extends DaoFactory {
     }
 
     private Connection getConnection() {
+        //TODO check
         try {
-            System.out.println("---------CONN" + dataSource.getConnection());
+       //     System.out.println("----getConnection---" + dataSource.getConnection());
             return dataSource.getConnection();
         } catch (SQLException e) {
-            System.out.println("-----JDBCDaoFact");
             throw new RuntimeException(e);
         }
     }

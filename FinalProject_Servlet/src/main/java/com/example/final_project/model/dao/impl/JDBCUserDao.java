@@ -15,6 +15,7 @@ public class JDBCUserDao implements UserDao {
 
 
     public JDBCUserDao(Connection connection) {
+     //   System.out.println(" JDBCUserDao constr");
         this.connection = connection;
     }
 
@@ -29,12 +30,9 @@ public class JDBCUserDao implements UserDao {
             rs.setString(3, entity.getSurname());
             rs.setString(4, entity.getUsername());
             rs.setString(5, entity.getPassword());
-            rs.setObject(6, entity.getRole());
+            rs.setString(6, entity.getRole());
             rs.executeUpdate();
-//            rs.execute();
-            rs.close();
         } catch (SQLException throwables) {
-            System.out.println("------------SAVE ER");
             throwables.printStackTrace();
 
         }
@@ -57,8 +55,6 @@ public class JDBCUserDao implements UserDao {
                         res.getString("password"),
                         res.getString("role"));
             }
-            res.close();
-            ps.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -82,10 +78,8 @@ public class JDBCUserDao implements UserDao {
                         res.getString("password"),
                         res.getString("role"));
             }
-            res.close();
-            ps.close();
         } catch (SQLException ex) {
-            System.out.println("---------FIND BY NAME ER");
+           // System.out.println("---FIND BY NAME EXCEPTION");
             ex.printStackTrace();
 
         }

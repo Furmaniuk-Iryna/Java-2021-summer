@@ -11,7 +11,7 @@ public class SessionListener implements HttpSessionListener {
     }
 
     @Override
-    public void sessionDestroyed(HttpSessionEvent httpSessionEvent) {
+    public synchronized void sessionDestroyed(HttpSessionEvent httpSessionEvent) {
         HashSet<String> loggedUsers = (HashSet<String>) httpSessionEvent
                 .getSession().getServletContext()
                 .getAttribute("loggedUsers");

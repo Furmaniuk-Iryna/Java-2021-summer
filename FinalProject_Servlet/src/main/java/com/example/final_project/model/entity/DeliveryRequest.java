@@ -37,6 +37,17 @@ public class DeliveryRequest {
         this.tariff = tariff;
     }
 
+    public DeliveryRequest(LocalDate dateOfArrival,String type_en, String type_uk, double volume, double weight, Address address, User user, Tariff tariff) {
+        this.type_en = type_en;
+        this.type_uk = type_uk;
+        this.weight = weight;
+        this.volume = volume;
+        this.address = address;
+        this.dateOfArrival = dateOfArrival;
+        this.user = user;
+        this.tariff = tariff;
+    }
+
     public Tariff getTariff() {
         return tariff;
     }

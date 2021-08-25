@@ -1,17 +1,22 @@
 package com.example.final_project.controller.command;
 
+import com.example.final_project.model.entity.Direction;
 import com.example.final_project.model.entity.Tariff;
+import com.example.final_project.model.service.DirectionService;
 import com.example.final_project.model.service.TariffService;
-
 import javax.servlet.http.HttpServletRequest;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.List;
 
 public class Main implements Command {
-    TariffService tariffService = new TariffService();
-
+  private TariffService tariffService= new TariffService();
+  private DirectionService directionService= new DirectionService();
+    List<Tariff> tariffList = tariffService.getAllTariffs();
+    List<Direction> directionList = directionService.getAllDirections();
 
     @Override
-    public String execute(HttpServletRequest request) {
-        return "/index.jsp";
+    public String execute(HttpServletRequest request)  {
+        request.setAttribute("tariffList", tariffList);
+        request.setAttribute("directions", directionList);
+        return "/main.jsp";
     }
 }

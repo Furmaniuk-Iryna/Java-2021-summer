@@ -1,6 +1,7 @@
 package com.example.final_project.model.dao.impl;
 
 import com.example.final_project.model.dao.TariffDao;
+import com.example.final_project.model.entity.Direction;
 import com.example.final_project.model.entity.Tariff;
 
 import java.sql.Connection;
@@ -27,7 +28,24 @@ public class JDBCTariffDao implements TariffDao {
 
     @Override
     public Tariff findById(long id) {
-        return null;
+        Tariff tariff= new Tariff();
+        try {
+            PreparedStatement ps = connection.prepareStatement("select * from `tariff` where `id_tariff`=?");
+            ps.setLong(1, id);
+            ResultSet res = ps.executeQuery();
+            while (res.next()) {
+                tariff = new Tariff(res.getLong("id_tariff"),
+                        res.getString("description_en"),
+                        res.getString("description_uk"),
+                        res.getDouble("for_volume"),
+                        res.getDouble("for_weight"),
+                        res.getString("name_en"),
+                        res.getString("name_uk"));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return tariff;
     }
 
     @Override
@@ -51,10 +69,7 @@ public class JDBCTariffDao implements TariffDao {
                         res.getString("name_en"),
                         res.getString("name_uk")));
             }
-            res.close();
-            ps.close();
         } catch (SQLException throwables) {
-            System.out.println("FIND ALL EX");
             throwables.printStackTrace();
         }
         return tariffList;
@@ -72,6 +87,10 @@ public class JDBCTariffDao implements TariffDao {
 
     @Override
     public void close() {
-
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

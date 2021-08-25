@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 public class Registration implements Command{
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public synchronized String execute(HttpServletRequest request) {
         UserService userService = new UserService();
        String name = request.getParameter("name");
         String surname = request.getParameter("surname");

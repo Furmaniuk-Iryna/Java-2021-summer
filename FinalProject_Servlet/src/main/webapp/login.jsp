@@ -25,7 +25,7 @@
     <br><br>
     <input class="btn btn-info button_a" type="submit">
     <button class="btn btn-light" type="button">
-        <a class="button_locale" href="${pageContext.request.contextPath}/" > Exit</a>
+        <a class="button_locale" href="${pageContext.request.contextPath}/main" > Exit</a>
     </button>
 </form>
 </body>
