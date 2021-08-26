@@ -4,7 +4,7 @@
 <%@ taglib prefix="s" uri="http://java.sun.com/jsp/jstl/sql" %>
 
 <%-- Теги для форматирования и интернационализации информации (i10n и i18n)--%>
-<%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.util.*, java.text.*" %>
 <%@ page import="com.example.final_project.model.entity.Tariff" %>
@@ -20,24 +20,29 @@
     <title>Cargo delivery</title>
 </head>
 <body>
+<% String newLocale=request.getParameter("locale")==null?"en":request.getParameter("locale");
+request.setAttribute("locale",newLocale);
+%>
+<fmt:setLocale value="${locale}" />
+<fmt:setBundle basename="messages"/>
 <%-- <% List<Tariff> tariffs = (List<Tariff>) request.getAttribute("tariffs"); %>--%>
 <div class="header_top">
     <div class="locale">
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <button class="btn btn-light" type="button">
-                <a class="button_locale" href="${pageContext.request.contextPath}/login">Log in</a>
+                <a class="button_locale" href="${pageContext.request.contextPath}/login"><fmt:message key="login" /></a>
             </button>
             <button class="btn btn-light" type="button">
-                <a class="button_locale" href="${pageContext.request.contextPath}/registration">Registration</a>
+                <a class="button_locale" href="${pageContext.request.contextPath}/registration"><fmt:message key="registration" /></a>
             </button>
             <button class="btn btn-light" type="button">
-                <a class="button_locale" href="${pageContext.request.contextPath}/main">Site</a>
+                <a class="button_locale" href="${pageContext.request.contextPath}/main"><fmt:message key="website" /></a>
             </button>
-            <%--            <button class="btn btn-light" type="button"><a class="button_locale" th:href="@{'?locale=uk'}">UKR</a>--%>
-            <%--            </button>--%>
+            <button class="btn btn-light" type="button"><a class="button_locale" href="?locale=uk">UKR</a>
+            </button>
 
-            <%--            <button class="btn btn-light" type="button"><a class="button_locale" th:href="@{'?locale=en'}">ENG</a>--%>
-            <%--            </button>--%>
+            <button class="btn btn-light" type="button"><a class="button_locale" href="?locale=en">ENG</a>
+            </button>
         </div>
     </div>
 </div>

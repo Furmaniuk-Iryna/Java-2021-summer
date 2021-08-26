@@ -8,16 +8,18 @@ import com.example.final_project.model.entity.Direction;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class AddressService {
     DaoFactory daoFactory = DaoFactory.getInstance();
 
-    public List<Address> getAllAddress(){
+    public List<Address> getAllAddress(){ // CopyOnWriteArrayList???
         try (AddressDao dao = daoFactory.createAddressDao()) {
 
             return Optional.ofNullable(dao.findAll()).orElseThrow(RuntimeException::new);
         }
     }
+
     public Address getAddressById(long id){
         try (AddressDao dao = daoFactory.createAddressDao()) {
 

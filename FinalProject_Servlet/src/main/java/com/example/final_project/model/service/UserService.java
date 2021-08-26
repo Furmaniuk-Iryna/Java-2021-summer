@@ -21,4 +21,9 @@ public class UserService {
             dao.save(user);
         }
     }
+    public User getUserById(long id){
+        try (UserDao dao = daoFactory.createUserDao()) {
+            return Optional.ofNullable(dao.findById(id)).orElse(new User());
+        }
+    }
 }

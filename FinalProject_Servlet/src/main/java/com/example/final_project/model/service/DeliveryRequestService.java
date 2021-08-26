@@ -2,38 +2,49 @@ package com.example.final_project.model.service;
 
 import com.example.final_project.model.dao.DaoFactory;
 import com.example.final_project.model.dao.DeliveryRequestDao;
-import com.example.final_project.model.dao.TariffDao;
 import com.example.final_project.model.entity.DeliveryRequest;
 
-import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class DeliveryRequestService {
     DaoFactory daoFactory = DaoFactory.getInstance();
     private DirectionService directionService = new DirectionService();
     private TariffService tariffService = new TariffService();
     private double forWeight;
-    private  double forVolume;
+    private double forVolume;
 
-    public List<DeliveryRequest> getAllDeliveryRequests(){
+    public List<DeliveryRequest> getAllDeliveryRequests() {
         try (DeliveryRequestDao dao = daoFactory.createDeliveryRequestDao()) {
-            return dao.findAll();
+            return Optional.ofNullable(dao.findAll()).orElseThrow(RuntimeException::new);
         }
     }
-    public void saveDeliveryRequest(DeliveryRequest deliveryRequest){
+
+    public synchronized List<DeliveryRequest> getPagesDeliveryRequests(int firstRequest, int lastRequest) {
+        System.out.println("METHOD");
+        List<DeliveryRequest> deliveryRequestList = new ArrayList<>();
+        for (int request =firstRequest; request < lastRequest; request++)
+        {  deliveryRequestList.add(getAllDeliveryRequests().get(request));
+        System.out.println(firstRequest);}
+        return deliveryRequestList;
+    }
+
+    public void saveDeliveryRequest(DeliveryRequest deliveryRequest) {
         try (DeliveryRequestDao dao = daoFactory.createDeliveryRequestDao()) {
             dao.save(deliveryRequest);
         }
     }
 
 
-    public LocalDate newDateOfArrival(double distance) {
+    public LocalDate newDateOfArrival(double distance) { //synchronized?
         return distance > 500
                 ? LocalDate.now().plusDays(2)
                 : LocalDate.now().plusDays(1);
     }
-    public double calculateVolume(int length, int height, int width) {
+
+    public double calculateVolume(int length, int height, int width) {//synchronized?
         return (double) length * width * height / 1000000;
     }
 

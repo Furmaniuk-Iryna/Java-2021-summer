@@ -6,6 +6,7 @@ import com.example.final_project.model.service.DirectionService;
 import com.example.final_project.model.service.TariffService;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Locale;
 
 public class Main implements Command {
   private TariffService tariffService= new TariffService();
@@ -15,6 +16,10 @@ public class Main implements Command {
 
     @Override
     public String execute(HttpServletRequest request)  {
+        String language=request.getParameter("locale");
+        Locale locale = new Locale(language==null ? "en" : language);
+
+        request.setAttribute("locale", locale);
         request.setAttribute("tariffList", tariffList);
         request.setAttribute("directions", directionList);
         return "/main.jsp";
