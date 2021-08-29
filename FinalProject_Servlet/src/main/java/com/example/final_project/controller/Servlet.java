@@ -24,6 +24,9 @@ public class Servlet extends HttpServlet {
         commands.put("manager", new Manager());
         commands.put("delivery-request", new DeliveryRequestCommand());
         commands.put("delivery-request-save", new DeliveryRequestSave());
+        commands.put("receipt", new ReceiptCommand());
+        commands.put("directionReport", new DirectionReport());
+        commands.put("reportByDays", new ReportByDays());
     }
 
     /**

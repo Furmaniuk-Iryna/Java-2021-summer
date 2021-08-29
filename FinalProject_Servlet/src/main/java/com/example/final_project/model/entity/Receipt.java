@@ -16,6 +16,12 @@ public class Receipt {
         this.status = status;
     }
 
+    public Receipt( double price, String status,DeliveryRequest deliveryRequest) {
+        this.deliveryRequest = deliveryRequest;
+        this.price = price;
+        this.status = status;
+    }
+
     public long getId() {
         return id;
     }

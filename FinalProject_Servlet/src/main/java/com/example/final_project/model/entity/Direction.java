@@ -1,6 +1,8 @@
 package com.example.final_project.model.entity;
 
-public class Direction {
+import java.io.Serializable;
+
+public class Direction implements Serializable {
     private long id;
     private String cityEn;
     private String cityUk;

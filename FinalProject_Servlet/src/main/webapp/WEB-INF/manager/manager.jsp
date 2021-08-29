@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -17,11 +18,13 @@
     <title>Cargo delivery</title>
 </head>
 <body>
+<fmt:setLocale value="${locale}"/>
+<fmt:setBundle basename="messages"/>
 <h1>Manager</h1>
 <button class="btn btn-light" type="button">
     <a class="button_locale" href="${pageContext.request.contextPath}/logout"> Exit</a>
 </button>
-<l class="card">
+<div class="card">
     <h2>Delivery request</h2>
     <table class="table table-dark">
         <thead>
@@ -33,6 +36,7 @@
             <th>Volume</th>
             <th>Address</th>
             <th>Date of arrival</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -45,6 +49,11 @@
                 <td><c:out value="${request.volume}"/></td>
                 <td><c:out value="${request.address.address_en}"/></td>
                 <td><c:out value="${request.dateOfArrival}"/></td>
+                <td>  <button class="btn btn-light" type="button">
+                    <a class="button_a" href="${pageContext.request.contextPath}/receipt?id=${request.getId()}">
+                        <fmt:message key="calculate"></fmt:message>
+                    </a>
+                </button></td>
             </tr>
         </c:forEach>
         </tbody>
@@ -65,5 +74,19 @@
     </nav>
 
 </div>
+<form action="${pageContext.request.contextPath}/directionReport"  class="report">
+    <label for="d" >City</label>
+    <input type="text" name="city" id="d"/>
+    <input type="hidden" name="page" value="1" />
+    <input type="submit" class="btn btn-info button_a"/>
+</form><br>
+
+<form  action="${pageContext.request.contextPath}/reportByDays"  class="report">
+    <label>Day</label>
+    <input type="date" name="day" />
+    <input type="hidden" name="page" value="1" />
+    <input type="submit" class="btn btn-info button_a"/>
+</form><br>
+
 </body>
 </html>

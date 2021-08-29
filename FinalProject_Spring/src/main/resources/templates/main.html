@@ -13,13 +13,11 @@
 <body>
 
 <div class="header_top">
-
     <div class="locale">
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <button class="btn btn-light" type="button">
                 <a class="button_locale" th:href="@{'/users'}" th:text="#{login.text}"></a>
             </button>
-
             <button class="btn btn-light" type="button">
                 <a class="button_locale" th:href="@{'/registration'}" th:text="#{registration}"></a>
             </button>
@@ -31,6 +29,7 @@
         </div>
     </div>
 </div>
+
 <div class="header_container">
     <h1 class=name_company th:text="#{name.company}"></h1><br><br>
 </div>
@@ -70,7 +69,9 @@
         </tr>
         </tbody>
     </table>
+
 </div>
+
 <div class="directions">
     <h2 class="title" th:text="#{directions.title}"></h2>
 
@@ -110,8 +111,8 @@
         </tr>
         </tbody>
     </table>
-
 </div>
+
 <div class="cost">
     <h2 class="title" th:text="#{calculate.costs.title}"/>
 

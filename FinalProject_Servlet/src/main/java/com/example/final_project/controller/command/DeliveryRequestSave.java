@@ -18,14 +18,13 @@ public class DeliveryRequestSave implements Command{
     public synchronized String execute(HttpServletRequest request) throws ServletException, IOException {
         String type_en = request.getParameter("typeEn");
         double weight = Double.parseDouble(request.getParameter("weight"));
-        Integer width = Integer.valueOf(request.getParameter("width"));
-        Integer length = Integer.valueOf(request.getParameter("length"));
-        Integer height = Integer.valueOf(request.getParameter("height"));
-        Long id_address = Long.parseLong(request.getParameter("address"));
-        String user = (String) request.getSession().getAttribute("userName");
-
-        Address address=addressService.getAddressById(id_address);
+        int width = Integer.parseInt(request.getParameter("width"));
+        int length = Integer.parseInt(request.getParameter("length"));
+        int height = Integer.parseInt(request.getParameter("height"));
+        Address address=addressService.getAddressById( Long.parseLong(request.getParameter("address")));
+        //TODO validation
         double volume=deliveryRequestService.calculateVolume(length,height,width);
+
           deliveryRequestService.saveDeliveryRequest(
                   new DeliveryRequest(
                           deliveryRequestService.newDateOfArrival(address.getDirection().getDistance()),
@@ -34,7 +33,7 @@ public class DeliveryRequestSave implements Command{
                           volume,
                           weight,
                           address,
-                          userService.getUserByUsername(user),
+                          userService.getUserByUsername((String) request.getSession().getAttribute("userName")),
                           tariffService.chooseTariff(weight,volume,address.getDirection().getCityEn())));
 
         return "redirect:/user";

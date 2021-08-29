@@ -20,7 +20,6 @@ public class CommandUtility {
     static void deleteUserFromLoggedUsers(HttpServletRequest request) {
         HashSet<String> loggedUsers = (HashSet<String>) request.getSession().getServletContext()
                 .getAttribute("loggedUsers");
-
         loggedUsers.remove(request.getSession().getAttribute("userName"));
         request.getSession().getServletContext()
                 .setAttribute("loggedUsers", loggedUsers);

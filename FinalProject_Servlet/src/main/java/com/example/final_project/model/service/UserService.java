@@ -1,7 +1,9 @@
 package com.example.final_project.model.service;
 
 import com.example.final_project.model.dao.DaoFactory;
+import com.example.final_project.model.dao.ReceiptDao;
 import com.example.final_project.model.dao.UserDao;
+import com.example.final_project.model.entity.Receipt;
 import com.example.final_project.model.entity.User;
 
 import java.util.Optional;
@@ -26,4 +28,25 @@ public class UserService {
             return Optional.ofNullable(dao.findById(id)).orElse(new User());
         }
     }
+
+    public void recharge(User user, int sum){
+        try (UserDao dao = daoFactory.createUserDao()) {
+            User userFromDB = Optional.ofNullable(dao.findByName(user.getUsername())).orElseThrow(()->new RuntimeException("user not found"));
+            userFromDB.setBalance(userFromDB.getBalance() + sum);
+            dao.save(userFromDB);
+        }
+    }
+
+    //TODO @Transactional
+    public Boolean pay(User user, Receipt receipt) {
+        try (UserDao dao = daoFactory.createUserDao()) {
+            if (dao.findByName(user.getUsername()).getBalance() <= receipt.getPrice()) return false;
+
+            User userFromDB = dao.findByName(user.getUsername());
+            userFromDB.setBalance(userFromDB.getBalance() - receipt.getPrice());
+            dao.save(userFromDB);
+            return true;
+        }}
+
+
 }

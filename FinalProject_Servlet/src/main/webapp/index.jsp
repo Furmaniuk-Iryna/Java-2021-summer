@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--Теги для работы с базами данных--%>
-<%@ taglib prefix="s" uri="http://java.sun.com/jsp/jstl/sql" %>
+
+
 
 <%-- Теги для форматирования и интернационализации информации (i10n и i18n)--%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>

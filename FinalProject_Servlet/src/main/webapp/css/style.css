@@ -112,14 +112,14 @@ div.error{
 /*    text-align: center;*/
 /*}*/
 
-/*.card{*/
-/*    max-width: 1180px;*/
-/*    margin: 10px auto;*/
-/*}*/
-/*nav.pagination_conteiner, form.report{*/
-/*    margin-right: 10px;*/
-/*    margin-left: auto;*/
-/*}*/
+.card{
+    max-width: 1180px;
+    margin: 10px auto;
+}
+nav.pagination_conteiner, form.report{
+    margin-right: 10px;
+    margin-left: auto;
+}
 /*.manager{*/
 /*    background-image: url(http://localhost:8080/image/truck-2677373_1920.jpg);*/
 /*    background-repeat: no-repeat;*/

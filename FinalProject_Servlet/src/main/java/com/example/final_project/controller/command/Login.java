@@ -4,12 +4,21 @@ import com.example.final_project.model.entity.User;
 import com.example.final_project.model.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Optional;
 
 public class Login implements Command{
-
+private  UserService userService=new UserService();
     @Override
     public synchronized String execute(HttpServletRequest request) {
-        UserService userService = new UserService();
+
+        Optional<User> role = Optional.ofNullable(userService.getUserByUsername((String) request.getSession().getAttribute("userName")));
+
+        if (role.get().getRole()!=null&&(role.get().getRole().equals("USER") || role.get().getRole().equals("MANAGER"))){
+            CommandUtility.deleteUserFromLoggedUsers(request);
+            return "redirect:/main";
+        }
+
+
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
@@ -24,8 +33,7 @@ public class Login implements Command{
     public String getPageForRole (HttpServletRequest request,
                                   String role, String username){
         if(CommandUtility.checkUserIsLogged(request, username)){
-            new RuntimeException("user is logged");
-            return "/WEB-INF/error.jsp";
+          throw new RuntimeException("User is logged");
         }
 
 

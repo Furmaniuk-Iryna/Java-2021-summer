@@ -32,6 +32,11 @@ public class JDBCDaoFactory extends DaoFactory {
     }
 
     @Override
+    public ReceiptDao createReceiptDao() {
+        return new JDBCReceiptDao(getConnection());
+    }
+
+    @Override
     public DeliveryRequestDao createDeliveryRequestDao() {
         return new JDBCDeliveryRequestDao(getConnection());
     }

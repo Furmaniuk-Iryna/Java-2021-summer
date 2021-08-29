@@ -3,6 +3,7 @@ package com.example.final_project.model.dao.impl;
 import com.example.final_project.model.dao.DeliveryRequestDao;
 import com.example.final_project.model.entity.*;
 import com.example.final_project.model.service.AddressService;
+import com.example.final_project.model.service.DirectionService;
 import com.example.final_project.model.service.TariffService;
 import com.example.final_project.model.service.UserService;
 
@@ -44,7 +45,34 @@ public class JDBCDeliveryRequestDao implements DeliveryRequestDao {
 
     @Override
     public DeliveryRequest findById(long id) {
-        return null;
+       DeliveryRequest deliveryRequest = new DeliveryRequest();
+        UserService userService = new UserService();
+        AddressService addressService = new AddressService();
+        TariffService tariffService = new TariffService();
+        try {
+            PreparedStatement ps = connection.prepareStatement("select * from `request` where `id_delivery_request`=?");
+            ps.setLong(1, id);
+            ResultSet res = ps.executeQuery();
+            while (res.next()) {
+                long id_user = res.getLong("users_id_user");
+                long id_address = res.getLong("address_id_address");
+                long id_tariff = res.getLong("tariff_id_tariff");
+                User user = userService.getUserById(id_user);
+                Address address = addressService.getAddressById(id_address);
+                Tariff tariff = tariffService.findTariffById(id_tariff);
+              deliveryRequest =  new DeliveryRequest(
+                        res.getLong("id_delivery_request"),
+                        res.getDate("date_of_arrival").toLocalDate(),
+                        res.getString("type_en"),
+                        res.getString("type_uk"),
+                        res.getDouble("volume"),
+                        res.getDouble("weight"),
+                        address,user,tariff);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return deliveryRequest;
     }
 
     @Override
@@ -55,35 +83,65 @@ public class JDBCDeliveryRequestDao implements DeliveryRequestDao {
     @Override
     public List<DeliveryRequest> findAll() {
 
-        List<DeliveryRequest> deliveryRequestList = new CopyOnWriteArrayList<>();
-        UserService userService = new UserService();
-        AddressService addressService = new AddressService();
-        TariffService tariffService = new TariffService();
+            List<DeliveryRequest> deliveryRequestList = new CopyOnWriteArrayList<>();
+            UserService userService = new UserService();
+            AddressService addressService = new AddressService();
+            TariffService tariffService = new TariffService();
 
-        try {
-            PreparedStatement ps = connection.prepareStatement("select * from `request`");
-            ResultSet res = ps.executeQuery();
+            try {
+                PreparedStatement ps = connection.prepareStatement("SELECT * FROM `request` LEFT JOIN `receipt` ON `request`.`id_delivery_request`=`receipt`.`request_id_delivery_request` WHERE `receipt`.`id` IS NULL");
+                ResultSet res = ps.executeQuery();
 
-            while (res.next()) {
-                long id_user = res.getLong("users_id_user");
-                long id_address = res.getLong("address_id_address");
-                long id_tariff = res.getLong("tariff_id_tariff");
-                User user = userService.getUserById(id_user);
-                Address address = addressService.getAddressById(id_address);
-                Tariff tariff = tariffService.findTariffById(id_tariff);
-                deliveryRequestList.add(new DeliveryRequest(
-                        res.getLong("id_delivery_request"),
-                        res.getDate("date_of_arrival").toLocalDate(),
-                        res.getString("type_en"),
-                        res.getString("type_uk"),
-                        res.getDouble("volume"),
-                        res.getDouble("weight"),
-                        address,user,tariff));
+                while (res.next()) {
+                    long id_user = res.getLong("users_id_user");
+                    long id_address = res.getLong("address_id_address");
+                    long id_tariff = res.getLong("tariff_id_tariff");
+                    User user = userService.getUserById(id_user);
+                    Address address = addressService.getAddressById(id_address);
+                    Tariff tariff = tariffService.findTariffById(id_tariff);
+                    deliveryRequestList.add(new DeliveryRequest(
+                            res.getLong("id_delivery_request"),
+                            res.getDate("date_of_arrival").toLocalDate(),
+                            res.getString("type_en"),
+                            res.getString("type_uk"),
+                            res.getDouble("volume"),
+                            res.getDouble("weight"),
+                            address,user,tariff));
+                }
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return deliveryRequestList;
+            return deliveryRequestList;
+
+//        List<DeliveryRequest> deliveryRequestList = new CopyOnWriteArrayList<>();
+//        UserService userService = new UserService();
+//        AddressService addressService = new AddressService();
+//        TariffService tariffService = new TariffService();
+//
+//        try {
+//            PreparedStatement ps = connection.prepareStatement("select * from `request`");
+//            ResultSet res = ps.executeQuery();
+//
+//            while (res.next()) {
+//                long id_user = res.getLong("users_id_user");
+//                long id_address = res.getLong("address_id_address");
+//                long id_tariff = res.getLong("tariff_id_tariff");
+//                User user = userService.getUserById(id_user);
+//                Address address = addressService.getAddressById(id_address);
+//                Tariff tariff = tariffService.findTariffById(id_tariff);
+//                deliveryRequestList.add(new DeliveryRequest(
+//                        res.getLong("id_delivery_request"),
+//                        res.getDate("date_of_arrival").toLocalDate(),
+//                        res.getString("type_en"),
+//                        res.getString("type_uk"),
+//                        res.getDouble("volume"),
+//                        res.getDouble("weight"),
+//                        address,user,tariff));
+//            }
+//        } catch (SQLException throwables) {
+//            throwables.printStackTrace();
+//        }
+//        return deliveryRequestList;
     }
 
     @Override
@@ -104,4 +162,6 @@ public class JDBCDeliveryRequestDao implements DeliveryRequestDao {
             throw new RuntimeException(e);
         }
     }
+
+
 }
