@@ -33,7 +33,7 @@ public class UserService {
         try (UserDao dao = daoFactory.createUserDao()) {
             User userFromDB = Optional.ofNullable(dao.findByName(user.getUsername())).orElseThrow(()->new RuntimeException("user not found"));
             userFromDB.setBalance(userFromDB.getBalance() + sum);
-            dao.save(userFromDB);
+            dao.update(userFromDB);
         }
     }
 
@@ -44,7 +44,7 @@ public class UserService {
 
             User userFromDB = dao.findByName(user.getUsername());
             userFromDB.setBalance(userFromDB.getBalance() - receipt.getPrice());
-            dao.save(userFromDB);
+            dao.update(userFromDB);
             return true;
         }}
 

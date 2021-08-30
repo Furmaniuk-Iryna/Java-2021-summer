@@ -6,6 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<style>
+    <%@include file="/css/style.css"%>
+</style>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -15,8 +18,8 @@
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>Cargo delivery</title>
 </head>
-<body>
-<p>Registration</p>
+<body class="registration">
+<p class="registration_title">Registration</p>
 <form method="POST" action="${pageContext.request.contextPath}/registration" class="form">
     <label for="name">Name </label>
     <input type="text" name="name" id="name"/>

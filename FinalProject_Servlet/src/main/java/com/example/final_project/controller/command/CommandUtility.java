@@ -33,7 +33,6 @@ public class CommandUtility {
         if (!loggedUsers.isEmpty() && loggedUsers.stream().anyMatch(userName::equals)) {
             return true;
         }
-
         loggedUsers.add(userName);
         request.getSession().getServletContext()
                 .setAttribute("loggedUsers", loggedUsers);

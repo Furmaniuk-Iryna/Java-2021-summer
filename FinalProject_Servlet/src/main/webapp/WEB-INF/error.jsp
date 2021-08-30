@@ -2,7 +2,9 @@
 
 <%@ page language="java" isErrorPage="true"  contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*, java.text.*" %>
-
+<style>
+    <%@include file="/css/style.css"%>
+</style>
 
 
 <html>
@@ -13,7 +15,7 @@
 <body>
 <h2>
     Error Page<br/>
-    <i>Error <%= exception %></i>
+    <i class="error">Error <%= exception %></i>
 </h2>
 <br>
 <a href="${pageContext.request.contextPath}/main">Main</a>

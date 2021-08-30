@@ -16,30 +16,33 @@ public class DirectionReport implements Command{
     UserService userService = new UserService();
     @Override
     public String execute(HttpServletRequest request) throws ServletException, IOException {
-        Locale locale = new Locale(request.getParameter("locale")==null ? "en" : request.getParameter("locale"));
         String role = Optional.ofNullable(userService.getUserByUsername((String) request.getSession().getAttribute("userName")).getRole())
-                .orElseThrow(()-> new RuntimeException("FORBIDDEN"));
+                .orElseThrow(() -> new RuntimeException("FORBIDDEN"));
 
-        if (!role.equals("MANAGER")){
+        if (!role.equals("MANAGER")) {
             return "redirect:/logout";
         }
 
-        List<DeliveryRequest> deliveryRequestList = deliveryRequestService.getDirectionReport( new String(request.getParameter("city").getBytes("ISO-8859-1"), "UTF-8"));
+        List<DeliveryRequest> deliveryRequestList = deliveryRequestService.getDirectionReport(
+                new String(request.getParameter("city").getBytes("ISO-8859-1"), "UTF-8"));
 
         int page = 1;
         int recordsPerPage = 3;//const
 
         int noOfRecords = deliveryRequestList.size();
+        if (noOfRecords == 0) {
+            throw new RuntimeException("Not found");
+        }
         int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPerPage);
 
-        if (recordsPerPage>noOfRecords)
-            recordsPerPage=noOfRecords;
+        if (recordsPerPage > noOfRecords)
+            recordsPerPage = noOfRecords;
 
-        if(request.getParameter("page") != null)
+        if (request.getParameter("page") != null)
             page = Integer.parseInt(request.getParameter("page"));
 
-        int recordPerPage = page*recordsPerPage;
-        if((noOfRecords%recordsPerPage)!=0 && page==noOfPages){
+        int recordPerPage = page * recordsPerPage;
+        if ((noOfRecords % recordsPerPage) != 0 && page == noOfPages) {
             recordPerPage = (noOfRecords % recordsPerPage)+((page-1)*recordsPerPage);
         }
         List<DeliveryRequest> list = deliveryRequestService.getDirectionReports((page-1)*recordsPerPage,
@@ -47,8 +50,8 @@ public class DirectionReport implements Command{
 
         request.setAttribute("noOfPages", noOfPages);
         request.setAttribute("currentPage", page);
-
-        request.setAttribute("directionReport",list);
+        request.setAttribute("city", new String(request.getParameter("city").getBytes("ISO-8859-1"), "UTF-8"));
+        request.setAttribute("directionReport", list);
         return "/WEB-INF/manager/directionReport.jsp";
     }
 }

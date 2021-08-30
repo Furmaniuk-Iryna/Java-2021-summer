@@ -7,6 +7,7 @@ import com.example.final_project.model.service.UserService;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
@@ -32,6 +33,9 @@ public class ReportByDays implements Command{
         int recordsPerPage = 3;//const
 
         int noOfRecords = deliveryRequestList.size();
+        if(noOfRecords==0){
+            throw new RuntimeException("Not found");
+        }
         int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPerPage);
 
         if (recordsPerPage>noOfRecords)
@@ -48,7 +52,7 @@ public class ReportByDays implements Command{
                 recordPerPage,LocalDate.parse(request.getParameter("day")));
         request.setAttribute("noOfPages", noOfPages);
         request.setAttribute("currentPage", page);
-
+request.setAttribute("day",request.getParameter("day"));
         request.setAttribute("reportByDays",list);
         return "/WEB-INF/manager/reportByDays.jsp";
     }}

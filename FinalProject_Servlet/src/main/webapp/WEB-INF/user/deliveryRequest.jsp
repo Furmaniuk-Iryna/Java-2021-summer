@@ -7,6 +7,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<style>
+    <%@include file="/css/style.css"%>
+</style>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -16,8 +19,8 @@
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>Cargo delivery</title>
 </head>
-<body>
-<form method="POST" action="${pageContext.request.contextPath}/delivery-request-save" class="form_request">
+<body class="delivery_request">
+<form method="POST" action="${pageContext.request.contextPath}/delivery-request" class="form_request">
 
 
     <select name="typeEn">

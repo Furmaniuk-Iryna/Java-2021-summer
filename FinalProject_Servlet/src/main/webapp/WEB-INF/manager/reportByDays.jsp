@@ -8,6 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<style>
+    <%@include file="/css/style.css"%>
+</style>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -50,10 +53,10 @@
         <c:forEach begin="1" end="${noOfPages}" var="i">
             <c:choose>
                 <c:when test="${currentPage eq i}">
-                    <li class="page-item active"><a class="page-link" href="reportByDays?day=${requestScope.reportByDays.get(1).dateOfArrival}&page=${i}">${i}</a></li>
+                    <li class="page-item active"><a class="page-link" href="reportByDays?day=${day}&page=${i}">${i}</a></li>
                 </c:when>
                 <c:otherwise>
-                    <li class="page-item"><a class="page-link" href="reportByDays?day=${requestScope.reportByDays.get(1).dateOfArrival}&page=${i}">${i}</a></li>
+                    <li class="page-item"><a class="page-link" href="reportByDays?day=${day}&page=${i}">${i}</a></li>
                 </c:otherwise>
             </c:choose>
         </c:forEach>

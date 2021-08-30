@@ -6,16 +6,17 @@ import com.example.final_project.model.service.DeliveryRequestService;
 import com.example.final_project.model.service.DirectionService;
 import com.example.final_project.model.service.TariffService;
 import com.example.final_project.model.service.UserService;
+
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Locale;
 
 public class Main implements Command {
-    private TariffService tariffService = new TariffService();
-    private DirectionService directionService = new DirectionService();
-    private DeliveryRequestService deliveryRequestService = new DeliveryRequestService();
-    private UserService userService = new UserService();
+    private final TariffService tariffService = new TariffService();
+    private final DirectionService directionService = new DirectionService();
+    private final DeliveryRequestService deliveryRequestService = new DeliveryRequestService();
+    private final UserService userService = new UserService();
     List<Tariff> tariffList = tariffService.getAllTariffs();
     List<Direction> directionList = directionService.getAllDirections();
 

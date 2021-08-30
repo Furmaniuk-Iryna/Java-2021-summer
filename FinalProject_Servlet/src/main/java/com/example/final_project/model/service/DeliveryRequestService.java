@@ -4,7 +4,6 @@ import com.example.final_project.model.dao.DaoFactory;
 import com.example.final_project.model.dao.DeliveryRequestDao;
 import com.example.final_project.model.entity.DeliveryRequest;
 
-import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -88,13 +87,29 @@ public class DeliveryRequestService {
         return dao.findAll()
                 .stream()
                 .filter(deliveryRequest -> (deliveryRequest.getDateOfArrival()).isEqual(dayFromForm))
-                .collect(Collectors.toList());}}
+                .collect(Collectors.toList());
+        }
+    }
 
-        public List<DeliveryRequest> getDirectionReport(String city) {
-            try (DeliveryRequestDao dao = daoFactory.createDeliveryRequestDao()) {
+    public List<DeliveryRequest> getDirectionReport(String city) {
+        try (DeliveryRequestDao dao = daoFactory.createDeliveryRequestDao()) {
             return dao.findAll()
                     .stream()
                     .filter(deliveryRequest -> (deliveryRequest.getAddress().getDirection().getCityEn().toLowerCase().equals(city.toLowerCase())
                             || deliveryRequest.getAddress().getDirection().getCityUk().toLowerCase().equals(city.toLowerCase())))
-                    .collect(Collectors.toList());}}
+                    .collect(Collectors.toList());
+        }
+    }
+
+    public List<DeliveryRequest> findByUser(long idUser) {
+        try (DeliveryRequestDao dao = daoFactory.createDeliveryRequestDao()) {
+            return Optional.ofNullable(dao.findByUser(idUser)).orElseThrow(RuntimeException::new);
+        }
+    }
+    public synchronized List<DeliveryRequest> getReportsForUser(int firstRequest, int lastRequest, long idUser) {
+        List<DeliveryRequest> deliveryRequestList = new ArrayList<>();
+        for (int request =firstRequest; request < lastRequest; request++)
+        {            deliveryRequestList.add(findByUser(idUser).get(request));}
+        return deliveryRequestList;
+    }
 }

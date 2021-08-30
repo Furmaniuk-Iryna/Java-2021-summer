@@ -93,7 +93,14 @@ public class JDBCUserDao implements UserDao {
 
     @Override
     public void update(User entity) {
-
+        String sql = "UPDATE `users` SET `balance` = ? WHERE (`id` = ?)";
+        try {
+            PreparedStatement rs = connection.prepareStatement(sql);
+            rs.setDouble(1,entity.getBalance());
+            rs.setLong(2, entity.getIdUser());
+            rs.execute();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();        }
     }
 
     @Override

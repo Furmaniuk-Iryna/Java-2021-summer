@@ -16,11 +16,11 @@ public class FirstPageFilter implements Filter {
 
         String path = ((HttpServletRequest) request).getRequestURI();
         path= path.replaceAll(".*/cargo-delivery" , "");
-        if (path.equals("/")){
-            path= "/cargo-delivery/main";
+        if (path.equals("/pages")){
+            path= "/cargo-delivery/pages/main";
             ( (HttpServletResponse) response).sendRedirect(path);
         }
-        filterChain.doFilter(request,response);
+               filterChain.doFilter(request,response);
     }
 
     @Override

@@ -23,7 +23,6 @@ public class Servlet extends HttpServlet {
         commands.put("user", new User());
         commands.put("manager", new Manager());
         commands.put("delivery-request", new DeliveryRequestCommand());
-        commands.put("delivery-request-save", new DeliveryRequestSave());
         commands.put("receipt", new ReceiptCommand());
         commands.put("directionReport", new DirectionReport());
         commands.put("reportByDays", new ReportByDays());
@@ -70,9 +69,9 @@ public class Servlet extends HttpServlet {
     private synchronized void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String path = request.getRequestURI();
-        path = path.replaceAll(".*/cargo-delivery/" , "");
+        path = path.replaceAll(".*/cargo-delivery/pages/" , "");
         Command command = commands.getOrDefault(path ,
-                (r)->"/main");
+                (r)->"/pages/main");
        // System.out.println(command.getClass().getName());
         String page = command.execute(request);
         if(page.contains("redirect:")){

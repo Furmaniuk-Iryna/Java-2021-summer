@@ -1,3 +1,4 @@
+
 * {
     box-sizing: border-box;
 }
@@ -88,29 +89,29 @@ div.error{
     width: 500px;
     margin: 20px 100px 20px auto;
 }
-/*.delivery_request{*/
-/*    background-image: url(http://localhost:8080/image/boxes-for-shipping.jpg);*/
-/*    background-repeat: no-repeat;*/
-/*    background-size: cover;*/
-/*    background-position: center;*/
-/*    min-height: 500px;*/
-/*    color: white;*/
-/*    font-size: 20px;*/
-/*    font-weight: bold;*/
-/*}*/
-/*.registration{*/
-/*    background-image: url(http://localhost:8080/image/laptop-in-empty-room.jpg);*/
-/*    background-repeat: no-repeat;*/
-/*    background-size: cover;*/
-/*    background-position: center;*/
-/*    min-height: 500px;*/
-/*    color: white;*/
-/*    font-size: 20px;*/
-/*    font-weight: bold;*/
-/*}*/
-/*.registration_title{*/
-/*    text-align: center;*/
-/*}*/
+.delivery_request{
+    background-image: url(http://localhost:8080/cargo-delivery/img/boxes-for-shipping.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    min-height: 500px;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+}
+.registration{
+    background-image: url(http://localhost:8080/cargo-delivery/img/laptop-in-empty-room.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    min-height: 500px;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+}
+.registration_title{
+    text-align: center;
+}
 
 .card{
     max-width: 1180px;
@@ -120,19 +121,19 @@ nav.pagination_conteiner, form.report{
     margin-right: 10px;
     margin-left: auto;
 }
-/*.manager{*/
-/*    background-image: url(http://localhost:8080/image/truck-2677373_1920.jpg);*/
-/*    background-repeat: no-repeat;*/
-/*    background-size: cover;*/
-/*    background-position: center;*/
-/*    min-height: 500px;*/
-/*    color: white;*/
-/*    font-size: 15px;*/
-/*}*/
-/*.user{*/
-/*    background-image: url(http://localhost:8080/image/port-1845350_1920.jpg);*/
-/*    background-repeat: no-repeat;*/
-/*    background-size: cover;*/
-/*    background-position: center;*/
-/*    min-height: 500px;*/
-/*}*/
+.manager{
+    background-image: url(http://localhost:8080/cargo-delivery/img/truck-2677373_1920.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    min-height: 500px;
+    color: white;
+    font-size: 15px;
+}
+.user{
+    background-image: url(http://localhost:8080/cargo-delivery/img/port-1845350_1920.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    min-height: 500px;
+}
