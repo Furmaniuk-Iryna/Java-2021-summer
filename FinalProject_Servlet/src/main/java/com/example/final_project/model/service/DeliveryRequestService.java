@@ -3,6 +3,7 @@ package com.example.final_project.model.service;
 import com.example.final_project.model.dao.DaoFactory;
 import com.example.final_project.model.dao.DeliveryRequestDao;
 import com.example.final_project.model.entity.DeliveryRequest;
+import com.example.final_project.model.entity.Tariff;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -12,38 +13,38 @@ import java.util.stream.Collectors;
 
 public class DeliveryRequestService {
     DaoFactory daoFactory = DaoFactory.getInstance();
-    private DirectionService directionService = new DirectionService();
-    private TariffService tariffService = new TariffService();
+    private final DirectionService directionService = new DirectionService();
+    private final TariffService tariffService = new TariffService();
     private double forWeight;
     private double forVolume;
 
     public List<DeliveryRequest> getAllDeliveryRequests() {
         try (DeliveryRequestDao dao = daoFactory.createDeliveryRequestDao()) {
-            return Optional.ofNullable(dao.findAll()).orElseThrow(RuntimeException::new);
+            return Optional.ofNullable(dao.findAllForCreateReceipt()).orElseThrow(RuntimeException::new);
         }
     }
+
     public DeliveryRequest getDeliveryRequestById(long id){
         try (DeliveryRequestDao dao = daoFactory.createDeliveryRequestDao()) {
             return Optional.ofNullable(dao.findById(id)).orElseThrow(RuntimeException::new);
         }
     }
 
-    public synchronized List<DeliveryRequest> getPagesDeliveryRequests(int firstRequest, int lastRequest) {
-
+    public  List<DeliveryRequest> getPagesDeliveryRequests(int firstRequest, int lastRequest) {
         List<DeliveryRequest> deliveryRequestList = new ArrayList<>();
         for (int request =firstRequest; request < lastRequest; request++)
           deliveryRequestList.add(getAllDeliveryRequests().get(request));
-
         return deliveryRequestList;
     }
-    public synchronized List<DeliveryRequest> getDirectionReports(int firstRequest, int lastRequest, String city) {
 
+    public  List<DeliveryRequest> getDirectionReports(int firstRequest, int lastRequest, String city) {
         List<DeliveryRequest> deliveryRequestList = new ArrayList<>();
         for (int request =firstRequest; request < lastRequest; request++)
         {            deliveryRequestList.add(getDirectionReport(city).get(request));}
         return deliveryRequestList;
     }
-    public synchronized List<DeliveryRequest> getReportByDays(int firstRequest, int lastRequest, LocalDate dayFromForm) {
+
+    public  List<DeliveryRequest> getReportByDays(int firstRequest, int lastRequest, LocalDate dayFromForm) {
         List<DeliveryRequest> deliveryRequestList = new ArrayList<>();
         for (int request =firstRequest; request < lastRequest; request++)
         {deliveryRequestList.add(getReportByDay(dayFromForm).get(request));}
@@ -56,7 +57,6 @@ public class DeliveryRequestService {
         }
     }
 
-
     public LocalDate newDateOfArrival(double distance) { //synchronized?
         return distance > 500
                 ? LocalDate.now().plusDays(2)
@@ -66,15 +66,16 @@ public class DeliveryRequestService {
     public double calculateVolume(int length, int height, int width) {//synchronized?
         return (double) length * width * height / 1000000;
     }
+
     public double calculateDeliveryCost(double weight, double volume, String city) {
         chooseTariff(weight, volume, city);
         return Math.max(weight * forWeight, volume * forVolume);
     }
 
-   //TODO Transactional
-    public void getTariffForWeightAndVolume(Long id){
-        forWeight = tariffService.findTariffById(id).getTariffForWeight();
-        forVolume = tariffService.findTariffById(id).getTariffForVolume();
+    public  void getTariffForWeightAndVolume(Long id){
+       Tariff tariff= tariffService.findTariffById(id);
+        forWeight = tariff.getTariffForWeight();
+        forVolume = tariff.getTariffForVolume();
     }
 
     public void chooseTariff(double weight, double volume, String city) {
@@ -106,7 +107,8 @@ public class DeliveryRequestService {
             return Optional.ofNullable(dao.findByUser(idUser)).orElseThrow(RuntimeException::new);
         }
     }
-    public synchronized List<DeliveryRequest> getReportsForUser(int firstRequest, int lastRequest, long idUser) {
+
+    public  List<DeliveryRequest> getReportsForUser(int firstRequest, int lastRequest, long idUser) {
         List<DeliveryRequest> deliveryRequestList = new ArrayList<>();
         for (int request =firstRequest; request < lastRequest; request++)
         {            deliveryRequestList.add(findByUser(idUser).get(request));}

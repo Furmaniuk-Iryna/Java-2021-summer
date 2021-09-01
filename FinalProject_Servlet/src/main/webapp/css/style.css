@@ -78,18 +78,28 @@ h1.name_company {
     color: deepskyblue;
 }
 
-button.sort_button {
+button.right_button {
     margin-right: 10px;
+    margin-top: 10px;
     float: right;
 }
-div.error{
+
+button.left_button {
+    margin-left: 10px;
+    margin-top: 10px;
+    float: left;
+}
+
+div.error {
     color: red;
 }
-.form_request{
+
+.form_request {
     width: 500px;
     margin: 20px 100px 20px auto;
 }
-.delivery_request{
+
+.delivery_request {
     background-image: url(http://localhost:8080/cargo-delivery/img/boxes-for-shipping.jpg);
     background-repeat: no-repeat;
     background-size: cover;
@@ -99,7 +109,8 @@ div.error{
     font-size: 20px;
     font-weight: bold;
 }
-.registration{
+
+.registration {
     background-image: url(http://localhost:8080/cargo-delivery/img/laptop-in-empty-room.jpg);
     background-repeat: no-repeat;
     background-size: cover;
@@ -109,19 +120,29 @@ div.error{
     font-size: 20px;
     font-weight: bold;
 }
-.registration_title{
+
+.registration_title {
     text-align: center;
+    font-size: xx-large;
 }
 
-.card{
+.card {
     max-width: 1180px;
     margin: 10px auto;
 }
-nav.pagination_conteiner, form.report{
+
+nav.pagination_conteiner, form.report {
     margin-right: 10px;
     margin-left: auto;
 }
-.manager{
+
+.recharge {
+    max-width: 150px;
+    margin-left: 10px;
+    margin-right: auto;
+}
+
+.manager {
     background-image: url(http://localhost:8080/cargo-delivery/img/truck-2677373_1920.jpg);
     background-repeat: no-repeat;
     background-size: cover;
@@ -130,10 +151,26 @@ nav.pagination_conteiner, form.report{
     color: white;
     font-size: 15px;
 }
-.user{
+
+.user {
     background-image: url(http://localhost:8080/cargo-delivery/img/port-1845350_1920.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     min-height: 500px;
+}
+
+.exception-title {
+    text-align: center;
+    color: deepskyblue;
+    font-size: 100px;
+    font-weight: bold;
+}
+
+.exception-message {
+    text-align: center;
+    color: black;
+    font-size: 75px;
+    font-weight: inherit;
+
 }

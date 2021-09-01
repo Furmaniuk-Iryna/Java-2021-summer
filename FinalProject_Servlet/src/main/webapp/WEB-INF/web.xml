@@ -5,7 +5,6 @@
   <servlet>
     <servlet-name>Servl</servlet-name>
     <servlet-class>com.example.final_project.controller.Servlet</servlet-class>
-    <!--<load-on-startup>1</load-on-startup>-->
   </servlet>
 
   <servlet-mapping>
@@ -24,27 +23,20 @@
   </filter-mapping>
 
   <filter>
+    <filter-name>LocaleFilter</filter-name>
+    <filter-class>com.example.final_project.controller.filter.LocaleFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>LocaleFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <filter>
     <filter-name>AuthFilter</filter-name>
     <filter-class>com.example.final_project.controller.filter.AuthFilter</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>AuthFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
-  <filter>
-    <filter-name>ImgFilter</filter-name>
-    <filter-class>com.example.final_project.controller.filter.ImgFilter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>ImgFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
-  <filter>
-    <filter-name>FirstPageFilter</filter-name>
-    <filter-class>com.example.final_project.controller.filter.FirstPageFilter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>FirstPageFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
 

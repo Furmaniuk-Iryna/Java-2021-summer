@@ -6,8 +6,6 @@
 </style>
 <html>
 <head>
-<%--    <meta charset="UTF-8">--%>
-<%--    <meta name="viewport" content="width=device-width, initial-scale=1">--%>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -15,16 +13,14 @@
 </head>
 <body>
 
-<fmt:setLocale value="${locale}"/>
+<fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="messages"/>
 
-
-<%-- <% List<Tariff> tariffs = (List<Tariff>) request.getAttribute("tariffs"); %>--%>
 <div class="header_top">
     <div class="locale">
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <button class="btn btn-light" type="button">
-                <a class="button_locale" href="${pageContext.request.contextPath}/login"><fmt:message key="login"/></a>
+                <a class="button_locale" href="${pageContext.request.contextPath}/login"><fmt:message key="login.text"/></a>
             </button>
             <button class="btn btn-light" type="button">
                 <a class="button_locale" href="${pageContext.request.contextPath}/registration"><fmt:message
@@ -37,16 +33,16 @@
 </div>
 
 <form action="${pageContext.request.contextPath}/main" class="report">
-    <label for="d">City</label>
+    <label for="d"><fmt:message key="city"/> </label>
     <input type="text" name="city" id="d"/>
     <input type="hidden" name="filter" value="true"/>
-    <input type="hidden" name="locale" value="${locale}">
-    <input type="submit" class="btn btn-info button_a"/>
-    <button class="btn btn-info sort_button" type="button">
-        <a class="button_a" href="?locale=${locale}&sort=false&filter=false">Reset</a>
+    <input type="hidden" name="locale" value="${sessionScope.locale}">
+    <input type="submit" class="btn btn-info button_a" value="<fmt:message key="filter"/> "/>
+    <button class="btn btn-info right_button" type="button">
+        <a class="button_a" href="?locale=${sessionScope.locale}&sort=false&filter=false"><fmt:message key="reset.filters"/></a>
     </button>
-    <button class="btn btn-info sort_button" type="button">
-        <a class="button_a" href="?locale=${locale}&sort=true"><fmt:message key="sort"/></a>
+    <button class="btn btn-info right_button" type="button">
+        <a class="button_a" href="?locale=${sessionScope.locale}&sort=true"><fmt:message key="sort"/></a>
     </button>
 </form>
 
@@ -68,14 +64,14 @@
             <tr>
                 <td><c:out value="${tariff.id}"/></td>
                 <td>
-                    <c:if test="${locale=='en'}"><c:out value="${tariff.tariffNameEn}"/></c:if>
-                    <c:if test="${locale=='uk'}"><c:out value="${tariff.tariffNameUk}"/></c:if>
+                    <c:if test="${sessionScope.locale=='en'}"><c:out value="${tariff.tariffNameEn}"/></c:if>
+                    <c:if test="${sessionScope.locale=='uk'}"><c:out value="${tariff.tariffNameUk}"/></c:if>
                 </td>
                 <td><c:out value="${tariff.tariffForWeight}"/></td>
                 <td><c:out value="${tariff.tariffForVolume}"/></td>
                 <td>
-                    <c:if test="${locale=='en'}"><c:out value="${tariff.descriptionEn}"/></c:if>
-                    <c:if test="${locale=='uk'}"><c:out value="${tariff.descriptionUk}"/></c:if>
+                    <c:if test="${sessionScope.locale=='en'}"><c:out value="${tariff.descriptionEn}"/></c:if>
+                    <c:if test="${sessionScope.locale=='uk'}"><c:out value="${tariff.descriptionUk}"/></c:if>
                 </td>
             </tr>
         </c:forEach>
@@ -85,7 +81,7 @@
 </div>
 
 <div class="directions">
-    <h2 class="title"><fmt:message key="directions"/></h2>
+    <h2 class="title"><fmt:message key="directions.title"/></h2>
     <table class="table table-striped">
         <thead>
         <tr>
@@ -95,22 +91,22 @@
         </tr>
         </thead>
         <tbody>
-        <div><c:if test="${sort&&locale=='en'&&!filter}">
+        <div><c:if test="${sort&&sessionScope.locale=='en'&&!filter}">
             <c:forEach var="direction" items="${sortedDirectionsEnLocale}">
                 <tr>
                     <td><c:out value="${direction.id}"/></td>
                     <td>
-                        <c:if test="${locale=='en'}">
+                        <c:if test="${sessionScope.locale=='en'}">
                             <c:out value="${direction.cityEn}"/>
                         </c:if>
                     <td><c:out value="${direction.distance}"/></td>
                 </tr>
             </c:forEach></c:if>
-            <c:if test="${sort&&locale=='uk'&&!filter}">
+            <c:if test="${sort&&sessionScope.locale=='uk'&&!filter}">
                 <c:forEach var="direction" items="${sortedDirectionsUkLocale}">
                     <tr>
                         <td><c:out value="${direction.id}"/></td>
-                        <td><c:if test="${locale=='uk'}"><c:out value="${direction.cityUk}"/></c:if></td>
+                        <td><c:if test="${sessionScope.locale=='uk'}"><c:out value="${direction.cityUk}"/></c:if></td>
                         <td><c:out value="${direction.distance}"/></td>
                     </tr>
                 </c:forEach></c:if>
@@ -118,16 +114,16 @@
                 <c:forEach var="direction" items="${directions}">
                     <tr>
                         <td><c:out value="${direction.id}"/></td>
-                        <td><c:if test="${locale=='en'}"><c:out value="${direction.cityEn}"/></c:if>
-                            <c:if test="${locale=='uk'}"><c:out value="${direction.cityUk}"/></c:if></td>
+                        <td><c:if test="${sessionScope.locale=='en'}"><c:out value="${direction.cityEn}"/></c:if>
+                            <c:if test="${sessionScope.locale=='uk'}"><c:out value="${direction.cityUk}"/></c:if></td>
                         <td><c:out value="${direction.distance}"/></td>
                     </tr>
                 </c:forEach></c:if>
             <c:if test="${filter}">
                 <tr>
                     <td><c:out value="${filteredDirection.id}"/></td>
-                    <td><c:if test="${locale=='en'}"><c:out value="${filteredDirection.cityEn}"/></c:if>
-                        <c:if test="${locale=='uk'}"><c:out value="${filteredDirection.cityUk}"/></c:if></td>
+                    <td><c:if test="${sessionScope.locale=='en'}"><c:out value="${filteredDirection.cityEn}"/></c:if>
+                        <c:if test="${sessionScope.locale=='uk'}"><c:out value="${filteredDirection.cityUk}"/></c:if></td>
                     <td><c:out value="${filteredDirection.distance}"/></td>
                 </tr>
             </c:if>
@@ -137,7 +133,7 @@
 </div>
 
 <div class="cost">
-    <h2 class="title"><fmt:message key="calculate"/></h2>
+    <h2 class="title"><fmt:message key="calculate.costs.title"/></h2>
     <form action="${pageContext.request.contextPath}/main" class="delivery_cost">
         <input type="hidden" value="true" name="form"/>
         <input type="hidden" value="${sessionScope.locale}" name="locale"/>
@@ -161,22 +157,22 @@
         <input type="text" value="${pageContext.request.getParameter("height")}" name="height" id="height"
                placeholder="0"/>
         <br><br>
-        <label for="height"><fmt:message key="direction"/></label>
+        <label for="height"><fmt:message key="route"/></label>
 
         <select name="route">
             <c:forEach var="direction" items="${directions}">
                 <c:choose>
                     <c:when test='${pageContext.request.getParameter("route")!=null && pageContext.request.getParameter("route").equals(direction.cityEn)}'>
                         <option value="${direction.cityEn}" selected>
-                            <c:if test="${locale=='en'}"><c:out value="${direction.cityEn}"/></c:if>
-                            <c:if test="${locale=='uk'}"><c:out value="${direction.cityUk}"/></c:if>
+                            <c:if test="${sessionScope.locale=='en'}"><c:out value="${direction.cityEn}"/></c:if>
+                            <c:if test="${sessionScope.locale=='uk'}"><c:out value="${direction.cityUk}"/></c:if>
                         </option>
                     </c:when>
 
                     <c:otherwise>
                         <option value="${direction.cityEn}">
-                            <c:if test="${locale=='en'}"><c:out value="${direction.cityEn}"/></c:if>
-                            <c:if test="${locale=='uk'}"><c:out value="${direction.cityUk}"/></c:if>
+                            <c:if test="${sessionScope.locale=='en'}"><c:out value="${direction.cityEn}"/></c:if>
+                            <c:if test="${sessionScope.locale=='uk'}"><c:out value="${direction.cityUk}"/></c:if>
                         </option>
                     </c:otherwise>
                 </c:choose>
@@ -186,7 +182,7 @@
         <input class="btn btn-info button_a" type="submit" value="<fmt:message key="calculate"/>"/>
         <br>
         <p class="cost_result"><c:if test="${sessionScope.cost!=null}"><fmt:message
-                key="delivery.costs"/> ${sessionScope.cost}</c:if></p>
+                key="result"/> ${sessionScope.cost}</c:if></p>
     </form>
 </div>
 </body>

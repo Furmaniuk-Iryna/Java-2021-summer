@@ -71,7 +71,7 @@ public class Servlet extends HttpServlet {
         String path = request.getRequestURI();
         path = path.replaceAll(".*/cargo-delivery/pages/" , "");
         Command command = commands.getOrDefault(path ,
-                (r)->"/pages/main");
+                (r)->"main");
        // System.out.println(command.getClass().getName());
         String page = command.execute(request);
         if(page.contains("redirect:")){

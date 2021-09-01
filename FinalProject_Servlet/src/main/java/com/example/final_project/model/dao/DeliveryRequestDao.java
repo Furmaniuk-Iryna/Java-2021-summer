@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface DeliveryRequestDao extends GenericDao<DeliveryRequest>{
     List<DeliveryRequest> findByUser(long idUser);
+    List<DeliveryRequest> findAllForCreateReceipt();
 }

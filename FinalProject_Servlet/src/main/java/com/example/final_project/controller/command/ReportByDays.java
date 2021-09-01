@@ -7,32 +7,24 @@ import com.example.final_project.model.service.UserService;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.rmi.RemoteException;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 
-public class ReportByDays implements Command{
-    DeliveryRequestService deliveryRequestService= new DeliveryRequestService();
-    UserService userService = new UserService();
+public class ReportByDays implements Command {
+    private final DeliveryRequestService deliveryRequestService = new DeliveryRequestService();
+    private final UserService userService = new UserService();
+
     @Override
     public String execute(HttpServletRequest request) throws ServletException, IOException {
-        Locale locale = new Locale(request.getParameter("locale")==null ? "en" : request.getParameter("locale"));
-        String role = Optional.ofNullable(userService.getUserByUsername((String) request.getSession().getAttribute("userName")).getRole())
-                .orElseThrow(()-> new RuntimeException("FORBIDDEN"));
 
-        if (!role.equals("MANAGER")){
-            return "redirect:/logout";
-        }
 
         List<DeliveryRequest> deliveryRequestList = deliveryRequestService.getReportByDay(LocalDate.parse(request.getParameter("day")));
 
         int page = 1;
-        int recordsPerPage = 3;//const
-
+        int recordsPerPage = 3;
         int noOfRecords = deliveryRequestList.size();
+
         if(noOfRecords==0){
             throw new RuntimeException("Not found");
         }
@@ -50,9 +42,11 @@ public class ReportByDays implements Command{
         }
         List<DeliveryRequest> list = deliveryRequestService.getReportByDays((page-1)*recordsPerPage,
                 recordPerPage,LocalDate.parse(request.getParameter("day")));
+
         request.setAttribute("noOfPages", noOfPages);
         request.setAttribute("currentPage", page);
-request.setAttribute("day",request.getParameter("day"));
-        request.setAttribute("reportByDays",list);
+        request.setAttribute("day", request.getParameter("day"));
+        request.setAttribute("reportByDays", list);
+
         return "/WEB-INF/manager/reportByDays.jsp";
     }}

@@ -43,7 +43,7 @@ public class JDBCTariffDao implements TariffDao {
                         res.getString("name_uk"));
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            throw new RuntimeException(ex);
         }
         return tariff;
     }
@@ -70,18 +70,13 @@ public class JDBCTariffDao implements TariffDao {
                         res.getString("name_uk")));
             }
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            throw new RuntimeException(throwables);
         }
         return tariffList;
     }
 
     @Override
     public void update(Tariff entity) {
-
-    }
-
-    @Override
-    public void deleteById(int id) {
 
     }
 

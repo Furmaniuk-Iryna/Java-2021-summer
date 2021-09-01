@@ -45,7 +45,7 @@ public class JDBCAddressDao implements AddressDao {
                         direction);
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            throw new RuntimeException(ex);
         }
         return address;
     }
@@ -75,7 +75,7 @@ public class JDBCAddressDao implements AddressDao {
                         direction));
             }
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            throw new RuntimeException(throwables);
         }
         return addressList;
     }
@@ -85,16 +85,11 @@ public class JDBCAddressDao implements AddressDao {
 
     }
 
-    @Override
-    public void deleteById(int id) {
-
-    }
 
     @Override
     public void close() {
         try {
             connection.close();
-        //    System.out.println("close----------");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

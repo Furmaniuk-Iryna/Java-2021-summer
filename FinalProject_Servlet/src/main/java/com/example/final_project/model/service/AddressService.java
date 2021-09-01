@@ -13,16 +13,14 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class AddressService {
     DaoFactory daoFactory = DaoFactory.getInstance();
 
-    public List<Address> getAllAddress(){ // CopyOnWriteArrayList???
+    public List<Address> getAllAddress(){
         try (AddressDao dao = daoFactory.createAddressDao()) {
-
             return Optional.ofNullable(dao.findAll()).orElseThrow(RuntimeException::new);
         }
     }
 
     public Address getAddressById(long id){
         try (AddressDao dao = daoFactory.createAddressDao()) {
-
             return Optional.ofNullable(dao.findById(id)).orElseThrow(RuntimeException::new);
         }
     }

@@ -1,6 +1,5 @@
 package com.example.final_project.controller.command;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashSet;
@@ -11,22 +10,24 @@ public class CommandUtility {
                             String role, String username) {
 
         HttpSession session = request.getSession();
-       // ServletContext context = request.getServletContext();
-       // context.setAttribute("userName", username);// delete?
         session.setAttribute("role", role);
         session.setAttribute("userName", username);
     }
 
     static void deleteUserFromLoggedUsers(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        @SuppressWarnings("unchecked")
         HashSet<String> loggedUsers = (HashSet<String>) request.getSession().getServletContext()
                 .getAttribute("loggedUsers");
-        loggedUsers.remove(request.getSession().getAttribute("userName"));
+        loggedUsers.remove((String) request.getSession().getAttribute("userName"));
         request.getSession().getServletContext()
                 .setAttribute("loggedUsers", loggedUsers);
-        request.getSession().setAttribute("userName",null);
+        session.removeAttribute("role");
+        session.removeAttribute("userName");
     }
 
     static boolean checkUserIsLogged(HttpServletRequest request, String userName) {
+        @SuppressWarnings("unchecked")
         HashSet<String> loggedUsers = (HashSet<String>) Optional.ofNullable(request.getSession().getServletContext()
                 .getAttribute("loggedUsers")).orElse(new HashSet<String>());
 

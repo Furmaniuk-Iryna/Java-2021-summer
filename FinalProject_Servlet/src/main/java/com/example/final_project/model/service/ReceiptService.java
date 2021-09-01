@@ -22,8 +22,7 @@ public class ReceiptService {
         }
     }
 
-
-    public String checkPay(User user, Receipt receipt) {
+    public synchronized String checkPay(User user, Receipt receipt) {
         return receipt.getStatus().equals("paid") ? "paid" : updatePaymentStatus(user,receipt);
     }
 
@@ -34,6 +33,7 @@ public class ReceiptService {
         dao.update(receipt);
         return receipt.getStatus().equals("paid") ? "successful" : "fail";
     }}
+
     public List<Receipt> findAllReceipts(){
         try (ReceiptDao dao = daoFactory.createReceiptDao()) {
          return Optional.ofNullable(dao.findAll()).orElseThrow(RuntimeException::new);

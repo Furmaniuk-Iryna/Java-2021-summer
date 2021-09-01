@@ -22,7 +22,6 @@ public class JDBCDaoFactory extends DaoFactory {
 
     @Override
     public UserDao createUserDao() {
-      //  System.out.println("---createUserDao");
         return new JDBCUserDao(getConnection());
     }
 
@@ -42,9 +41,7 @@ public class JDBCDaoFactory extends DaoFactory {
     }
 
     private Connection getConnection() {
-        //TODO check
         try {
-       //     System.out.println("----getConnection---" + dataSource.getConnection());
             return dataSource.getConnection();
         } catch (SQLException e) {
             throw new RuntimeException(e);

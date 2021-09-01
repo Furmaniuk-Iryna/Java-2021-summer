@@ -33,7 +33,7 @@ public class JDBCReceiptDao implements ReceiptDao {
             rs.setLong(3, entity.getDeliveryRequest().getId());
             rs.executeUpdate();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            throw new RuntimeException(throwables);
         }
     }
 
@@ -54,7 +54,7 @@ public class JDBCReceiptDao implements ReceiptDao {
                         res.getString("status"));
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            throw new RuntimeException(ex);
         }
         return receipt;
     }
@@ -84,7 +84,7 @@ public class JDBCReceiptDao implements ReceiptDao {
                         res.getString("status")));
             }
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            throw new RuntimeException(throwables);
         }
         return receiptList;
     }
@@ -98,14 +98,10 @@ public class JDBCReceiptDao implements ReceiptDao {
             rs.setLong(2, entity.getId());
             rs.execute();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            throw new RuntimeException(throwables);
         }
     }
 
-    @Override
-    public void deleteById(int id) {
-
-    }
 
     @Override
     public void close() {

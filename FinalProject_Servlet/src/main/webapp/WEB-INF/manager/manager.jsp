@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: User
-  Date: 22.08.2021
-  Time: 18:41
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -14,31 +7,34 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<%--    <link rel="stylesheet" href="resources/public/css/style.css">--%>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>Cargo delivery</title>
 </head>
 <body class="manager">
-<fmt:setLocale value="${locale}"/>
+<fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="messages"/>
-<h1>Manager</h1>
-<button class="btn btn-light" type="button">
-    <a class="button_locale" href="${pageContext.request.contextPath}/logout"> Exit</a>
+<div>
+<button class="btn btn-light left_button" type="button">
+    <a class="button_locale" href="${pageContext.request.contextPath}/logout"><fmt:message key="main.page"/></a>
 </button>
+<button class="btn btn-light right_button" type="button"><a class="button_locale" href="?locale=uk">UKR</a></button>
+<button class="btn btn-light right_button" type="button"><a class="button_locale" href="?locale=en">ENG</a></button>
+</div>
+<br>
+<br>
 <div class="card">
-    <h2>Delivery request</h2>
-    <table class="table table-dark">
+    <table class="table table-striped">
         <thead>
         <tr>
             <th>#</th>
-            <th>Username</th>
-            <th>Type</th>
-            <th>Weight</th>
-            <th>Volume</th>
-            <th>Address</th>
-            <th>Date of arrival</th>
+            <th><fmt:message key="username"/></th>
+            <th><fmt:message key="type"/></th>
+            <th><fmt:message key="weight"/></th>
+            <th><fmt:message key="volume"/></th>
+            <th><fmt:message key="address"/></th>
+            <th><fmt:message key="date.of.arrival"/> </th>
             <th></th>
         </tr>
         </thead>
@@ -47,14 +43,20 @@
             <tr>
                 <td><c:out value="${request.id}"/></td>
                 <td><c:out value="${request.user.username}"/></td>
-                <td><c:out value="${request.type_en}"/></td>
+                <td>
+                    <c:if test="${sessionScope.locale=='en'}"><c:out value="${request.type_en}"/></c:if>
+                    <c:if test="${sessionScope.locale=='uk'}"><c:out value="${request.type_uk}"/></c:if>
+                </td>
                 <td><c:out value="${request.weight}"/></td>
                 <td><c:out value="${request.volume}"/></td>
-                <td><c:out value="${request.address.address_en}"/></td>
+                <td>
+                    <c:if test="${sessionScope.locale=='en'}"><c:out value="${request.address.address_en}"/></c:if>
+                    <c:if test="${sessionScope.locale=='uk'}"><c:out value="${request.address.address_uk}"/></c:if>
+                </td>
                 <td><c:out value="${request.dateOfArrival}"/></td>
-                <td>  <button class="btn btn-light" type="button">
+                <td>  <button class="btn btn-info" type="button">
                     <a class="button_a" href="${pageContext.request.contextPath}/receipt?id=${request.getId()}">
-                        <fmt:message key="calculate"></fmt:message>
+                        <fmt:message key="create.receipt"/>
                     </a>
                 </button></td>
             </tr>
@@ -78,17 +80,17 @@
 
 </div>
 <form action="${pageContext.request.contextPath}/directionReport"  class="report">
-    <label for="d" >City</label>
-    <input type="text" name="city" id="d"/>
+    <label for="city" ><fmt:message key="city"/> </label>
+    <input type="text" name="city" id="city"/>
     <input type="hidden" name="page" value="1" />
-    <input type="submit" class="btn btn-info button_a"/>
-</form><br>
-
+    <input type="submit" class="btn btn-info button_a" value="<fmt:message key="direction.report"/> "/>
+</form>
+<br>
 <form  action="${pageContext.request.contextPath}/reportByDays"  class="report">
-    <label>Day</label>
-    <input type="date" name="day" />
+    <label for="day"><fmt:message key="date.of.arrival"/> </label>
+    <input type="date" name="day" id="day"/>
     <input type="hidden" name="page" value="1" />
-    <input type="submit" class="btn btn-info button_a"/>
+    <input type="submit" class="btn btn-info button_a" value="<fmt:message key="report.by.days"/> "/>
 </form><br>
 
 </body>

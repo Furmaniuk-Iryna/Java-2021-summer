@@ -1,13 +1,13 @@
 package com.example.final_project.model.dao.impl;
 
 import com.example.final_project.model.dao.UserDao;
+import com.example.final_project.model.entity.Receipt;
 import com.example.final_project.model.entity.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class JDBCUserDao implements UserDao {
@@ -15,7 +15,6 @@ public class JDBCUserDao implements UserDao {
 
 
     public JDBCUserDao(Connection connection) {
-     //   System.out.println(" JDBCUserDao constr");
         this.connection = connection;
     }
 
@@ -33,7 +32,7 @@ public class JDBCUserDao implements UserDao {
             rs.setString(6, entity.getRole());
             rs.executeUpdate();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            throw new RuntimeException(throwables);
 
         }
     }
@@ -56,7 +55,7 @@ public class JDBCUserDao implements UserDao {
                         res.getString("role"));
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            throw new RuntimeException(ex);
         }
         return user;
     }
@@ -80,7 +79,7 @@ public class JDBCUserDao implements UserDao {
             }
         } catch (SQLException ex) {
            // System.out.println("---FIND BY NAME EXCEPTION");
-            ex.printStackTrace();
+            throw new RuntimeException(ex);
 
         }
         return user;
@@ -100,12 +99,25 @@ public class JDBCUserDao implements UserDao {
             rs.setLong(2, entity.getIdUser());
             rs.execute();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();        }
+            throw new RuntimeException(throwables);        }
     }
 
-    @Override
-    public void deleteById(int id) {
+    public boolean pay(User user, Receipt receipt){
+        try {
+            connection.setAutoCommit(false);
+            if (findByName(user.getUsername()).getBalance() <= receipt.getPrice()) return false;
 
+            User userFromDB = findByName(user.getUsername());
+            userFromDB.setBalance(userFromDB.getBalance() - receipt.getPrice());
+            update(userFromDB);
+            connection.commit();
+            return true;
+        } catch (Exception e) {
+            try {
+                connection.rollback();
+            }catch (SQLException e1){}
+            return false;
+        }
     }
 
     @Override

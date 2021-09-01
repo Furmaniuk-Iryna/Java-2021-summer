@@ -19,11 +19,13 @@ public class TariffService {
             return Optional.ofNullable(dao.findAll()).orElseThrow(RuntimeException::new);
         }
     }
+
     public Tariff findTariffById(long id){
         try (TariffDao dao = daoFactory.createTariffDao()) {
             return Optional.ofNullable(dao.findById(id)).orElseThrow(RuntimeException::new);
         }
     }
+
     public Tariff chooseTariff(double weight, double volume, String city) {
         try (TariffDao dao = daoFactory.createTariffDao()) {
       return findTariffById(weight > 100 || volume > 1

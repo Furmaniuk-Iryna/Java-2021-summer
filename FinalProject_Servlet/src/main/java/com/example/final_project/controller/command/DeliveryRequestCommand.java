@@ -17,6 +17,7 @@ public class DeliveryRequestCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request) {
+
         String type_en = request.getParameter("typeEn");
         if (type_en == null) {
             request.setAttribute("addresses", addressService.getAllAddress());
@@ -40,7 +41,8 @@ public class DeliveryRequestCommand implements Command {
                         weight,
                         address,
                         userService.getUserByUsername((String) request.getSession().getAttribute("userName")),
-                        tariffService.chooseTariff(weight, volume, address.getDirection().getCityEn())));
+                        tariffService.chooseTariff(weight, volume, address.getDirection().getCityEn())
+                ));
 
         return "redirect:/user";
     }

@@ -13,7 +13,6 @@ public class UserService {
 
     public User getUserByUsername(String username){
         try (UserDao dao = daoFactory.createUserDao()) {
-          //  System.out.println("FIND BY NAME ---"+dao.findByName(username));
             return Optional.ofNullable(dao.findByName(username)).orElse(new User());
         }
     }
@@ -23,6 +22,7 @@ public class UserService {
             dao.save(user);
         }
     }
+
     public User getUserById(long id){
         try (UserDao dao = daoFactory.createUserDao()) {
             return Optional.ofNullable(dao.findById(id)).orElse(new User());
@@ -37,16 +37,11 @@ public class UserService {
         }
     }
 
-    //TODO @Transactional
     public Boolean pay(User user, Receipt receipt) {
         try (UserDao dao = daoFactory.createUserDao()) {
-            if (dao.findByName(user.getUsername()).getBalance() <= receipt.getPrice()) return false;
-
-            User userFromDB = dao.findByName(user.getUsername());
-            userFromDB.setBalance(userFromDB.getBalance() - receipt.getPrice());
-            dao.update(userFromDB);
-            return true;
-        }}
+        return dao.pay(user, receipt);
+        }
+    }
 
 
 }

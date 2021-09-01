@@ -37,7 +37,7 @@ public class JDBCDirectionDao implements DirectionDao {
                         res.getDouble("distance"));
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            throw new RuntimeException(ex);
         }
         return direction;
     }
@@ -61,7 +61,7 @@ public class JDBCDirectionDao implements DirectionDao {
                         res.getDouble("distance")));
             }
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            throw new RuntimeException(throwables);
         }
         return directionList;
     }
@@ -71,10 +71,6 @@ public class JDBCDirectionDao implements DirectionDao {
 
     }
 
-    @Override
-    public void deleteById(int id) {
-
-    }
 
     @Override
     public void close() {

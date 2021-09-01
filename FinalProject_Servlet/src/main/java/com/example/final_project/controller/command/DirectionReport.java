@@ -8,7 +8,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 
 public class DirectionReport implements Command{
@@ -16,23 +15,18 @@ public class DirectionReport implements Command{
     UserService userService = new UserService();
     @Override
     public String execute(HttpServletRequest request) throws ServletException, IOException {
-        String role = Optional.ofNullable(userService.getUserByUsername((String) request.getSession().getAttribute("userName")).getRole())
-                .orElseThrow(() -> new RuntimeException("FORBIDDEN"));
 
-        if (!role.equals("MANAGER")) {
-            return "redirect:/logout";
-        }
 
         List<DeliveryRequest> deliveryRequestList = deliveryRequestService.getDirectionReport(
                 new String(request.getParameter("city").getBytes("ISO-8859-1"), "UTF-8"));
-
         int page = 1;
-        int recordsPerPage = 3;//const
-
+        int recordsPerPage = 3;
         int noOfRecords = deliveryRequestList.size();
+
         if (noOfRecords == 0) {
             throw new RuntimeException("Not found");
         }
+
         int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPerPage);
 
         if (recordsPerPage > noOfRecords)
