@@ -17,34 +17,39 @@ public class DeliveryRequestCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request) {
-
+        request.getSession().setAttribute("error", false);
+        request.getSession().setAttribute("save", false);
         String type_en = request.getParameter("typeEn");
         if (type_en == null) {
             request.setAttribute("addresses", addressService.getAllAddress());
             return "/WEB-INF/user/deliveryRequest.jsp";
         }
-
         double weight = Double.parseDouble(request.getParameter("weight"));
         int width = Integer.parseInt(request.getParameter("width"));
         int length = Integer.parseInt(request.getParameter("length"));
         int height = Integer.parseInt(request.getParameter("height"));
         Address address = addressService.getAddressById(Long.parseLong(request.getParameter("address")));
-        //TODO validation
-        double volume = deliveryRequestService.calculateVolume(length, height, width);
 
-        deliveryRequestService.saveDeliveryRequest(
-                new DeliveryRequest(
-                        deliveryRequestService.newDateOfArrival(address.getDirection().getDistance()),
-                        type_en,
-                        type_en.equals("Cargo") ? "Вантаж" : "Палета",
-                        volume,
-                        weight,
-                        address,
-                        userService.getUserByUsername((String) request.getSession().getAttribute("userName")),
-                        tariffService.chooseTariff(weight, volume, address.getDirection().getCityEn())
-                ));
+        if (!CommandUtility.validationForDeliveryRequest(weight, width, length, height, address)) {
+            request.getSession().setAttribute("error", true);
+        } else {
 
-        return "redirect:/user";
+            double volume = deliveryRequestService.calculateVolume(length, height, width);
+
+            deliveryRequestService.saveDeliveryRequest(
+                    new DeliveryRequest(
+                            deliveryRequestService.newDateOfArrival(address.getDirection().getDistance()),
+                            type_en,
+                            type_en.equals("Cargo") ? "Вантаж" : "Палета",
+                            volume,
+                            weight,
+                            address,
+                            userService.getUserByUsername((String) request.getSession().getAttribute("userName")),
+                            deliveryRequestService.chooseTariff(weight, volume, address.getDirection().getCityEn())
+                    ));
+            request.getSession().setAttribute("save", true);
+
+        }
+        return "/WEB-INF/user/deliveryRequest.jsp";
     }
-
 }

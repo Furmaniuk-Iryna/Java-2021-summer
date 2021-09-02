@@ -1,7 +1,7 @@
 package com.example.final_project.controller;
 
 import com.example.final_project.controller.command.*;
-import com.example.final_project.controller.command.Exception;
+import com.example.final_project.controller.command.ExceptionCommand;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +19,7 @@ public class Servlet extends HttpServlet {
         commands.put("logout", new LogOut());
         commands.put("login", new Login());
         commands.put("registration", new Registration());
-        commands.put("exception" , new Exception());
+        commands.put("exception" , new ExceptionCommand());
         commands.put("user", new User());
         commands.put("manager", new Manager());
         commands.put("delivery-request", new DeliveryRequestCommand());

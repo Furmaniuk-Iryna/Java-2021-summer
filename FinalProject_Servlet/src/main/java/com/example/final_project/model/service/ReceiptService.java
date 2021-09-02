@@ -22,7 +22,7 @@ public class ReceiptService {
         }
     }
 
-    public synchronized String checkPay(User user, Receipt receipt) {
+    public  String checkPay(User user, Receipt receipt) {
         return receipt.getStatus().equals("paid") ? "paid" : updatePaymentStatus(user,receipt);
     }
 

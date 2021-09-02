@@ -31,7 +31,7 @@ public class UserService {
 
     public void recharge(User user, int sum){
         try (UserDao dao = daoFactory.createUserDao()) {
-            User userFromDB = Optional.ofNullable(dao.findByName(user.getUsername())).orElseThrow(()->new RuntimeException("user not found"));
+            User userFromDB = Optional.ofNullable(dao.findByName(user.getUsername())).orElseThrow(()->new RuntimeException("User not found"));
             userFromDB.setBalance(userFromDB.getBalance() + sum);
             dao.update(userFromDB);
         }

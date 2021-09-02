@@ -21,21 +21,24 @@ public class Main implements Command {
 
     @Override
     public String execute(HttpServletRequest request) throws UnsupportedEncodingException {
-
+        request.getSession().setAttribute("error", false);
 
         request.getSession().setAttribute("cost", 0);
 
         if (Boolean.parseBoolean(request.getParameter("form"))) {
-            //TODO validation
+
             double weight = Double.parseDouble(request.getParameter("weight"));
             int width = Integer.parseInt(request.getParameter("width"));
             int length = Integer.parseInt(request.getParameter("length"));
             int height = Integer.parseInt(request.getParameter("height"));
+            if (CommandUtility.validationForDeliveryCost(weight, width, length, height)) {
+                double volume = deliveryRequestService.calculateVolume(length, height, width);
+                double cost = deliveryRequestService.calculateDeliveryCost(weight, volume, request.getParameter("route"));
 
-            double volume = deliveryRequestService.calculateVolume(length, height, width);
-            double cost = deliveryRequestService.calculateDeliveryCost(weight, volume, request.getParameter("route"));
-
-            request.getSession().setAttribute("cost", cost);
+                request.getSession().setAttribute("cost", cost);
+            } else {
+                request.getSession().setAttribute("error", true);
+            }
         }
 
         request.setAttribute("sort", Boolean.parseBoolean(request.getParameter("sort")));

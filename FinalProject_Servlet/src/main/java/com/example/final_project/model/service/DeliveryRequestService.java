@@ -15,8 +15,7 @@ public class DeliveryRequestService {
     DaoFactory daoFactory = DaoFactory.getInstance();
     private final DirectionService directionService = new DirectionService();
     private final TariffService tariffService = new TariffService();
-    private double forWeight;
-    private double forVolume;
+
 
     public List<DeliveryRequest> getAllDeliveryRequests() {
         try (DeliveryRequestDao dao = daoFactory.createDeliveryRequestDao()) {
@@ -68,18 +67,13 @@ public class DeliveryRequestService {
     }
 
     public double calculateDeliveryCost(double weight, double volume, String city) {
-        chooseTariff(weight, volume, city);
-        return Math.max(weight * forWeight, volume * forVolume);
+      Tariff tariff=chooseTariff(weight, volume, city);
+        return Math.max(weight * tariff.getTariffForWeight(), volume * tariff.getTariffForVolume());
     }
 
-    public  void getTariffForWeightAndVolume(Long id){
-       Tariff tariff= tariffService.findTariffById(id);
-        forWeight = tariff.getTariffForWeight();
-        forVolume = tariff.getTariffForVolume();
-    }
 
-    public void chooseTariff(double weight, double volume, String city) {
-        getTariffForWeightAndVolume(weight > 100 || volume > 1
+    public Tariff chooseTariff(double weight, double volume, String city) {
+        return tariffService.findTariffById(weight > 100 || volume > 1
                 || directionService.getNeededDirection(city).getDistance() > 500 ? 2L : 1L);
     }
 

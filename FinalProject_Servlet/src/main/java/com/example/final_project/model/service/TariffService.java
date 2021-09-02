@@ -25,10 +25,4 @@ public class TariffService {
             return Optional.ofNullable(dao.findById(id)).orElseThrow(RuntimeException::new);
         }
     }
-
-    public Tariff chooseTariff(double weight, double volume, String city) {
-        try (TariffDao dao = daoFactory.createTariffDao()) {
-      return findTariffById(weight > 100 || volume > 1
-                || directionService.getNeededDirection(city).getDistance() > 500 ? 2L : 1L);
-    }}
 }

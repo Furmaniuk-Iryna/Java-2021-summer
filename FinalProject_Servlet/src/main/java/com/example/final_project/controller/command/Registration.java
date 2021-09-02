@@ -10,7 +10,8 @@ public class Registration implements Command{
 
     @Override
     public String execute(HttpServletRequest request) {
-
+        request.getSession().setAttribute("error", false);
+        request.getSession().setAttribute("userPresent", false);
 
         UserService userService = new UserService();
         String name = request.getParameter("name");
@@ -18,11 +19,20 @@ public class Registration implements Command{
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        //TODO validation
 
-        if (username != null && !username.isEmpty() && userService.getUserByUsername(username).getUsername() == null) {
-            userService.saveUser(new User(0, name, surname, username, password, Role.USER.name()));
-            return "/login";
+        if (username != null && !username.isEmpty()) {
+            if (userService.getUserByUsername(username).getUsername() == null) {
+                if (CommandUtility.validationForRegistration(name, surname, username, password)) {
+                    userService.saveUser(new User(0, name, surname, username, password, Role.USER.name()));
+                } else {
+                    request.getSession().setAttribute("error", true);
+                    return "/registration.jsp";
+                }
+            } else {
+                request.getSession().setAttribute("userPresent", true);
+                return "/registration.jsp";
+            }
+            return "redirect:/login";
         }
 
         return "/registration.jsp";
