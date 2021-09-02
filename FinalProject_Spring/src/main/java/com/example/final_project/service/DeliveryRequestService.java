@@ -1,8 +1,10 @@
 package com.example.final_project.service;
 
 import com.example.final_project.entity.DeliveryRequest;
+import com.example.final_project.entity.Tariff;
 import com.example.final_project.entity.User;
 import com.example.final_project.repository.DeliveryRequestRepository;
+import com.example.final_project.repository.TariffRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,13 +19,13 @@ import static com.example.final_project.constants.Constant.*;
 @Slf4j
 @Service
 public class DeliveryRequestService {
-
     @Autowired
     private DeliveryRequestRepository deliveryRequestRepository;
     @Autowired
     private DirectionServise directionServise;
     @Autowired
-    private DeliveryCostService deliveryCostService;
+    private TariffRepository tariffRepository;
+
 
     public LocalDate newDateOfArrival(DeliveryRequest deliveryRequest) {
         return deliveryRequest.getAddress().getDirection().getDistance() > maxDistance
@@ -40,18 +42,32 @@ public class DeliveryRequestService {
                 .height(deliveryRequest.getHeight())
                 .address(deliveryRequest.getAddress())
                 .dateOfArrival(newDateOfArrival(deliveryRequest))
-                .volume(deliveryCostService.calculateVolume(deliveryRequest.getLength(),deliveryRequest.getHeight(),deliveryRequest.getWidth()))
+                .volume(calculateVolume(deliveryRequest.getLength(), deliveryRequest.getHeight(), deliveryRequest.getWidth()))
                 .type_uk(deliveryRequest.getType_en().equals("Cargo") ? "Вантаж" : "Палета")
                 .user(user)
                 .build());
     }
 
-    public Page<DeliveryRequest> getDirectionReport(String city, Pageable pageable){
-       return deliveryRequestRepository.findAllByAddress_Direction(directionServise.getNeededDirection(city),pageable);
+    public Page<DeliveryRequest> getDirectionReport(String city, Pageable pageable) {
+        return deliveryRequestRepository.findAllByAddress_Direction(directionServise.getNeededDirection(city), pageable);
     }
 
-    public Page<DeliveryRequest> getReportByDays(LocalDate date, Pageable pageable){
+    public Page<DeliveryRequest> getReportByDays(LocalDate date, Pageable pageable) {
         Optional.ofNullable(date).orElseThrow(() -> new RuntimeException("Incorrect date"));
-        return deliveryRequestRepository.findAllByDateOfArrival(date,pageable);
+        return deliveryRequestRepository.findAllByDateOfArrival(date, pageable);
+    }
+
+    public double calculateVolume(int length, int height, int width) {
+        return (double) length * width * height / centimetersToCubicMeters;
+    }
+
+    public double calculateDeliveryCost(double weight, double volume, String city) {
+      Tariff tariff = chooseTariff(weight, volume, city);
+        return Math.max(weight * tariff.getTariffForWeight(), volume * tariff.getTariffForVolume());
+    }
+
+    public Tariff chooseTariff(double weight, double volume, String city) {
+     return tariffRepository.findTariffById(weight > maxWeight || volume > maxVolume
+                || directionServise.getNeededDirection(city).getDistance() > maxDistance ? secondTariffId : firstTariffId);
     }
 }

@@ -50,7 +50,8 @@ public class UserController {
     @GetMapping("/recharge")
     public String userPage(@AuthenticationPrincipal User user,
                            @RequestParam(value = "sum", required = true) Integer sum) {
-        receiptService.recharge(user, sum);
+
+        userService.recharge(user, sum>0?sum:0);
         return "redirect:/users";
     }
 

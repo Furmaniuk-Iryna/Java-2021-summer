@@ -103,7 +103,7 @@
             </tr>
         </div>
         <tr th:if="${filter}" th:each="fdirection: ${filterDirection}">
-            <th th:text="${fdirection.id}"></th>
+            <th th:text="${fdirection.getId()}"></th>
             <td th:if="${locale=='en'}" th:text="${fdirection.getCityEn()}"></td>
             <td th:if="${locale=='uk'}" th:text="${fdirection.getCityUk()}"></td>
             <td th:text="${fdirection.getDistance()}"></td>
@@ -115,7 +115,8 @@
 <div class="cost">
     <h2 class="title" th:text="#{calculate.costs.title}"/>
 
-    <form th:method="POST" th:action="@{/}" th:object="${deliveryCost}" class="delivery_cost">
+    <form th:method="GET" th:action="@{/}" th:object="${deliveryCost}" class="delivery_cost">
+        <input type="hidden" value="true" name="form"/>
         <br>
         <label for="city" th:text="#{route}"/>
         <select class="form-select" aria-label="Default select example" id="city" th:field="*{city}">

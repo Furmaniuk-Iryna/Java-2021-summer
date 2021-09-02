@@ -2,10 +2,8 @@ package com.example.final_project.controller;
 
 import com.example.final_project.entity.DeliveryRequest;
 import com.example.final_project.entity.Direction;
-import com.example.final_project.entity.Receipt;
 import com.example.final_project.repository.DeliveryRequestRepository;
 import com.example.final_project.repository.ReceiptRepository;
-import com.example.final_project.service.DeliveryCostService;
 import com.example.final_project.service.DeliveryRequestService;
 import com.example.final_project.service.ReceiptService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
-import java.util.Optional;
 import java.util.stream.IntStream;
 
 @Controller

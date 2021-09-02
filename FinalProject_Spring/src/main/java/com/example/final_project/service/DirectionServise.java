@@ -33,6 +33,7 @@ public class DirectionServise {
                         || direction.getCityUk().toLowerCase().equals(city.toLowerCase())))
                 .findFirst().orElseThrow(()->new RuntimeException("Incorrect city"));
     }
+
     public List<Direction> findDirectionsLike(String city){
       return !city.isEmpty() ? directionRepository.findDirectionsLike(city): directionRepository.findAll();
     }
