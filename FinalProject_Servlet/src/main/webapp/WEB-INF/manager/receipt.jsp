@@ -15,8 +15,8 @@
 <body>
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="messages"/>
-<button class="btn btn-light right_button" type="button"><a class="button_locale" href="?locale=uk">UKR</a></button>
-<button class="btn btn-light right_button" type="button"><a class="button_locale" href="?locale=en">ENG</a></button>
+<%--<button class="btn btn-light right_button" type="button"><a class="button_locale" href="?locale=uk">UKR</a></button>--%>
+<%--<button class="btn btn-light right_button" type="button"><a class="button_locale" href="?locale=en">ENG</a></button>--%>
 <table class="table table-dark">
     <thead>
     <tr>

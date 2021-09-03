@@ -9,10 +9,15 @@ import com.example.final_project.model.entity.Tariff;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
-
+/**
+ * DirectionServise is a service we'll be using to form response and
+ * where there is all the business logic for the essence Direction
+ */
 public class DirectionService {
     DaoFactory daoFactory = DaoFactory.getInstance();
+    private static Logger log = Logger.getLogger(String.valueOf(DirectionService.class));
 
     public List<Direction> getAllDirections(){
         try (DirectionDao dao = daoFactory.createDirectionDao()) {
@@ -20,11 +25,6 @@ public class DirectionService {
         }
     }
 
-    /**
-     * Find a Direction by its primary key.
-     * @param id
-     * @return
-     */
     public Direction getDirectionById(long id){
         try (DirectionDao dao = daoFactory.createDirectionDao()) {
             return Optional.ofNullable(dao.findById(id)).orElseThrow(RuntimeException::new);

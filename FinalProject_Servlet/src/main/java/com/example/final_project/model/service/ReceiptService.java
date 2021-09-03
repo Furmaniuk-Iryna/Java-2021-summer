@@ -7,8 +7,14 @@ import com.example.final_project.model.entity.User;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
+/**
+ * ReceiptService is a service we'll be using to form response and
+ * where there is all the business logic for the essence Receipt
+ */
 public class ReceiptService {
+    private static Logger log = Logger.getLogger(String.valueOf(ReceiptService.class));
     DaoFactory daoFactory = DaoFactory.getInstance();
     public void saveReceipt(Receipt receipt){
         try (ReceiptDao dao = daoFactory.createReceiptDao()) {
