@@ -10,12 +10,14 @@ import com.example.final_project.model.service.UserService;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
-
+/**
+ * Manager is a controller we'll be using to receive requests and send a response to the main page
+ * Please see the {@link com.example.final_project.controller.command.Command} class for true identity
+ */
 public class Main implements Command {
     private final TariffService tariffService = new TariffService();
     private final DirectionService directionService = new DirectionService();
     private final DeliveryRequestService deliveryRequestService = new DeliveryRequestService();
-    private final UserService userService = new UserService();
     List<Tariff> tariffList = tariffService.getAllTariffs();
     List<Direction> directionList = directionService.getAllDirections();
 
@@ -23,7 +25,7 @@ public class Main implements Command {
     public String execute(HttpServletRequest request) throws UnsupportedEncodingException {
         request.getSession().setAttribute("error", false);
 
-        request.getSession().setAttribute("cost", 0);
+        request.getSession().setAttribute("cost", 0.0);
 
         if (Boolean.parseBoolean(request.getParameter("form"))) {
 

@@ -7,7 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashSet;
 import java.util.Optional;
-
+/**
+ * CommandUtility is class we'll be using to get needed methods
+ * Please see the {@link com.example.final_project.controller.command.Command} class for true identity
+ */
 public class CommandUtility {
     static void setUserRole(HttpServletRequest request,
                             String role, String username) {

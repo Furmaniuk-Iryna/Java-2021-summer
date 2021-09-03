@@ -20,10 +20,9 @@
 <button class="btn btn-light left_button" type="button">
     <a class="button_locale" href="${pageContext.request.contextPath}/main"><fmt:message key="main.page"/></a>
 </button>
-<button class="btn btn-light right_button" type="button"><a class="button_locale" href="?locale=uk">UKR</a></button>
-<button class="btn btn-light right_button" type="button"><a class="button_locale" href="?locale=en">ENG</a></button>
+<button class="btn btn-light right_button" type="button"><a class="button_locale" href="${pageContext.request.contextPath}/exception?locale=uk">UKR</a></button>
+<button class="btn btn-light right_button" type="button"><a class="button_locale" href="${pageContext.request.contextPath}/exception?locale=en">ENG</a></button>
 <p class="exception-title"><fmt:message key="error"/></p><br/>
-<p class="exception-message"><%= exception.getLocalizedMessage() %></p>
 <br>
 
 

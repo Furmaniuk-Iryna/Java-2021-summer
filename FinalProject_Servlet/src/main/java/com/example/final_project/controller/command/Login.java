@@ -4,7 +4,10 @@ import com.example.final_project.model.entity.User;
 import com.example.final_project.model.service.UserService;
 import javax.servlet.http.HttpServletRequest;
 
-
+/**
+ * Login is a controller we'll be using to receive requests and send a response for log in
+ * Please see the {@link com.example.final_project.controller.command.Command} class for true identity
+ */
 public class Login implements Command{
 private final UserService userService=new UserService();
     @Override

@@ -10,7 +10,10 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-
+/**
+ * ReportByDays is a controller we'll be using to receive requests and send a response to the report by days page
+ * Please see the {@link com.example.final_project.controller.command.Command} class for true identity
+ */
 public class ReportByDays implements Command {
     private final DeliveryRequestService deliveryRequestService = new DeliveryRequestService();
     private final UserService userService = new UserService();

@@ -1,6 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="currencyTag" prefix="t" %>
+<%@ taglib prefix="tf" tagdir="/WEB-INF/tags" %>
 <style>
     <%@include file="/css/style.css"%>
 </style>
@@ -193,7 +195,11 @@
         <p class="cost_result">
             <c:if test="${!sessionScope.error}">
                 <c:if test="${sessionScope.cost!=null}">
-                    <fmt:message key="result"/> ${sessionScope.cost}</c:if>
+                    <c:if test="${sessionScope.locale=='uk'}">
+                        <fmt:message key="result"/> ${sessionScope.cost}<t:currencyTag></t:currencyTag>
+                    </c:if>
+                    <tf:currency></tf:currency>
+                </c:if>
             </c:if></p>
     </form>
 </div>

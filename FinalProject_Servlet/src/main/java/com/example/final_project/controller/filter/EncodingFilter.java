@@ -2,7 +2,9 @@ package com.example.final_project.controller.filter;
 
 import javax.servlet.*;
 import java.io.IOException;
-
+/**
+ * EncodingFilter is the filter we'll be using to set encoding
+ */
 public class EncodingFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {

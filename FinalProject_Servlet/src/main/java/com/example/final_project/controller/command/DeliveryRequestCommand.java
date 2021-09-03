@@ -8,7 +8,10 @@ import com.example.final_project.model.service.TariffService;
 import com.example.final_project.model.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
-
+/**
+ * DeliveryRequestCommand is a controller we'll be using to receive requests and send a response for create delivery request
+ * Please see the {@link com.example.final_project.controller.command.Command} class for true identity
+ */
 public class DeliveryRequestCommand implements Command {
     private final AddressService addressService = new AddressService();
     private final DeliveryRequestService deliveryRequestService = new DeliveryRequestService();

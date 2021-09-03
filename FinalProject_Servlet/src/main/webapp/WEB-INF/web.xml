@@ -51,5 +51,11 @@
     <location>/WEB-INF/error.jsp</location>
   </error-page>
 
+  <jsp-config>
+  <taglib>
+    <taglib-uri>currencyTag</taglib-uri>
+    <taglib-location>/WEB-INF/currency-tag.tld</taglib-location>
+  </taglib>
+  </jsp-config>
 
 </web-app>

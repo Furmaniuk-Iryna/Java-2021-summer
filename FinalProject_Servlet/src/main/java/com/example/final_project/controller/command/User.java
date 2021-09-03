@@ -7,7 +7,10 @@ import com.example.final_project.model.service.UserService;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-
+/**
+ * User is a controller we'll be using to receive requests and send a response to the user page
+ * Please see the {@link com.example.final_project.controller.command.Command} class for true identity
+ */
 public class User implements Command {
     private final UserService userService = new UserService();
     private final DeliveryRequestService deliveryRequestService = new DeliveryRequestService();

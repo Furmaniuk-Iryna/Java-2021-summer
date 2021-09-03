@@ -6,6 +6,10 @@ import com.example.final_project.model.service.UserService;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+/**
+ * Manager is a controller we'll be using to receive requests and send a response to the manager page
+ * Please see the {@link com.example.final_project.controller.command.Command} class for true identity
+ */
 public class Manager implements Command {
     private final DeliveryRequestService deliveryRequestService = new DeliveryRequestService();
     private final UserService userService = new UserService();

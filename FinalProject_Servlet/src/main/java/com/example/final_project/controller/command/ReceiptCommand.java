@@ -8,7 +8,10 @@ import com.example.final_project.model.service.ReceiptService;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-
+/**
+ * ReceiptCommand is a controller we'll be using to receive requests and send a response for create receipt
+ * Please see the {@link com.example.final_project.controller.command.Command} class for true identity
+ */
 public class ReceiptCommand implements Command {
     private final DeliveryRequestService deliveryRequestService = new DeliveryRequestService();
     private final ReceiptService receiptService = new ReceiptService();

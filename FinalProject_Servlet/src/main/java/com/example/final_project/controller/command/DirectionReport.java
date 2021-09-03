@@ -9,7 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
-
+/**
+ * DirectionReport is a controller we'll be using to receive requests and send a response to the direction report page
+ * Please see the {@link com.example.final_project.controller.command.Command} class for true identity
+ */
 public class DirectionReport implements Command{
     DeliveryRequestService deliveryRequestService= new DeliveryRequestService();
     UserService userService = new UserService();
