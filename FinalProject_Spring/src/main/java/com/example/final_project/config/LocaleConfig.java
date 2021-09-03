@@ -11,6 +11,10 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
 import java.util.Locale;
 
+/**
+ * LocaleConfig is the class we'll be using to change locale
+ * Please see the {@link org.springframework.web.servlet.config.annotation.WebMvcConfigurer} class for true identity
+ */
 @Configuration
 public class LocaleConfig implements WebMvcConfigurer {
     @Override

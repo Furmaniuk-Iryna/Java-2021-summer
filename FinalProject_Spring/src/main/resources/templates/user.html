@@ -10,7 +10,7 @@
 
     <title>Cargo delivery</title>
 </head>
-<body class="user">
+<body class="user" th:with="lang=${#locale.getLanguage()}">
 <div class="header_top">
     <div class="locale">
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -73,7 +73,6 @@
         <th th:text="#{type}"></th>
         <th th:text="#{weight}"></th>
         <th th:text="#{volume}"></th>
-        <th th:text="#{city}"></th>
         <th th:text="#{address}"></th>
         <th th:text="#{date.of.arrival}"></th>
         <th th:text="#{price}"></th>
@@ -83,11 +82,12 @@
     <tr th:each="request : ${deliveryRequests}">
         <th th:text="${request.id}"></th>
         <td th:text="${request.user.getUsername()}"></td>
-        <td th:text="${request.type_en}"></td>
+        <td th:if="${lang.equals('en')}" th:text="${request.type_en}"></td>
+        <td th:if="${lang.equals('uk')}" th:text="${request.type_uk}"></td>
         <td th:text="${request.weight}"></td>
         <td th:text="${request.volume}"></td>
-        <td th:text="${request.getAddress().getDirection().getCityEn()}"></td>
-        <td th:text="${request.address.getAddress_en()}"></td>
+        <td th:if="${lang.equals('en')}" th:text="${request.getAddress().getAddress_en()}"></td>
+        <td th:if="${lang.equals('uk')}" th:text="${request.getAddress().getAddress_uk()}"></td>
         <td th:text="${request.dateOfArrival}"></td>
         <td>
             <div th:each="receipt : ${receipts}" th:if="${receipt.getDeliveryRequest().getId()==request.getId()}">

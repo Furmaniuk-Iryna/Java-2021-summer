@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 import java.util.Optional;
-
+/**
+ * RegistrationController we'll be using to receive request and send a page for registration new user
+ */
 @Controller
 @RequestMapping("/registration")
 public class RegistrationController {

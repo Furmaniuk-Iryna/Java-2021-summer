@@ -12,6 +12,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
+/**
+ *SecurityConfig is the class we'll be using to identify, authorize, and authenticate
+ * Please see the {@link org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter} class for true identity
+ *
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -30,17 +35,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable()
                 .authorizeRequests()
-                //Доступ только для пользователей с ролью Администратор
                 .antMatchers("/deliveryRequests/**").hasAuthority("MANAGER")
                 .antMatchers("/users/**").hasAnyAuthority("USER", "MANAGER")
-                //Доступ разрешен всем пользователей
                 .antMatchers("/", "/registration", "/css/*","/filter","/image/*").permitAll()
-                //Все остальные страницы требуют аутентификации
                 .anyRequest().authenticated()
                 .and()
-                //Настройка для входа в систему
                 .formLogin()
-                //Перенарпавление на главную страницу после успешного входа
                 .defaultSuccessUrl("/users")
                 .permitAll()
                 .and()

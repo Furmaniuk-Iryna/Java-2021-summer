@@ -16,6 +16,10 @@ import java.util.Optional;
 
 import static com.example.final_project.constants.Constant.*;
 
+/**
+ * DeliveryRequestService is service we'll be using to form response and
+ * where there is all the business logic for the essence Delivery Request
+ */
 @Slf4j
 @Service
 public class DeliveryRequestService {
@@ -28,12 +32,14 @@ public class DeliveryRequestService {
 
 
     public LocalDate newDateOfArrival(DeliveryRequest deliveryRequest) {
+        log.info("Service: newDateOfArrival with request {}", deliveryRequest);
         return deliveryRequest.getAddress().getDirection().getDistance() > maxDistance
                 ? LocalDate.now().plusDays(numberDaysWhenDistanceMoreMaxDistance)
                 : LocalDate.now().plusDays(numberDaysWhenDistanceLessMaxDistance);
     }
 
     public void saveDeliveryRequest(DeliveryRequest deliveryRequest, User user) {
+        log.info("Service: saveDeliveryRequest with request - {}, user -  {}", deliveryRequest, user);
         deliveryRequestRepository.save(DeliveryRequest.builder()
                 .type_en(deliveryRequest.getType_en())
                 .weight(deliveryRequest.getWeight())
@@ -49,22 +55,27 @@ public class DeliveryRequestService {
     }
 
     public Page<DeliveryRequest> getDirectionReport(String city, Pageable pageable) {
+        log.info("Service: getDirectionReport with city {}", city);
         return deliveryRequestRepository.findAllByAddress_Direction(directionServise.getNeededDirection(city), pageable);
     }
 
     public Page<DeliveryRequest> getReportByDays(LocalDate date, Pageable pageable) {
+        log.info("Service: getReportByDays with date {}", date);
         Optional.ofNullable(date).orElseThrow(() -> new RuntimeException("Incorrect date"));
         return deliveryRequestRepository.findAllByDateOfArrival(date, pageable);
     }
 
     public double calculateVolume(int length, int height, int width) {
+        log.info("Service: getDirectionReport with length {}, height {}, width{}", length,height,width);
         return (double) length * width * height / centimetersToCubicMeters;
     }
 
     public double calculateDeliveryCost(double weight, double volume, String city) {
+        log.info("Service: getDirectionReport with weight {}, volume {}, city{}", weight, volume,city);
       Tariff tariff = chooseTariff(weight, volume, city);
         return Math.max(weight * tariff.getTariffForWeight(), volume * tariff.getTariffForVolume());
     }
+
 
     public Tariff chooseTariff(double weight, double volume, String city) {
      return tariffRepository.findTariffById(weight > maxWeight || volume > maxVolume

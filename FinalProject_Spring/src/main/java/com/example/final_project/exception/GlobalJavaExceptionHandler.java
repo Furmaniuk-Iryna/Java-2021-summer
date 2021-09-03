@@ -9,6 +9,10 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import java.util.NoSuchElementException;
 
+/**
+ * GlobalJavaExceptionHandler is a class we'll be using to send a response if an error or exception occurs
+ * Please see the {@link org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler} class for true identity
+ */
 @ControllerAdvice
 public class GlobalJavaExceptionHandler extends ResponseEntityExceptionHandler {
 
@@ -29,6 +33,14 @@ public class GlobalJavaExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
     @ExceptionHandler(NumberFormatException.class)
+    public ResponseEntity numberFormatException(){
+        return new ResponseEntity(HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity exception(){
+        return new ResponseEntity(HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(Error.class)
     public ResponseEntity error(){
         return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }

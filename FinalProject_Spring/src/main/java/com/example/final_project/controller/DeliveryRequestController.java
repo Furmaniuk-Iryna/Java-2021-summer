@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.time.LocalDate;
 import java.util.stream.IntStream;
 
+/**
+ * DeliveryRequestController is a controller we'll be using to receive requests and send a response to the manager
+ */
 @Controller
 @RequestMapping("/deliveryRequests")
 public class DeliveryRequestController {

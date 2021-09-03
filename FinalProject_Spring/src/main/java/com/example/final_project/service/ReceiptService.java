@@ -9,7 +9,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+/**
+ * ReceiptService is a service we'll be using to form response and
+ * where there is all the business logic for the essence Receipt
+ */
 @Slf4j
 @Service
 public class ReceiptService {
@@ -22,6 +25,7 @@ public class ReceiptService {
     private DeliveryRequestService deliveryRequestService;
 
     public void saveReceipt(DeliveryRequest newDeliveryRequest) {
+        log.info("Service: Save receipt with delivery request {}", newDeliveryRequest);
         receiptRepository.save(Receipt.builder()
                 .deliveryRequest(newDeliveryRequest)
                 .price(deliveryRequestService.calculateDeliveryCost(newDeliveryRequest.getWeight(),
@@ -30,6 +34,7 @@ public class ReceiptService {
     }
 
     public String checkPay(User user, Receipt receipt) {
+        log.info("Service: CheckPay with user {}, receipt {}", user, receipt);
         return receipt.getStatus().equals("paid") ? "paid" : updatePaymentStatus(user,receipt);
     }
 

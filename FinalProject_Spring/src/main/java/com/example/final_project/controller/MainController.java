@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-
+/**
+ * MainController we'll be using to receive request and send a main page of website
+ */
 @Controller
 @RequestMapping("/")
 public class MainController {
@@ -38,7 +40,6 @@ public class MainController {
                            Model model) {
         model.addAttribute("filter",filter);
         model.addAttribute("filterDirection",directionServise.findDirectionsLike(city));
-        model.addAttribute("locale", LocaleContextHolder.getLocale().getLanguage());
         model.addAttribute("sort", sort);
         model.addAttribute("tariffs", tariffRepository.findAll());
         model.addAttribute("allDirections", directionRepository.findAll());

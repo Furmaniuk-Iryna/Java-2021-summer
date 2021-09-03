@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Optional;
-
+/**
+ * UserController is a controller we'll be using to receive requests and send a response to the users
+ */
 @Controller
 @RequestMapping("/users")
 public class UserController {

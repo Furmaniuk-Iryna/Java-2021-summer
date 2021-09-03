@@ -10,11 +10,18 @@
 
     <title>Cargo delivery</title>
 </head>
-<body>
-<h1>Direction report</h1>
-<button class="btn btn-info" type="button">
-    <a class="button_a" th:href="@{'/deliveryRequests'}" th:text="#{manager.page}"></a>
-</button>
+<body th:with="lang=${#locale.getLanguage()}">
+<div class="header_top">
+    <div class="locale">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button class="btn btn-light" type="button"><a class="button_locale" th:href="@{'/deliveryRequests/directionReports?city='+${city}+'&page='+${pages.number}+'&locale=uk'}">UKR</a>
+            </button>
+            <button class="btn btn-light" type="button"><a class="button_locale" th:href="@{'/deliveryRequests/directionReports?city='+${city}+'&page='+${pages.number}+'&locale=en'}">ENG</a>
+            </button>
+        </div>
+    </div>
+</div>
+
 <div class="card">
 <table class="table">
     <thead class="table-dark table-hover">
@@ -24,7 +31,6 @@
         <th th:text="#{type}"></th>
         <th th:text="#{weight}"></th>
         <th th:text="#{volume}"></th>
-        <th th:text="#{city}"></th>
         <th th:text="#{address}"></th>
         <th th:text="#{date.of.arrival}"></th>
     </tr>
@@ -33,11 +39,12 @@
     <tr th:each="request : ${directionReports}">
         <th th:text="${request.id}"></th>
         <td th:text="${request.user.getUsername()}"></td>
-        <td th:text="${request.type_en}"></td>
+        <td th:if="${lang.equals('en')}" th:text="${request.type_en}"></td>
+        <td th:if="${lang.equals('uk')}" th:text="${request.type_uk}"></td>
         <td th:text="${request.weight}"></td>
         <td th:text="${request.volume}"></td>
-        <td th:text="${request.getAddress().getDirection().getCityEn()}"></td>
-        <td th:text="${request.address.getAddress_en()}"></td>
+        <td th:if="${lang.equals('en')}" th:text="${request.getAddress().getAddress_en()}"></td>
+        <td th:if="${lang.equals('uk')}" th:text="${request.getAddress().getAddress_uk()}"></td>
         <td th:text="${request.dateOfArrival}"></td>
     </tr>
     </tbody>
@@ -52,5 +59,8 @@
     </ul>
 </nav>
 </div>
+<button class="btn btn-info" type="button">
+    <a class="button_a" th:href="@{'/deliveryRequests'}" th:text="#{manager.page}"></a>
+</button>
 </body>
 </html>

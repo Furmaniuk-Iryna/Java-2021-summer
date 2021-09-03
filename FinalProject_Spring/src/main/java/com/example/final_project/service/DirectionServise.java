@@ -9,6 +9,12 @@ import org.springframework.stereotype.Service;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+
+ /**
+ * DirectionServise is a service we'll be using to form response and
+ * where there is all the business logic for the essence Direction
+ */
+
 @Slf4j
 @Service
 public class DirectionServise {
@@ -18,16 +24,19 @@ public class DirectionServise {
 
 
     public List<Direction> sortedDirectionsForUkLocale() {
+        log.info("Service: started sortedDirectionsForUkLocale");
         return directionRepository.findAll().stream()
                 .sorted(Comparator.comparing(Direction::getCityUk)).collect(Collectors.toList());
     }
 
     public List<Direction> sortedDirectionsForEnLocale() {
+        log.info("Service: started sortedDirectionsForEnLocale");
         return directionRepository.findAll().stream()
                 .sorted(Comparator.comparing(Direction::getCityEn)).collect(Collectors.toList());
     }
 
     public Direction getNeededDirection(String city) {
+        log.info("Service: getNeededDirection with city {}", city);
         return  directionRepository.findAll().stream()
                 .filter(direction -> (direction.getCityEn().toLowerCase().equals(city.toLowerCase())
                         || direction.getCityUk().toLowerCase().equals(city.toLowerCase())))
@@ -35,6 +44,7 @@ public class DirectionServise {
     }
 
     public List<Direction> findDirectionsLike(String city){
+        log.info("Service: findDirectionsLike with city {}", city);
       return !city.isEmpty() ? directionRepository.findDirectionsLike(city): directionRepository.findAll();
     }
 

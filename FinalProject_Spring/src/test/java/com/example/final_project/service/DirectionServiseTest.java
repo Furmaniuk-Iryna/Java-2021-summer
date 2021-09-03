@@ -48,8 +48,4 @@ public class DirectionServiseTest {
         directionServise.getNeededDirection("Lvv");
     }
 
-//    @Test
-//    public void findDirectionsLike() {
-//
-//    }
 }

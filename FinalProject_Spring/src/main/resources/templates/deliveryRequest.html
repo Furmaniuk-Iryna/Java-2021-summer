@@ -10,7 +10,7 @@
 
     <title>Cargo delivery</title>
 </head>
-<body class="delivery_request">
+<body class="delivery_request" th:with="lang=${#locale.getLanguage()}">
 <div>
     <div class="locale">
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -25,8 +25,10 @@
 
     <label for="type" th:text="#{type}"/>
     <select class="form-select" aria-label="Default select example" id="type" th:field="*{type_en}">
-        <option th:value="'Cargo'" th:text="Cargo"/>
-        <option th:value="'Pallets'" th:text="Pallets"/>
+        <option th:if="${lang.equals('en')}" th:value="'Cargo'" th:text="Cargo"/>
+        <option th:if="${lang.equals('uk')}" th:value="'Cargo'" th:text="Вантаж"/>
+        <option th:if="${lang.equals('en')}" th:value="'Pallets'" th:text="Pallets"/>
+        <option th:if="${lang.equals('uk')}" th:value="'Pallets'" th:text="Палета"/>
     </select>
     <br>
     <div class="error" th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}"></div>
@@ -48,8 +50,8 @@
     <label for="city" th:text="#{address}"/>
     <select class="form-select" aria-label="Default select example" id="city" th:field="*{address}">
         <div th:each="address: ${addresses}">
-            <option th:if="${locale=='en'}" th:value="${address.getId()}" th:text="${address.getAddress_en()}"/>
-            <option th:if="${locale=='uk'}" th:value="${address.getId()}" th:text="${address.getAddress_uk()}"/>
+            <option th:if="${lang.equals('en')}" th:value="${address.getId()}" th:text="${address.getAddress_en()}"/>
+            <option th:if="${lang.equals('uk')}" th:value="${address.getId()}" th:text="${address.getAddress_uk()}"/>
         </div>
     </select>
     <br><br>
