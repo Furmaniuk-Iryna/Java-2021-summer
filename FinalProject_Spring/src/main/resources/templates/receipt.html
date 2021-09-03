@@ -29,12 +29,12 @@
     <tr>
         <th th:text="${deliveryRequest.getId()}"></th>
         <td th:text="${deliveryRequest.getUser().getUsername()}"></td>
-        <td th:if="${lang.equals('en')}" th:text="${request.type_en}"></td>
-        <td th:if="${lang.equals('uk')}" th:text="${request.type_uk}"></td>
-        <td th:text="${request.weight}"></td>
-        <td th:text="${request.volume}"></td>
-        <td th:if="${lang.equals('en')}" th:text="${request.getAddress().getAddress_en()}"></td>
-        <td th:if="${lang.equals('uk')}" th:text="${request.getAddress().getAddress_uk()}"></td>
+        <td th:if="${lang.equals('en')}" th:text="${deliveryRequest.type_en}"></td>
+        <td th:if="${lang.equals('uk')}" th:text="${deliveryRequest.type_uk}"></td>
+        <td th:text="${deliveryRequest.weight}"></td>
+        <td th:text="${deliveryRequest.volume}"></td>
+        <td th:if="${lang.equals('en')}" th:text="${deliveryRequest.getAddress().getAddress_en()}"></td>
+        <td th:if="${lang.equals('uk')}" th:text="${deliveryRequest.getAddress().getAddress_uk()}"></td>
         <td th:text="${deliveryRequest.dateOfArrival}"></td>
         <th th:text="${price}"></th>
     </tr>

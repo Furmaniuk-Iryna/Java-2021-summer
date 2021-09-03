@@ -67,8 +67,10 @@ public class UserController {
 
     @PostMapping("/deliveryRequests")
     public String readDeliveryRequest(@ModelAttribute("deliveryRequest") @Valid DeliveryRequest deliveryRequest, BindingResult bindingResult,
-                                      @AuthenticationPrincipal User user) {
-        if(bindingResult.hasErrors()){ return "deliveryRequest";}
+                                      @AuthenticationPrincipal User user, Model model) {
+        if(bindingResult.hasErrors()){
+            model.addAttribute("addresses", addressRepository.findAll());
+            return "deliveryRequest";}
         deliveryRequestService.saveDeliveryRequest(deliveryRequest, user);
         return "redirect:/users";
     }
