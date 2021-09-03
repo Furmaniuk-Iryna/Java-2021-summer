@@ -56,8 +56,8 @@
         <tr>
             <th>#</th>
             <th><fmt:message key="name"/></th>
-            <th><fmt:message key="weight"/></th>
-            <th><fmt:message key="volume"/></th>
+            <th><fmt:message key="price.kg"/></th>
+            <th><fmt:message key="price.m"/></th>
             <th><fmt:message key="conditions"/></th>
         </tr>
         </thead>

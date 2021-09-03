@@ -40,7 +40,7 @@ public class UserService implements UserDetailsService {
     }
 
     public void saveUser(User user){
-        log.info("Service: Save user {}", user);
+        log.info("Service: Save user, id - {}", user.getIdUser());
         user.setBalance(0);
         user.setActive(true);
         user.setRoles(Collections.singleton(Role.USER));
@@ -48,7 +48,7 @@ public class UserService implements UserDetailsService {
     }
     @Transactional
     public Boolean pay(User user, Receipt receipt) {
-        log.info("Service: Transaction with user {}, receipt {}", user, receipt);
+        log.info("Service: Transaction with user id {}, receipt {}", user.getIdUser(), receipt);
         User userFromDB = userRepository.findByUsername(user.getUsername()).orElseThrow(RuntimeException::new);
         if (userFromDB.getBalance() <= receipt.getPrice()) return false;
 
@@ -58,7 +58,7 @@ public class UserService implements UserDetailsService {
     }
 
     public void recharge(User user, int sum) {
-        log.info("Service: Recharge user - {}, sum - {}", user,sum);
+        log.info("Service: Recharge user id - {}, sum - {}", user.getIdUser(),sum);
         User userFromDB = userRepository.findByUsername(user.getUsername()).orElseThrow(RuntimeException::new);
         userFromDB.setBalance(userFromDB.getBalance() + sum);
         userRepository.save(userFromDB);

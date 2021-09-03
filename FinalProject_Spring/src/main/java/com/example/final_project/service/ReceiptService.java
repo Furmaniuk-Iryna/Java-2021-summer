@@ -34,7 +34,7 @@ public class ReceiptService {
     }
 
     public String checkPay(User user, Receipt receipt) {
-        log.info("Service: CheckPay with user {}, receipt {}", user, receipt);
+        log.info("Service: CheckPay with user id {}, receipt {}", user.getIdUser(), receipt);
         return receipt.getStatus().equals("paid") ? "paid" : updatePaymentStatus(user,receipt);
     }
 

@@ -39,7 +39,7 @@ public class DeliveryRequestService {
     }
 
     public void saveDeliveryRequest(DeliveryRequest deliveryRequest, User user) {
-        log.info("Service: saveDeliveryRequest with request - {}, user -  {}", deliveryRequest, user);
+        log.info("Service: saveDeliveryRequest with request - {}, user id -  {}", deliveryRequest, user.getIdUser());
         deliveryRequestRepository.save(DeliveryRequest.builder()
                 .type_en(deliveryRequest.getType_en())
                 .weight(deliveryRequest.getWeight())
