@@ -36,6 +36,18 @@ public class DeliveryRequestController {
     @Autowired
     private ReceiptService receiptService;
 
+    @GetMapping("/editor")
+    public String editPage() {
+        return "deliveryRequestEdit";
+    }
+
+    @GetMapping("/update/{id}")
+    public String updateRequest(@PathVariable("id") long id,Model model) {
+        model.addAttribute("id",id);
+        model.addAttribute("request", deliveryRequestRepository.findById(id));
+        return "deliveryRequestUpdate";
+    }
+
     @GetMapping()
     public String createManagerPage(@RequestParam(value = "page",required = false, defaultValue = "0") Integer page,
                                     Model model) {

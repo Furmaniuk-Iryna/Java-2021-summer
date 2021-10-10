@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Cargo delivery</title>
+</head>
+<body th:with="lang=${#locale.getLanguage()}">
+
+
+<input type="text" id="id" placeholder="id"/>
+<button class="btn btn-info" id="findById" onclick="findRequestById()">Find By Id</button>
+<br><br>
+<table class="table">
+    <thead class="table-hover"></thead>
+    <tbody id="requestById" style="border-color: dimgrey; background: darkgray">
+
+    </tbody>
+</table>
+<br><br>
+<div>
+    <select class="form-select" aria-label="Default select example" id="type_en">
+        <option th:if="${lang.equals('en')}" value="Cargo">Cargo</option>
+        <option th:if="${lang.equals('uk')}" value="Cargo">Вантаж</option>
+        <option th:if="${lang.equals('en')}" value="Pallets">Pallets</option>
+        <option th:if="${lang.equals('uk')}" value="Pallets">Палета</option>
+    </select>
+    <br>
+
+    <input type="text" id="weight" placeholder="weight"/>
+    <br><br>
+    <input type="text" id="length" placeholder="length"/>
+    <br><br>
+
+    <input type="text" id="width" placeholder="width"/>
+    <br><br>
+
+    <input type="text" id="height" placeholder="height"/>
+    <br><br>
+    <select class="form-select" aria-label="Default select example" id="address" name="address">
+        <div>
+            <option th:if="${lang.equals('en')}" value="1">Lviv, Viddilennia 1</option>
+            <option th:if="${lang.equals('uk')}" value="1">Львів, Відділення 1</option>
+            <option th:if="${lang.equals('en')}" value="2">Lviv, Viddilennia 2</option>
+            <option th:if="${lang.equals('uk')}" value="2">Львів, Відділення 2</option>
+        </div>
+    </select>
+    <br>
+    <button class="btn btn-info" id="addRequest">Add
+    </button>
+</div>
+<br><br>
+<div id="requests">
+    <table class="table">
+        <thead class="table-dark table-hover">
+        <tr>
+            <th>#</th>
+            <th th:text="#{username}"></th>
+            <th th:text="#{type}"></th>
+            <th th:text="#{weight}"></th>
+            <th th:text="#{volume}"></th>
+            <th th:text="#{address}"></th>
+            <th th:text="#{date.of.arrival}"></th>
+        </tr>
+        </thead>
+        <tbody id="request-elements">
+
+        </tbody>
+    </table>
+</div>
+
+<script src="/js/main.js"></script>
+</body>
+</html>
