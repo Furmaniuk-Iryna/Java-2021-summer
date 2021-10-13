@@ -71,7 +71,7 @@ public class DeliveryRequestService {
     }
 
     public double calculateDeliveryCost(double weight, double volume, String city) {
-        log.info("Service: getDirectionReport with weight {}, volume {}, city{}", weight, volume,city);
+        log.info("Service: calculateDeliveryCost with weight {}, volume {}, city{}", weight, volume,city);
       Tariff tariff = chooseTariff(weight, volume, city);
         return Math.max(weight * tariff.getTariffForWeight(), volume * tariff.getTariffForVolume());
     }

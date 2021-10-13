@@ -46,6 +46,7 @@ public class UserService implements UserDetailsService {
         user.setRoles(Collections.singleton(Role.USER));
         userRepository.save(user);
     }
+
     @Transactional
     public Boolean pay(User user, Receipt receipt) {
         log.info("Service: Transaction with user id {}, receipt {}", user.getIdUser(), receipt);
