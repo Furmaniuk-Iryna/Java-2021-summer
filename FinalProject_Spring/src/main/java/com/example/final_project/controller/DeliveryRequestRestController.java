@@ -1,13 +1,11 @@
 package com.example.final_project.controller;
 
-import com.example.final_project.entity.Address;
 import com.example.final_project.entity.DeliveryRequest;
 import com.example.final_project.entity.User;
 import com.example.final_project.repository.AddressRepository;
 import com.example.final_project.repository.DeliveryRequestRepository;
 import com.example.final_project.repository.UserRepository;
 import com.example.final_project.service.DeliveryRequestService;
-import com.example.final_project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -43,9 +41,7 @@ public class DeliveryRequestRestController {
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<DeliveryRequest> getDeliveryRequest(@PathVariable("id") Long id) {
-        System.out.println("---------------------"+id);
         if (id == null) {return new ResponseEntity<>(HttpStatus.BAD_REQUEST);}
-        System.out.println("----------------------------------"+deliveryRequestRepository.findById(id).isPresent());
         return deliveryRequestRepository.findById(id).isPresent()
                 ? new ResponseEntity<>(deliveryRequestRepository.findById(id).get(), HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -90,7 +86,6 @@ public class DeliveryRequestRestController {
     @RequestMapping(value = "{id}",method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<DeliveryRequest> deleteDeliveryRequest(@PathVariable("id") Long id){
         Optional<DeliveryRequest> deliveryRequest = deliveryRequestRepository.findById(id);
-        System.out.println("-------------------------------------------"+deliveryRequest.isPresent());
         if (!deliveryRequest.isPresent())  {return new ResponseEntity<>(HttpStatus.BAD_REQUEST);}
         deliveryRequestRepository.delete(deliveryRequest.get());
         return new ResponseEntity<>(deliveryRequest.get(),HttpStatus.OK);
