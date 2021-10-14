@@ -1,12 +1,10 @@
 package com.example.final_project.controller;
 
 import com.example.final_project.entity.DeliveryRequest;
-import com.example.final_project.entity.Receipt;
 import com.example.final_project.entity.User;
 import com.example.final_project.repository.AddressRepository;
 import com.example.final_project.repository.DeliveryRequestRepository;
 import com.example.final_project.repository.ReceiptRepository;
-import com.example.final_project.repository.UserRepository;
 import com.example.final_project.service.DeliveryRequestService;
 import com.example.final_project.service.ReceiptService;
 import com.example.final_project.service.UserService;
@@ -19,8 +17,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.Optional;
 /**
  * UserController is a controller we'll be using to receive requests and send a response to the users
  */

@@ -58,6 +58,9 @@ h1.name_company {
     width: 500px;
     margin: 0 auto;
 }
+.findById{
+    margin: 10px;
+}
 
 .tariffs {
     color: white;
