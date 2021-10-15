@@ -162,9 +162,9 @@ public class CachedDeliveryRequestsRepositoryImpl implements DeliveryRequestRepo
         return s;
     }
 
-    private <S extends DeliveryRequest> S updateDeliveryRequest(S s) {
+    private <S extends DeliveryRequest> S updateDeliveryRequest(S s){
         cache.put(s.getId(), s);
-        return entityManager.merge(s);
+       return entityManager.merge(s);
     }
 
 }
