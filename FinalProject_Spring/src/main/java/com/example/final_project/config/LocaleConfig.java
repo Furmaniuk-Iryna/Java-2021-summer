@@ -2,7 +2,6 @@ package com.example.final_project.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -29,6 +28,7 @@ public class LocaleConfig implements WebMvcConfigurer {
         cookieLocaleResolver.setCookieName("language");
         return cookieLocaleResolver;
     }
+
     @Bean
     public LocaleChangeInterceptor localeChangeInterceptor() {
         return new LocaleChangeInterceptor();

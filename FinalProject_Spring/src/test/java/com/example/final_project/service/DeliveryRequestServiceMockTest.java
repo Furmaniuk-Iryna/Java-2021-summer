@@ -37,7 +37,7 @@ DeliveryRequestServiceMockTest {
     @Test
     public void chooseTariff() {
         deliveryRequestService.chooseTariff(110.0, 1.2, "Lviv");
-         Mockito.verify(tariffRepository, Mockito.times(1)).findTariffById(2L);
+        Mockito.verify(tariffRepository, Mockito.times(1)).findTariffById(2L);
     }
 
     @Test
@@ -99,5 +99,29 @@ DeliveryRequestServiceMockTest {
     public void calculateVolume() {
         double result = deliveryRequestService.calculateVolume(120, 100, 100);
         Assert.assertThat(result, is(1.2));
+    }
+
+    @Test
+    public void save() {
+        deliveryRequestService.save(new DeliveryRequest());
+        Mockito.verify(deliveryRequestRepository, Mockito.times(1)).save(Mockito.any(DeliveryRequest.class));
+    }
+
+    @Test
+    public void delete() {
+        deliveryRequestService.delete(new DeliveryRequest());
+        Mockito.verify(deliveryRequestRepository, Mockito.times(1)).delete(Mockito.any(DeliveryRequest.class));
+    }
+
+    @Test
+    public void findById() {
+        deliveryRequestService.findById(1L);
+        Mockito.verify(deliveryRequestRepository, Mockito.times(1)).findById(1L);
+    }
+
+    @Test
+    public void findAll() {
+        deliveryRequestService.findAll();
+        Mockito.verify(deliveryRequestRepository, Mockito.times(1)).findAll();
     }
 }

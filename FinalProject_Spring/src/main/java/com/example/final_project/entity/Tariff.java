@@ -1,10 +1,8 @@
 package com.example.final_project.entity;
 
 import lombok.*;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
 
 @Getter
 @Setter
@@ -16,12 +14,12 @@ import javax.validation.constraints.Min;
 public class Tariff {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_tariff",nullable = false)
+    @Column(name = "id_tariff", nullable = false)
     private long id;
     @Column(name = "name_en")
-    private   String tariffNameEn;
+    private String tariffNameEn;
     @Column(name = "name_uk")
-    private   String tariffNameUk;
+    private String tariffNameUk;
     @Column(name = "for_weight")
     private double tariffForWeight;
     @Column(name = "for_volume")

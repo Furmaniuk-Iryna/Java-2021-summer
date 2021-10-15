@@ -38,6 +38,6 @@ public class UserServiceTest {
 
     @Test(expected = RuntimeException.class)
     public void recharge() {
-        userService.recharge(new User(),50);
+        userService.recharge(new User(), 50);
     }
 }

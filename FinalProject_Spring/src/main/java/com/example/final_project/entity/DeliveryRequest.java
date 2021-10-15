@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import java.time.LocalDate;
+
 @Builder
 @Getter
 @Setter
@@ -34,16 +35,15 @@ public class DeliveryRequest {
     private int height;
 
     @ManyToOne
-    @JoinColumn(name="address_id", nullable=false)
+    @JoinColumn(name = "address_id", nullable = false)
     private Address address;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfArrival;
 
     @ManyToOne
-    @JoinColumn(name="user_id", nullable=false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
-
 
 
 }

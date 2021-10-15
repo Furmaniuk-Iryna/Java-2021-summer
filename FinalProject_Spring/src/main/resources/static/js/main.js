@@ -54,19 +54,21 @@ function requestsToHTML(request) {
         <td><button onclick="toUpdatePage(${request.id})" type="button" class="btn-info">Update</button></td>
               </tr>
     `);
-};
-function toUpdatePage(id){
+}
+
+function toUpdatePage(id) {
     window.location.replace(`http://localhost:8090/deliveryRequests/update/${id}`)
 }
-async  function deleteRequest(id){
-    const res = await fetch(`http://localhost:8090/deliveryRequests/edit/${id}`,{
-        method : 'DELETE',
-    headers: {'Content-Type': 'application/json'}
-    }
-);
-    const data =await res.json();
+
+async function deleteRequest(id) {
+    const res = await fetch(`http://localhost:8090/deliveryRequests/edit/${id}`, {
+            method: 'DELETE',
+            headers: {'Content-Type': 'application/json'}
+        }
+    );
+    const data = await res.json();
     console.log(data);
-    if(data){
+    if (data) {
         document.getElementById(`request${id}`).remove();
     }
     location.reload();
@@ -75,37 +77,37 @@ async  function deleteRequest(id){
 
 async function updateRequest(id) {
     const id_request = document.getElementById('id-request').value;
-       const type_en = document.getElementById('type_en').value;
-       const weight = document.getElementById('weight').value;
-       const length = document.getElementById('length').value;
-       const width = document.getElementById('width').value;
-       const height = document.getElementById('height').value;
-       const address = document.getElementById('address').value;
+    const type_en = document.getElementById('type_en').value;
+    const weight = document.getElementById('weight').value;
+    const length = document.getElementById('length').value;
+    const width = document.getElementById('width').value;
+    const height = document.getElementById('height').value;
+    const address = document.getElementById('address').value;
 
-       if (weight != null) {
-           const res =await fetch(`http://localhost:8090/deliveryRequests/edit/${id_request}`, {
-               method: 'PUT',
-               headers: {'Content-Type': 'application/json'},
-               body: JSON.stringify({
-                   "type_en": type_en,
-                   "weight": weight,
-                   "length": length,
-                   "width": width,
-                   "height": height,
-                   "address": {"id": address}
-               })
-           });
-           window.location.replace(`http://localhost:8090/deliveryRequests/editor`)
-           const re = await res.json();
-           requestsToHTML(re);
+    if (weight != null) {
+        const res = await fetch(`http://localhost:8090/deliveryRequests/edit/${id_request}`, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                "type_en": type_en,
+                "weight": weight,
+                "length": length,
+                "width": width,
+                "height": height,
+                "address": {"id": address}
+            })
+        });
+        window.location.replace(`http://localhost:8090/deliveryRequests/editor`)
+        const re = await res.json();
+        requestsToHTML(re);
 
-       }
-};
+    }
+}
 
 async function findRequestById() {
 
     const id = document.getElementById('id').value;
-      const res = await fetch(`http://localhost:8090/deliveryRequests/edit/${id}`);
+    const res = await fetch(`http://localhost:8090/deliveryRequests/edit/${id}`);
     const neededRequest = await res.json();
 
     const requestsList = document.getElementById('requestById');
@@ -124,4 +126,4 @@ async function findRequestById() {
         <td><button onclick="document.getElementById(\`request${neededRequest.id}\`).remove()" type="button" class="btn-info">Close</button></td>
               </tr>
     `);
-};
+}

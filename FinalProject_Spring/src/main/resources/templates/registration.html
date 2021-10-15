@@ -29,13 +29,13 @@
 
 <form th:method="POST" th:action="@{/registration}" th:object="${user}" class="form">
 
-    <div class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}" >
+    <div class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
     </div>
     <label for="weight" th:text="#{name}"/>
     <input type="text" th:field="*{name}" id="weight"/>
     <br><br>
 
-    <div class="error" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" >
+    <div class="error" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">
     </div>
     <label for="length" th:text="#{surname}"/>
     <input type="text" th:field="*{surname}" id="length"/>

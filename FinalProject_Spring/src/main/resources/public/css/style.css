@@ -8,10 +8,12 @@
     font-size: 15px;
     font-weight: bold;
 }
-.button_manager{
+
+.button_manager {
     max-width: 1180px;
     margin: 10px auto 10px auto;
 }
+
 .button_locale {
     text-decoration: none;
     color: royalblue;
@@ -58,7 +60,8 @@ h1.name_company {
     width: 500px;
     margin: 0 auto;
 }
-.findById{
+
+.findById {
     margin: 10px;
 }
 
@@ -85,14 +88,17 @@ button.sort_button {
     margin-right: 10px;
     float: right;
 }
-div.error{
+
+div.error {
     color: red;
 }
-.form_request{
+
+.form_request {
     width: 500px;
     margin: 20px 100px 20px auto;
 }
-.delivery_request{
+
+.delivery_request {
     background-image: url(http://localhost:8090/image/boxes-for-shipping.jpg);
     background-repeat: no-repeat;
     background-size: cover;
@@ -102,7 +108,8 @@ div.error{
     font-size: 20px;
     font-weight: bold;
 }
-.registration{
+
+.registration {
     background-image: url(http://localhost:8090/image/laptop-in-empty-room.jpg);
     background-repeat: no-repeat;
     background-size: cover;
@@ -112,19 +119,22 @@ div.error{
     font-size: 20px;
     font-weight: bold;
 }
-.registration_title{
+
+.registration_title {
     text-align: center;
 }
 
-.card{
+.card {
     max-width: 1180px;
- margin: 10px auto;
+    margin: 10px auto;
 }
-nav.pagination_conteiner, form.report{
+
+nav.pagination_conteiner, form.report {
     margin-right: 10px;
     margin-left: auto;
 }
-.manager{
+
+.manager {
     background-image: url(http://localhost:8090/image/truck-2677373_1920.jpg);
     background-repeat: no-repeat;
     background-size: cover;
@@ -133,7 +143,8 @@ nav.pagination_conteiner, form.report{
     color: white;
     font-size: 15px;
 }
-.user{
+
+.user {
     background-image: url(http://localhost:8090/image/port-1845350_1920.jpg);
     background-repeat: no-repeat;
     background-size: cover;

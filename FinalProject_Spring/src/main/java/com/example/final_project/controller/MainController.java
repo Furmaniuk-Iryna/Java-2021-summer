@@ -36,12 +36,12 @@ public class MainController {
             required = false, defaultValue = "false") Boolean sort,
                            @RequestParam(name = "filter",
                                    required = false, defaultValue = "false") Boolean filter,
-                           @RequestParam(value = "city", required = false,defaultValue = "") String city,
-                           @RequestParam(value = "form", required = false,defaultValue = "false") Boolean form,
+                           @RequestParam(value = "city", required = false, defaultValue = "") String city,
+                           @RequestParam(value = "form", required = false, defaultValue = "false") Boolean form,
                            @ModelAttribute("deliveryCost") @Valid DeliveryCost deliveryCost, BindingResult bindingResult,
                            Model model) {
-        model.addAttribute("filter",filter);
-        model.addAttribute("filterDirection",directionServise.findDirectionsLike(city));
+        model.addAttribute("filter", filter);
+        model.addAttribute("filterDirection", directionServise.findDirectionsLike(city));
         model.addAttribute("sort", sort);
         model.addAttribute("tariffs", tariffRepository.findAll());
         model.addAttribute("allDirections", directionRepository.findAll());
@@ -49,11 +49,11 @@ public class MainController {
         model.addAttribute("sortedDirectionsUkLocale", directionServise.sortedDirectionsForUkLocale());
         model.addAttribute("deliveryCost", new DeliveryCost());
         model.addAttribute("result", 0);
-        if(form){
-            if(bindingResult.hasErrors()) return "main";
+        if (form) {
+            if (bindingResult.hasErrors()) return "main";
             model.addAttribute("deliveryCost", deliveryCost);
             model.addAttribute("result", deliveryRequestService.calculateDeliveryCost(deliveryCost.getWeight(),
-                    deliveryRequestService.calculateVolume(deliveryCost.getLength(),deliveryCost.getHeight(),deliveryCost.getWidth()),
+                    deliveryRequestService.calculateVolume(deliveryCost.getLength(), deliveryCost.getHeight(), deliveryCost.getWidth()),
                     deliveryCost.getCity()));
         }
         return "main";

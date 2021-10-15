@@ -13,9 +13,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
 /**
- *SecurityConfig is the class  we'll be using to identify, authorize, and authenticate
+ * SecurityConfig is the class  we'll be using to identify, authorize, and authenticate
  * Please see the {@link org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter} class for true identity
- *
  */
 @Configuration
 @EnableWebSecurity
@@ -36,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/deliveryRequests/**").hasAuthority("MANAGER")
                 .antMatchers("/users/**").hasAnyAuthority("USER", "MANAGER")
-                .antMatchers("/", "/registration", "/css/*","/filter","/image/*").permitAll()
+                .antMatchers("/", "/registration", "/css/*", "/filter", "/image/*").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

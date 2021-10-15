@@ -9,54 +9,57 @@
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <title>Cargo delivery</title>
-</head >
+</head>
 <body th:with="lang=${#locale.getLanguage()}">
 <div class="header_top">
     <div class="locale">
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button class="btn btn-light" type="button"><a class="button_locale" th:href="@{'/deliveryRequests/reportsByDays?day='+${day}+'&page='+${pages.number}+'&locale=uk'}">UKR</a>
+            <button class="btn btn-light" type="button"><a class="button_locale"
+                                                           th:href="@{'/deliveryRequests/reportsByDays?day='+${day}+'&page='+${pages.number}+'&locale=uk'}">UKR</a>
             </button>
-            <button class="btn btn-light" type="button"><a class="button_locale" th:href="@{'/deliveryRequests/reportsByDays?day='+${day}+'&page='+${pages.number}+'&locale=en'}">ENG</a>
+            <button class="btn btn-light" type="button"><a class="button_locale"
+                                                           th:href="@{'/deliveryRequests/reportsByDays?day='+${day}+'&page='+${pages.number}+'&locale=en'}">ENG</a>
             </button>
         </div>
     </div>
 </div>
 <div class="card">
-<table class="table">
-    <thead class="table-dark table-hover">
-    <tr>
-        <th>#</th>
-        <th th:text="#{username}"></th>
-        <th th:text="#{type}"></th>
-        <th th:text="#{weight}"></th>
-        <th th:text="#{volume}"></th>
-        <th th:text="#{address}"></th>
-        <th th:text="#{date.of.arrival}"></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="request : ${deliveryRequestsByDay}">
-        <th th:text="${request.id}"></th>
-        <td th:text="${request.user.getUsername()}"></td>
-        <td th:if="${lang.equals('en')}" th:text="${request.type_en}"></td>
-        <td th:if="${lang.equals('uk')}" th:text="${request.type_uk}"></td>
-        <td th:text="${request.weight}"></td>
-        <td th:text="${request.volume}"></td>
-        <td th:if="${lang.equals('en')}" th:text="${request.getAddress().getAddress_en()}"></td>
-        <td th:if="${lang.equals('uk')}" th:text="${request.getAddress().getAddress_uk()}"></td>
-        <td th:text="${request.dateOfArrival}"></td>
-    </tr>
-    </tbody>
-</table>
-<nav aria-label="Page navigation example" class="pagination_conteiner">
-    <ul class="pagination" th:if="${pages.getTotalPages()>0}">
-        <li th:each="pageNumber : ${numbers}" th:class="${pageNumber==pages.number} ? active:''"
-            th:classappend="page-item">
-            <a th:href="@{'/deliveryRequests/reportsByDays?day='+${day}+'&page='+${pageNumber}}" th:text="${pageNumber+1}"
-               th:class="page-link"></a>
-        </li>
-    </ul>
-</nav>
+    <table class="table">
+        <thead class="table-dark table-hover">
+        <tr>
+            <th>#</th>
+            <th th:text="#{username}"></th>
+            <th th:text="#{type}"></th>
+            <th th:text="#{weight}"></th>
+            <th th:text="#{volume}"></th>
+            <th th:text="#{address}"></th>
+            <th th:text="#{date.of.arrival}"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="request : ${deliveryRequestsByDay}">
+            <th th:text="${request.id}"></th>
+            <td th:text="${request.user.getUsername()}"></td>
+            <td th:if="${lang.equals('en')}" th:text="${request.type_en}"></td>
+            <td th:if="${lang.equals('uk')}" th:text="${request.type_uk}"></td>
+            <td th:text="${request.weight}"></td>
+            <td th:text="${request.volume}"></td>
+            <td th:if="${lang.equals('en')}" th:text="${request.getAddress().getAddress_en()}"></td>
+            <td th:if="${lang.equals('uk')}" th:text="${request.getAddress().getAddress_uk()}"></td>
+            <td th:text="${request.dateOfArrival}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <nav aria-label="Page navigation example" class="pagination_conteiner">
+        <ul class="pagination" th:if="${pages.getTotalPages()>0}">
+            <li th:each="pageNumber : ${numbers}" th:class="${pageNumber==pages.number} ? active:''"
+                th:classappend="page-item">
+                <a th:href="@{'/deliveryRequests/reportsByDays?day='+${day}+'&page='+${pageNumber}}"
+                   th:text="${pageNumber+1}"
+                   th:class="page-link"></a>
+            </li>
+        </ul>
+    </nav>
 </div>
 <button class="btn btn-info" type="button">
     <a class="button_a" th:href="@{'/deliveryRequests'}" th:text="#{manager.page}"></a>

@@ -18,7 +18,7 @@ public class DirectionServiseTest {
 
     @Test
     public void sortedDirectionsForUkLocale() {
-      Assert.assertNotNull(directionServise.sortedDirectionsForUkLocale());
+        Assert.assertNotNull(directionServise.sortedDirectionsForUkLocale());
     }
 
     @Test

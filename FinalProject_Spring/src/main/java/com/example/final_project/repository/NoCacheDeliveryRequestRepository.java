@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @Profile("nocache")
-public interface DeliveryRequestRepository1 extends DeliveryRequestRepository, JpaRepository<DeliveryRequest,Long> {
+public interface NoCacheDeliveryRequestRepository extends DeliveryRequestRepository, JpaRepository<DeliveryRequest, Long> {
 }

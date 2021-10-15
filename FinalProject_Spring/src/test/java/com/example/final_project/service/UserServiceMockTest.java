@@ -67,9 +67,9 @@ public class UserServiceMockTest {
         Receipt receipt = new Receipt();
         receipt.setPrice(900);
         Mockito.when(userRepository.findByUsername("username")).thenReturn(Optional.of(user));
-        boolean result = userService.pay(user,receipt);
+        boolean result = userService.pay(user, receipt);
         user.setBalance(100);
-        Mockito.verify(userRepository,Mockito.times(1)).save(user);
+        Mockito.verify(userRepository, Mockito.times(1)).save(user);
         Assert.assertTrue(result);
     }
 

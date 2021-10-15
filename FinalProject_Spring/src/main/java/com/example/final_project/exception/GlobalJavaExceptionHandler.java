@@ -17,31 +17,37 @@ import java.util.NoSuchElementException;
 public class GlobalJavaExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(NullPointerException.class)
-    public ResponseEntity nullExceptions(){
+    public ResponseEntity nullExceptions() {
         return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
     @ExceptionHandler(NoSuchElementException.class)
-    public ResponseEntity noSuchElementExceptions(){
+    public ResponseEntity noSuchElementExceptions() {
         return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
     @ExceptionHandler(SQLGrammarException.class)
-    public ResponseEntity sqlExceptions(){
+    public ResponseEntity sqlExceptions() {
         return new ResponseEntity(HttpStatus.CONFLICT);
     }
+
     @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity runtimeExceptions(){
+    public ResponseEntity runtimeExceptions() {
         return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
+
     @ExceptionHandler(NumberFormatException.class)
-    public ResponseEntity numberFormatException(){
+    public ResponseEntity numberFormatException() {
         return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
+
     @ExceptionHandler(Exception.class)
-    public ResponseEntity exception(){
+    public ResponseEntity exception() {
         return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
+
     @ExceptionHandler(Error.class)
-    public ResponseEntity error(){
+    public ResponseEntity error() {
         return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 

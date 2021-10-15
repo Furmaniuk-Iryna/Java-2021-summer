@@ -13,50 +13,52 @@
 
 <body th:with="lang=${#locale.getLanguage()}" class="delivery_request">
 <div class="form_request">
-<input type="hidden" id="id-request" th:value="${request.get().id}"/>
-<select class="form-select" aria-label="Default select example" th:value="${request.get().type_en}" id="type_en" >
-    <option th:if="${lang.equals('en')}" value="Cargo">Cargo</option>
-    <option th:if="${lang.equals('uk')}" value="Cargo">Вантаж</option>
-    <option th:if="${lang.equals('en')}" value="Pallets">Pallets</option>
-    <option th:if="${lang.equals('uk')}" value="Pallets">Палета</option>
-</select>
-<br>
+    <input type="hidden" id="id-request" th:value="${request.get().id}"/>
+    <select class="form-select" aria-label="Default select example" th:value="${request.get().type_en}" id="type_en">
+        <option th:if="${lang.equals('en')}" value="Cargo">Cargo</option>
+        <option th:if="${lang.equals('uk')}" value="Cargo">Вантаж</option>
+        <option th:if="${lang.equals('en')}" value="Pallets">Pallets</option>
+        <option th:if="${lang.equals('uk')}" value="Pallets">Палета</option>
+    </select>
+    <br>
 
-<input type="text"  id="weight" th:value="${request.get().weight}" placeholder="weight"/>
-<br><br>
-<input type="text" id="length" th:value="${request.get().length}" placeholder="length"/>
-<br><br>
+    <input type="text" id="weight" th:value="${request.get().weight}" placeholder="weight"/>
+    <br><br>
+    <input type="text" id="length" th:value="${request.get().length}" placeholder="length"/>
+    <br><br>
 
-<input type="text"  id="width" th:value="${request.get().width}" placeholder="width"/>
-<br><br>
+    <input type="text" id="width" th:value="${request.get().width}" placeholder="width"/>
+    <br><br>
 
-<input type="text" id="height" th:value="${request.get().height}" placeholder="height"/>
-<br><br>
-<select class="form-select" aria-label="Default select example" th:value="${request.get().address.getAddress_en()}" id="address" name="address">
-    <div>
-        <option th:if="${lang.equals('en')}" value="1">Lviv, Viddilennia 1</option>
-        <option th:if="${lang.equals('en')}" value="2">Ternopil, Viddilennya, 2</option>
-        <option th:if="${lang.equals('en')}" value="3">Odessa, Viddilennya, 1</option>
-        <option th:if="${lang.equals('en')}" value="4">Kharkiv, Viddilennya, 1</option>
-        <option th:if="${lang.equals('en')}" value="5">Zaporizhzhia, Viddilennya, 1</option>
-        <option th:if="${lang.equals('en')}" value="6">Dnipro, Viddilennya, 1</option>
-        <option th:if="${lang.equals('en')}" value="7">Vinnitsa, Viddilennya, 2</option>
+    <input type="text" id="height" th:value="${request.get().height}" placeholder="height"/>
+    <br><br>
+    <select class="form-select" aria-label="Default select example" th:value="${request.get().address.getAddress_en()}"
+            id="address" name="address">
+        <div>
+            <option th:if="${lang.equals('en')}" value="1">Lviv, Viddilennia 1</option>
+            <option th:if="${lang.equals('en')}" value="2">Ternopil, Viddilennya, 2</option>
+            <option th:if="${lang.equals('en')}" value="3">Odessa, Viddilennya, 1</option>
+            <option th:if="${lang.equals('en')}" value="4">Kharkiv, Viddilennya, 1</option>
+            <option th:if="${lang.equals('en')}" value="5">Zaporizhzhia, Viddilennya, 1</option>
+            <option th:if="${lang.equals('en')}" value="6">Dnipro, Viddilennya, 1</option>
+            <option th:if="${lang.equals('en')}" value="7">Vinnitsa, Viddilennya, 2</option>
 
-        <option th:if="${lang.equals('uk')}" value="1">Львів, Відділення 1</option>
-        <option th:if="${lang.equals('uk')}" value="2">Тернопіль, Відділення 2</option>
-        <option th:if="${lang.equals('uk')}" value="3">Одеса, Відділення 1</option>
-        <option th:if="${lang.equals('uk')}" value="4">Харків, Відділення 1</option>
-        <option th:if="${lang.equals('uk')}" value="5">Запоріжжя, Відділення 1</option>
-        <option th:if="${lang.equals('uk')}" value="6">Дніпро, Відділення 1</option>
-        <option th:if="${lang.equals('uk')}" value="7">Вінниця, Відділення 2</option>
-    </div>
-</select>
-<br><br>
+            <option th:if="${lang.equals('uk')}" value="1">Львів, Відділення 1</option>
+            <option th:if="${lang.equals('uk')}" value="2">Тернопіль, Відділення 2</option>
+            <option th:if="${lang.equals('uk')}" value="3">Одеса, Відділення 1</option>
+            <option th:if="${lang.equals('uk')}" value="4">Харків, Відділення 1</option>
+            <option th:if="${lang.equals('uk')}" value="5">Запоріжжя, Відділення 1</option>
+            <option th:if="${lang.equals('uk')}" value="6">Дніпро, Відділення 1</option>
+            <option th:if="${lang.equals('uk')}" value="7">Вінниця, Відділення 2</option>
+        </div>
+    </select>
+    <br><br>
 
-<button class="btn btn-info" onclick="updateRequest()">Update</button>
-    <button class="btn btn-light" type="button"><a class="button_locale" th:href="@{'/deliveryRequests/editor'}">Back</a>
+    <button class="btn btn-info" onclick="updateRequest()">Update</button>
+    <button class="btn btn-light" type="button"><a class="button_locale"
+                                                   th:href="@{'/deliveryRequests/editor'}">Back</a>
     </button>
-    </div>
+</div>
 
 <script src="/js/main.js"></script>
 </body>

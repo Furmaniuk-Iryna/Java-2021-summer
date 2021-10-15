@@ -32,14 +32,16 @@
 <div class="header_container">
     <h1 class=name_company th:text="#{name.company}"></h1><br><br>
 </div>
-<form th:action="@{/}"  class="report">
+<form th:action="@{/}" class="report">
     <label for="d" th:text="#{city}"/>
     <input type="text" th:name="city" id="d"/>
     <input type="hidden" th:name="filter" th:value="true"/>
     <input type="submit" class="btn btn-info button_a" th:value="#{filter}"/>
-    <button class="btn btn-info sort_button" type="button"><a class="button_a" th:text="#{reset.filters}" th:href="@{?filter=false}"></a>
+    <button class="btn btn-info sort_button" type="button"><a class="button_a" th:text="#{reset.filters}"
+                                                              th:href="@{?filter=false}"></a>
     </button>
-    <button class="btn btn-info sort_button" type="button"><a class="button_a" th:text="#{sort}" th:href="@{?sort=true}"></a>
+    <button class="btn btn-info sort_button" type="button"><a class="button_a" th:text="#{sort}"
+                                                              th:href="@{?sort=true}"></a>
     </button>
 </form>
 
@@ -83,7 +85,7 @@
         </tr>
         </thead>
         <tbody>
-        <div >
+        <div>
             <tr th:if="${sort&&locale.equals('en')&&!filter}" th:each="direction : ${sortedDirectionsEnLocale}">
                 <th th:text="${direction.id}"></th>
                 <td th:text="${direction.getCityEn()}"></td>
@@ -121,18 +123,20 @@
         <label for="city" th:text="#{route}"/>
         <select class="form-select" aria-label="Default select example" id="city" th:field="*{city}">
             <div th:each="direction: ${allDirections}">
-                <option th:if="${locale.equals('en')}" th:value="${direction.getCityEn()}" th:text="${direction.getCityEn()}"/>
-                <option th:if="${locale.equals('uk')}" th:value="${direction.getCityEn()}" th:text="${direction.getCityUk()}"/>
+                <option th:if="${locale.equals('en')}" th:value="${direction.getCityEn()}"
+                        th:text="${direction.getCityEn()}"/>
+                <option th:if="${locale.equals('uk')}" th:value="${direction.getCityEn()}"
+                        th:text="${direction.getCityUk()}"/>
             </div>
         </select>
         <br>
-        <div class="error" th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}" >
+        <div class="error" th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}">
         </div>
         <label for="weight" th:text="#{weight}"/>
         <input type="text" th:field="*{weight}" id="weight"/>
         <br><br>
 
-        <div class="error" th:if="${#fields.hasErrors('length')}" th:errors="*{length}" >
+        <div class="error" th:if="${#fields.hasErrors('length')}" th:errors="*{length}">
         </div>
         <label for="length" th:text="#{length}"/>
         <input type="text" th:field="*{length}" id="length"/>

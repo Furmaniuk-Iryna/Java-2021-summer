@@ -4,7 +4,6 @@ package com.example.final_project.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
 
 @Getter
 @Setter

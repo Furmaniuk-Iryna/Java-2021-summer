@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- *  FinalProjectApplication is the main class
+ * FinalProjectApplication is the main class
  */
 @Slf4j
 @SpringBootApplication

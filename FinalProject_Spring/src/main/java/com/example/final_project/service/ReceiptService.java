@@ -4,11 +4,10 @@ import com.example.final_project.entity.DeliveryRequest;
 import com.example.final_project.entity.Receipt;
 import com.example.final_project.entity.User;
 import com.example.final_project.repository.ReceiptRepository;
-import com.example.final_project.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
 /**
  * ReceiptService is a service we'll be using to form response and
  * where there is all the business logic for the essence Receipt
@@ -35,13 +34,13 @@ public class ReceiptService {
 
     public String checkPay(User user, Receipt receipt) {
         log.info("Service: CheckPay with user id {}, receipt {}", user.getIdUser(), receipt);
-        return receipt.getStatus().equals("paid") ? "paid" : updatePaymentStatus(user,receipt);
+        return receipt.getStatus().equals("paid") ? "paid" : updatePaymentStatus(user, receipt);
     }
 
-    public String updatePaymentStatus(User user, Receipt receipt){
+    public String updatePaymentStatus(User user, Receipt receipt) {
         receipt.setStatus(userService.pay(user, receipt) ? "paid" : "not paid");
         receiptRepository.save(receipt);
-       return receipt.getStatus().equals("paid") ? "successful" : "fail";
+        return receipt.getStatus().equals("paid") ? "successful" : "fail";
     }
 
 }

@@ -83,6 +83,6 @@ public class DeliveryRequestServiceTest {
 
     @Test(expected = RuntimeException.class)
     public void getReportByDays() {
-       deliveryRequestService.getReportByDays(null,PageRequest.of(0,1));
+        deliveryRequestService.getReportByDays(null, PageRequest.of(0, 1));
     }
 }

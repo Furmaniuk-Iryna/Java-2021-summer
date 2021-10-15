@@ -21,6 +21,6 @@ public class Address {
     @Column(unique = true)
     private String address_uk;
     @ManyToOne
-    @JoinColumn(name="direction_id", nullable=false)
+    @JoinColumn(name = "direction_id", nullable = false)
     private Direction direction;
 }

@@ -11,15 +11,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Collections;
 import java.util.Optional;
 
 /**
  * UserService is a service we'll be using to form response and
  * where there is all the business logic for the essence User
- *
+ * <p>
  * Please see the {@link org.springframework.security.core.userdetails.UserDetailsService} class for true identity
- *
  */
 @Slf4j
 @Service
@@ -36,10 +36,10 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         log.info("Service: Fetching user with username {}", username);
-       return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(username + " not found"));
+        return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(username + " not found"));
     }
 
-    public void saveUser(User user){
+    public void saveUser(User user) {
         log.info("Service: Save user, id - {}", user.getIdUser());
         user.setBalance(0);
         user.setActive(true);
@@ -59,7 +59,7 @@ public class UserService implements UserDetailsService {
     }
 
     public void recharge(User user, int sum) {
-        log.info("Service: Recharge user id - {}, sum - {}", user.getIdUser(),sum);
+        log.info("Service: Recharge user id - {}, sum - {}", user.getIdUser(), sum);
         User userFromDB = userRepository.findByUsername(user.getUsername()).orElseThrow(RuntimeException::new);
         userFromDB.setBalance(userFromDB.getBalance() + sum);
         userRepository.save(userFromDB);

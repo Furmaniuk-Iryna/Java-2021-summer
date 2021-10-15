@@ -42,19 +42,19 @@ public class DeliveryRequestController {
     }
 
     @GetMapping("/update/{id}")
-    public String updateRequest(@PathVariable("id") long id,Model model) {
-        model.addAttribute("id",id);
+    public String updateRequest(@PathVariable("id") long id, Model model) {
+        model.addAttribute("id", id);
         model.addAttribute("request", deliveryRequestRepository.findById(id));
         return "deliveryRequestUpdate";
     }
 
     @GetMapping()
-    public String createManagerPage(@RequestParam(value = "page",required = false, defaultValue = "0") Integer page,
+    public String createManagerPage(@RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
                                     Model model) {
-        Page<DeliveryRequest> deliveryRequestPage=deliveryRequestRepository.findDeliveryRequests(PageRequest.of(page, 3));
+        Page<DeliveryRequest> deliveryRequestPage = deliveryRequestRepository.findDeliveryRequests(PageRequest.of(page, 3));
         model.addAttribute("deliveryRequests", deliveryRequestPage.getContent());
         model.addAttribute("pages", deliveryRequestPage);
-        model.addAttribute("numbers", IntStream.range(0,deliveryRequestPage.getTotalPages()).toArray());
+        model.addAttribute("numbers", IntStream.range(0, deliveryRequestPage.getTotalPages()).toArray());
         model.addAttribute("deliveryRequest", new DeliveryRequest());
         model.addAttribute("direction", new Direction());
         return "manager";
@@ -86,7 +86,7 @@ public class DeliveryRequestController {
     }
 
     @GetMapping("/{id}")
-    public String createReceipt(@PathVariable("id") long id,Model model) {
+    public String createReceipt(@PathVariable("id") long id, Model model) {
         DeliveryRequest newDeliveryRequest = deliveryRequestRepository.findById(id).orElseThrow(RuntimeException::new);
         model.addAttribute("deliveryRequest", newDeliveryRequest);
         receiptService.saveReceipt(newDeliveryRequest);

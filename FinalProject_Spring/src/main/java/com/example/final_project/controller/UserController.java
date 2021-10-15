@@ -17,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
 /**
  * UserController is a controller we'll be using to receive requests and send a response to the users
  */
@@ -41,15 +42,16 @@ public class UserController {
         model.addAttribute("isDeliveryRequests", deliveryRequestRepository.findDeliveryRequestByUser(user).size() > 0 ? "true" : "false");
         model.addAttribute("deliveryRequests", deliveryRequestRepository.findDeliveryRequestByUser(user));
         model.addAttribute("receipts", receiptRepository.findAll());
-        model.addAttribute("balance",userService.findUserById(user.getIdUser()).getBalance());
-        model.addAttribute("paid","");
+        model.addAttribute("balance", userService.findUserById(user.getIdUser()).getBalance());
+        model.addAttribute("paid", "");
         return "user";
     }
+
     @GetMapping("/recharge")
     public String userPage(@AuthenticationPrincipal User user,
                            @RequestParam(value = "sum", required = true) Integer sum) {
 
-        userService.recharge(user, sum>0?sum:0);
+        userService.recharge(user, sum > 0 ? sum : 0);
         return "redirect:/users";
     }
 
@@ -64,20 +66,21 @@ public class UserController {
     @PostMapping("/deliveryRequests")
     public String readDeliveryRequest(@ModelAttribute("deliveryRequest") @Valid DeliveryRequest deliveryRequest, BindingResult bindingResult,
                                       @AuthenticationPrincipal User user, Model model) {
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             model.addAttribute("addresses", addressRepository.findAll());
-            return "deliveryRequest";}
+            return "deliveryRequest";
+        }
         deliveryRequestService.saveDeliveryRequest(deliveryRequest, user);
         return "redirect:/users";
     }
 
     @GetMapping("/deliveryRequests/{id}")
-    public String paymentPage(@PathVariable("id") long id,@AuthenticationPrincipal User user, Model model) {
+    public String paymentPage(@PathVariable("id") long id, @AuthenticationPrincipal User user, Model model) {
         model.addAttribute("isDeliveryRequests", deliveryRequestRepository.findDeliveryRequestByUser(user).size() > 0 ? "true" : "false");
         model.addAttribute("deliveryRequests", deliveryRequestRepository.findDeliveryRequestByUser(user));
         model.addAttribute("receipts", receiptRepository.findAll());
-        model.addAttribute("balance",userService.findUserById(user.getIdUser()).getBalance());
-        model.addAttribute("paid",receiptService.checkPay(user, receiptRepository.findReceiptByDeliveryRequest(deliveryRequestRepository.getById(id))));
+        model.addAttribute("balance", userService.findUserById(user.getIdUser()).getBalance());
+        model.addAttribute("paid", receiptService.checkPay(user, receiptRepository.findReceiptByDeliveryRequest(deliveryRequestRepository.getById(id))));
         return "user";
     }
 

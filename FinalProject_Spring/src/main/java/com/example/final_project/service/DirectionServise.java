@@ -10,7 +10,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
- /**
+/**
  * DirectionServise is a service we'll be using to form response and
  * where there is all the business logic for the essence Direction
  */
@@ -37,15 +37,15 @@ public class DirectionServise {
 
     public Direction getNeededDirection(String city) {
         log.info("Service: getNeededDirection with city {}", city);
-        return  directionRepository.findAll().stream()
-                .filter(direction -> (direction.getCityEn().toLowerCase().equals(city.toLowerCase())
-                        || direction.getCityUk().toLowerCase().equals(city.toLowerCase())))
-                .findFirst().orElseThrow(()->new RuntimeException("Incorrect city"));
+        return directionRepository.findAll().stream()
+                .filter(direction -> (direction.getCityEn().equalsIgnoreCase(city)
+                        || direction.getCityUk().equalsIgnoreCase(city)))
+                .findFirst().orElseThrow(() -> new RuntimeException("Incorrect city"));
     }
 
-    public List<Direction> findDirectionsLike(String city){
+    public List<Direction> findDirectionsLike(String city) {
         log.info("Service: findDirectionsLike with city {}", city);
-      return !city.isEmpty() ? directionRepository.findDirectionsLike(city): directionRepository.findAll();
+        return !city.isEmpty() ? directionRepository.findDirectionsLike(city) : directionRepository.findAll();
     }
 
 
