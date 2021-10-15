@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 import static com.example.final_project.constants.Constant.*;
 
@@ -78,5 +79,21 @@ public class DeliveryRequestService {
     public Tariff chooseTariff(double weight, double volume, String city) {
      return tariffRepository.findTariffById(weight > maxWeight || volume > maxVolume
                 || directionServise.getNeededDirection(city).getDistance() > maxDistance ? secondTariffId : firstTariffId);
+    }
+
+    public List<DeliveryRequest> findAll (){
+      return deliveryRequestRepository.findAll();
+    }
+
+    public Optional<DeliveryRequest> findById(Long id){
+      return deliveryRequestRepository.findById(id);
+    }
+
+    public void delete(DeliveryRequest deliveryRequest){
+        deliveryRequestRepository.delete(deliveryRequest);
+    }
+
+    public <S extends DeliveryRequest> S save(S s){
+        return deliveryRequestRepository.save(s);
     }
 }
